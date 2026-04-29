@@ -12,3 +12,4 @@
 | A4 | Sibling repos (ai-agent-toolkit, openai-agents-python, prompt-library) are candidate deployment targets | Medium | Oracle | No |
 | A5 | The framework should be published to GitHub as an open or semi-open repo | Medium | Oracle | No |
 | A6 | No sensitive data is present in this repo | High | Oracle | Yes — manual scan confirmed |
+| A7 | The user wants the v0.4 to v0.6.1 migration changes recorded before implementation | Medium | Librarian | Partially - migration note created |

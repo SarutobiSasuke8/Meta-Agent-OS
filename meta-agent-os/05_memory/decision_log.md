@@ -16,4 +16,23 @@
 
 | # | Decision Needed | Options | Recommended |
 |---|---|---|---|
-| PD1 | Deployment target for Sophia stage | (A) Ship framework itself, (B) Apply to sibling repo, (C) Apply to new project | A — ship the framework itself first |
+| PD2 | v0.6.1 migration execution | (A) Implement full migration now, (B) split into v0.5/v0.6/v0.6.1 commits, (C) keep as noted only | B if preparing a clean public history; A if speed matters |
+
+---
+
+## Additional Decisions — 2026-04-29 (continued)
+
+| # | Date | Stage | Decision | Reason | Made By |
+|---|---|---|---|---|---|
+| D5 | 2026-04-29 | PD1 Resolution | Deployment target: ship Meta Agent OS itself as open framework product | User selected Option A — framework is the product | User |
+| D6 | 2026-04-29 | Sophia | License: Apache 2.0 for core framework; commercial for vertical packs | Enterprise trust, multi-contributor patent protection, Open Core precedent | Sophia research |
+| D7 | 2026-04-29 | Sophia | Primary audience: management consultants + enterprise architects (Tier 1) | Highest WTP; immediate TAM; self-referential use case for consulting pack | Sophia research |
+| D8 | 2026-04-29 | Sophia | Deferred v0.6.1 migration — ship clean v0.4 baseline, document v0.5–v0.6.1 in ROADMAP.md | Speed to public release; avoids half-implemented features | System |
+
+---
+
+## Additional Decisions - 2026-04-29
+
+| # | Date | Stage | Decision | Reason | Made By |
+|---|---|---|---|---|---|
+| D4 | 2026-04-29 | Librarian | Logged v0.4 to v0.6.1 migration as pending, not implemented | User provided an external migration spec and asked to note the changes | System |

@@ -50,3 +50,19 @@ Oracle recommends Option A.
 - CLAUDE.md not at root (lives in versions/v0.4)
 - v0.3 not a separate folder
 - No README at root
+
+## Pending Migration Target
+
+v0.6.1 has been noted as the next target state from an external migration spec, but the repo has not yet been upgraded. The migration adds:
+
+- v0.5 Commercial Refinement Layer
+- v0.6 Inference Economics Layer
+- v0.6.1 Inference Safety Layer
+
+Migration note:
+
+```text
+meta-agent-os/03_outputs/migration/V0_4_TO_V0_6_1_MIGRATION_NOTE.md
+```
+
+Open implementation decision: whether to run the full v0.6.1 Builder migration now, split it into v0.5/v0.6/v0.6.1 commits, or keep the migration noted only.

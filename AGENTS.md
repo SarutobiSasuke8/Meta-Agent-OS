@@ -2,9 +2,9 @@
 
 ## Repository Purpose
 
-This repository uses the Meta Agent OS, a Markdown-based framework for building and operating multi-agent systems.
+This repository contains the Meta Agent OS, a Markdown-based framework for diagnosing, designing, costing, building, testing, and operating multi-agent AI systems.
 
-The system should diagnose the project before designing or building agents.
+The system enforces diagnosis before design and design before build.
 
 ## Agent Operating Instructions
 
@@ -88,7 +88,7 @@ When asked to run the full system, read:
 
 ```text
 /meta-agent-os/00_control/RUN_META_AGENT_OS.md
-/meta-agent-os/00_control/STAGE_STATE.md
+/meta-agent-os/00_control/STAGE_STATE.json
 /meta-agent-os/00_control/STAGE_GATES.md
 /meta-agent-os/00_control/RESUME_PROTOCOL.md
 /meta-agent-os/00_control/AGENT_MANIFEST.md
@@ -102,24 +102,18 @@ Do not treat the presence of this file as automatic execution. The system begins
 
 Codex should use `CODEX_RUNBOOK.md` as the primary trigger manual after reading this file.
 
-Codex does not use Claude slash commands. Instead, it should use prompt-based triggers located at:
+Codex does not use Claude slash commands. Instead, use prompt-based triggers:
 
 ```text
-/meta-agent-os/00_control/codex/full_run.md
+/meta-agent-os/00_control/codex/full_run_v0_4.md
 /meta-agent-os/00_control/codex/diagnose_only.md
 /meta-agent-os/00_control/codex/resume.md
 /meta-agent-os/00_control/codex/status.md
 ```
 
-When the user asks to run the system in Codex, follow this instruction:
-
-```text
-Read AGENTS.md and CODEX_RUNBOOK.md, then run the relevant Codex prompt from /meta-agent-os/00_control/codex.
-```
-
 Default Codex behaviour:
 
-- For a full setup, use `codex/full_run.md`.
+- For a full setup, use `codex/full_run_v0_4.md`.
 - For first diagnosis only, use `codex/diagnose_only.md`.
 - To continue after interruption, use `codex/resume.md`.
 - To check progress, use `codex/status.md`.
@@ -146,6 +140,6 @@ Before advancing a stage:
 2. Validate the output against the relevant schema.
 3. Apply the global validator.
 4. Check `STAGE_GATES.md`.
-5. Update both `STAGE_STATE.json` and `STAGE_STATE.md`.
+5. Update `STAGE_STATE.json`.
 
 Prefer the smallest suitable run mode from `RUN_MODES.json`.
