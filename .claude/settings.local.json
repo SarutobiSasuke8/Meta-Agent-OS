@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\versions\\\\v0.4-reliability-layer\\\\.claude\\\\commands\\\\run-meta-agent-os.md\" \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\.claude\\\\commands\\\\run-meta-agent-os.md\")",
+      "Bash(cp \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\versions\\\\v0.4-reliability-layer\\\\.claude\\\\commands\\\\continue-meta-agent-os.md\" \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\.claude\\\\commands\\\\continue-meta-agent-os.md\")",
+      "Bash(cp \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\versions\\\\v0.4-reliability-layer\\\\.claude\\\\commands\\\\diagnose.md\" \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\.claude\\\\commands\\\\diagnose.md\")",
+      "Bash(cp \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\versions\\\\v0.4-reliability-layer\\\\.claude\\\\commands\\\\stage-status.md\" \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\.claude\\\\commands\\\\stage-status.md\")",
+      "Bash(cp \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\versions\\\\v0.4-reliability-layer\\\\.claude\\\\commands\\\\validate-stage.md\" \"C:\\\\Users\\\\sarut\\\\Documents\\\\Public GitHub Projects\\\\Meta Agent OS\\\\.claude\\\\commands\\\\validate-stage.md\")"
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "meta_agent_os_version": "0.4",
+  "current_stage": "Oracle",
+  "status": "not_started",
+  "completed_stages": [],
+  "next_stage": "Sophia",
+  "blocked": false,
+  "requires_human_approval": false,
+  "human_approval_reason": null,
+  "last_output_file": null,
+  "last_updated": null,
+  "current_objective": "Initialise the Meta Agent OS for this repository, inspect project context, and produce the first Oracle diagnosis.",
+  "run_mode": "full_run",
+  "stage_outputs": {
+    "Oracle": "/meta-agent-os/03_outputs/diagnosis/ORACLE_DIAGNOSIS.md",
+    "Sophia": "/meta-agent-os/03_outputs/research/SOPHIA_RESEARCH_PORTFOLIO.md",
+    "Cartographer": "/meta-agent-os/03_outputs/maps/CARTOGRAPHER_WORKFLOW_MAP.md",
+    "Architect": "/meta-agent-os/03_outputs/architecture/ARCHITECT_SYSTEM_DESIGN.md",
+    "QS": "/meta-agent-os/03_outputs/costs/QS_COSTS_AND_OPTIONS.md",
+    "Guardian": "/meta-agent-os/03_outputs/risk/GUARDIAN_RISK_SECURITY_REVIEW.md",
+    "Builder": "/meta-agent-os/03_outputs/build/BUILDER_IMPLEMENTATION_LOG.md",
+    "Evaluator": "/meta-agent-os/03_outputs/evals/EVALUATOR_QA_EVALS.md",
+    "Orchestrator": "/meta-agent-os/03_outputs/runtime/ORCHESTRATOR_RUNTIME_LOG.md",
+    "Librarian": "/meta-agent-os/05_memory/changelog.md"
+  },
+  "stage_status": {
+    "Oracle": "not_started",
+    "Sophia": "not_started",
+    "Cartographer": "not_started",
+    "Architect": "not_started",
+    "QS": "not_started",
+    "Guardian": "not_started",
+    "Builder": "not_started",
+    "Evaluator": "not_started",
+    "Orchestrator": "not_started",
+    "Librarian": "not_started"
+  },
+  "quality_gates": {
+    "stage_validation_required": true,
+    "schema_check_required": true,
+    "guardian_required_before_builder": true,
+    "human_approval_required_for_app_code_changes": true,
+    "human_approval_required_for_external_actions": true
+  }
+}
