@@ -66,3 +66,25 @@ meta-agent-os/03_outputs/migration/V0_4_TO_V0_6_1_MIGRATION_NOTE.md
 ```
 
 Open implementation decision: whether to run the full v0.6.1 Builder migration now, split it into v0.5/v0.6/v0.6.1 commits, or keep the migration noted only.
+
+---
+
+## Update - 2026-05-06
+
+Current active run is complete. Stages Oracle through Librarian are complete in the active root `meta-agent-os` run.
+
+Public framework direction:
+
+- Meta Agent OS remains a design-time methodology and governance layer for multi-agent systems.
+- It should not merge with Agent Ops OS.
+- The recommended architecture is the Balanced framework pack: Markdown/control core, operator commands, skill adapter, stronger validation, one worked example, and clearer positioning.
+- CLI, dashboard, hosted platform, and vertical packs are deferred.
+
+New public-facing assets:
+
+- `docs/WHY.md`
+- `docs/examples/WORKED_EXAMPLE_SUPPORT_TRIAGE.md`
+
+Validation improvement:
+
+- Strict hardening now checks required stage-output sections against stage schemas for completed stages.

@@ -45,3 +45,7 @@
 |---|---|---|---|---|---|
 | D9 | 2026-05-06 | Cartographer/Guardian | Adopted the generalist template's drift-check pattern as a Meta Agent OS hardening check | The repos are converging around canonical agent contracts, adapters, deterministic checks, and handoff discipline; Meta Agent OS needs a repo-specific validator rather than the whole generic template | Codex |
 | D10 | 2026-05-06 | Builder | Added `/mao-*` operator commands and a `skills/meta-agent-os` adapter | The command layer improves day-to-day operation while the skill makes the framework easier to reuse from Codex without duplicating canonical control files | Codex |
+| D11 | 2026-05-06 | Architect | Selected the Balanced public framework architecture | Lightweight is too thin for public trust; advanced CLI/product work is premature and overlaps Agent Ops OS | Codex |
+| D12 | 2026-05-06 | Guardian | Approved internal framework Builder work with restrictions | Work is limited to docs, examples, validation, outputs, and memory; no external or destructive actions | Codex |
+| D13 | 2026-05-06 | QS/Architect | Reframed v0.5 as Public Framework Polish before commercial packs | The repo needs clarity, examples, validation, and release polish before commercial refinement | Codex |
+| D14 | 2026-05-06 | Librarian | Marked the active full run complete after Orchestrator and Librarian updates | All expected stage outputs now exist and strict validation passes | Codex |

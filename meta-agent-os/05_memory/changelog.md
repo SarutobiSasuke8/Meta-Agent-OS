@@ -11,6 +11,54 @@
 - Added `docs/REPO_HARDENING.md` documenting which patterns were borrowed from `vibe-coding-generalist-template`.
 - Added `/mao-*` Claude operator commands and `skills/meta-agent-os` as a reusable skill adapter.
 - Corrected `meta-agent-os/00_control/STAGE_STATE.json` and `STAGE_STATE.md` so Cartographer is consistently marked in progress.
+- Completed active stage outputs from Cartographer through Evaluator.
+- Added `docs/WHY.md` to clarify the MAS product boundary.
+- Added `docs/examples/WORKED_EXAMPLE_SUPPORT_TRIAGE.md` as the first synthetic worked example.
+- Strengthened strict validation so completed stage outputs are checked against required schema sections.
+- Reframed `ROADMAP.md` v0.5 as Public Framework Polish before commercial-pack work.
+- Updated state files so Orchestrator is the current in-progress stage.
+- Completed Orchestrator and Librarian to finish the active full run.
+
+## Memory Update Summary
+
+The 2026-05-06 run converted Meta Agent OS from a partially hardened v0.4 framework into a more complete public framework pack. Stages Oracle through Librarian are now complete in the active run.
+
+## Project Brain Updates
+
+- Recorded MAS as a design-time methodology and governance layer, not a runtime.
+- Recorded the Balanced architecture recommendation.
+- Recorded that Agent Ops OS remains separate.
+
+## Decision Log Updates
+
+- Added decisions for Balanced architecture, Guardian restrictions, v0.5 public polish, and full-run completion.
+
+## Assumption Log Updates
+
+- Added assumptions about the support triage example, strict section validation, and deferring CLI work.
+
+## Changelog Updates
+
+- Added stage output, documentation, validation, roadmap, and state updates from the improvement pass.
+
+## Reusable Patterns Added
+
+- Schema-alignment addenda for legacy outputs.
+- Synthetic worked-example pattern.
+- Strict required-section validation against stage schemas.
+
+## Archive Notes
+
+- No files archived.
+- Prior historical outputs were preserved and extended rather than rewritten.
+
+## Next Maintenance Action
+
+Add a release checklist and review Sophia market claims before public launch.
+
+## Files Created Or Updated
+
+- `meta-agent-os/05_memory/changelog.md`
 
 ---
 

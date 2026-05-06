@@ -13,6 +13,8 @@ Meta Agent OS is a structured methodology and knowledge management system that l
 
 The core insight: most multi-agent projects fail because teams build before they diagnose. Meta Agent OS enforces diagnosis first.
 
+For the deeper product boundary, see [`docs/WHY.md`](docs/WHY.md).
+
 ---
 
 ## How It Works
@@ -107,6 +109,10 @@ ROADMAP.md          — planned milestones
 - Record major decisions and assumptions.
 - Require human approval for external actions, financial changes, or irreversible operations.
 - Add evals before treating any agent system as production-ready.
+
+## Worked Example
+
+Start with [`docs/examples/WORKED_EXAMPLE_SUPPORT_TRIAGE.md`](docs/examples/WORKED_EXAMPLE_SUPPORT_TRIAGE.md) to see how a vague support automation idea becomes a supervised, risk-reviewed agent-system plan.
 
 ---
 

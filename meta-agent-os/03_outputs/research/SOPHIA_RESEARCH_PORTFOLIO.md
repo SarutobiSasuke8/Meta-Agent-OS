@@ -162,3 +162,63 @@ Recommended priority order for paid vertical packs:
 ## Files Created
 
 - `meta-agent-os/03_outputs/research/SOPHIA_RESEARCH_PORTFOLIO.md` (this file)
+
+---
+
+## Schema Alignment Addendum - 2026-05-06
+
+This addendum preserves the original Sophia output while aligning it with the current v0.4 schema.
+
+## Research Brief
+
+Research focused on whether Meta Agent OS can be positioned as a public design-time framework for multi-agent systems.
+
+## Key Research Questions
+
+- What does MAS do that runtime frameworks do not?
+- Who benefits most from diagnosis/design/cost/risk before build?
+- Which parts should be open core versus commercial packs?
+
+## Context Already Known
+
+Meta Agent OS is a Markdown-first framework with ten stages, control files, schemas, validators, and durable memory.
+
+## Internal Evidence From Project Files
+
+Internal evidence includes `README.md`, `ROADMAP.md`, `AGENTS.md`, `CODEX_RUNBOOK.md`, and existing stage/memory files.
+
+## External Research Needed
+
+External research is still needed before using market statistics or competitive claims in public marketing copy.
+
+## Comparable Systems Or Patterns
+
+Comparable patterns include runtime frameworks, AI coding templates, internal engineering playbooks, governance checklists, and agent operations tools.
+
+## Tooling Landscape
+
+MAS sits upstream of tools such as LangGraph, CrewAI, AutoGen, OpenAI Agents SDK, n8n, and custom runtimes.
+
+## Technical Feasibility
+
+The framework is technically feasible as Markdown, JSON manifests, validators, slash commands, and a reusable skill adapter.
+
+## Cost Signals
+
+Cost is mostly human/agent time for stage execution. No infrastructure is required for the core framework.
+
+## Risks And Unknowns
+
+Risks include unsupported market claims, unclear public/private boundaries, and product confusion with Agent Ops OS.
+
+## Strategic Implications
+
+MAS should stay focused on agent-system design and governance before implementation.
+
+## Recommendations For The Cartographer / Architect
+
+Map the public-release workflow and design a balanced framework pack rather than a CLI or hosted product.
+
+## Files Created Or Updated
+
+- `meta-agent-os/03_outputs/research/SOPHIA_RESEARCH_PORTFOLIO.md`

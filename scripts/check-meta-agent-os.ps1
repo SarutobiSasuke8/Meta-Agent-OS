@@ -51,6 +51,44 @@ function Read-JsonFile {
     }
 }
 
+function Get-RequiredSections {
+    param([string]$SchemaPath)
+
+    $resolved = Resolve-RepoPath $SchemaPath
+    if (-not (Test-Path -LiteralPath $resolved)) {
+        return @()
+    }
+
+    $sections = New-Object System.Collections.Generic.List[string]
+    foreach ($line in Get-Content -LiteralPath $resolved) {
+        if ($line -match '^\s*\d+\.\s+(.+?)\s*$') {
+            $sections.Add($Matches[1])
+        }
+    }
+    return $sections
+}
+
+function Test-StageOutputSections {
+    param(
+        [string]$StageName,
+        [string]$OutputPath,
+        [string]$SchemaPath
+    )
+
+    $outputResolved = Resolve-RepoPath $OutputPath
+    if (-not (Test-Path -LiteralPath $outputResolved)) {
+        return
+    }
+
+    $content = Get-Content -Raw -LiteralPath $outputResolved
+    foreach ($section in Get-RequiredSections $SchemaPath) {
+        $sectionPattern = "(?m)^#{1,4}\s+(?:\d+\.\s+)?$([regex]::Escape($section))(\s|$)"
+        if ($content -notmatch $sectionPattern) {
+            Add-Error "Stage output '$StageName' missing required section from schema: $section"
+        }
+    }
+}
+
 $requiredFiles = @(
     "README.md",
     "AGENTS.md",
@@ -158,7 +196,10 @@ if ($null -ne $outputManifest) {
 if ($null -ne $stageState -and $null -ne $stageManifest) {
     $knownStages = @($stageManifest.stages | ForEach-Object { $_.name })
 
-    if ($knownStages -notcontains $stageState.current_stage) {
+    if ($stageState.status -eq "complete" -and $stageState.current_stage -eq "Complete") {
+        # Completed runs use a terminal current_stage outside STAGE_MANIFEST.
+    }
+    elseif ($knownStages -notcontains $stageState.current_stage) {
         Add-Error "STAGE_STATE current_stage is not in STAGE_MANIFEST: $($stageState.current_stage)"
     }
 
@@ -171,6 +212,10 @@ if ($null -ne $stageState -and $null -ne $stageManifest) {
         $manifestEntry = $stageManifest.stages | Where-Object { $_.name -eq $completedStage } | Select-Object -First 1
         Test-RequiredPath $manifestEntry.output "completed stage output" | Out-Null
 
+        if ($Strict) {
+            Test-StageOutputSections $completedStage $manifestEntry.output $manifestEntry.schema
+        }
+
         if ($null -ne $stageState.stage_status -and $stageState.stage_status.$completedStage -ne "complete") {
             Add-Error "STAGE_STATE completed stage '$completedStage' is not marked complete in stage_status."
         }
@@ -180,6 +225,13 @@ if ($null -ne $stageState -and $null -ne $stageManifest) {
         $currentStatus = $stageState.stage_status.($stageState.current_stage)
         if ($currentStatus -ne "in_progress") {
             Add-Error "STAGE_STATE current stage '$($stageState.current_stage)' has status '$currentStatus' but top-level status is in_progress."
+        }
+
+        if ($Strict) {
+            $currentManifestEntry = $stageManifest.stages | Where-Object { $_.name -eq $stageState.current_stage } | Select-Object -First 1
+            if ($null -ne $currentManifestEntry) {
+                Test-StageOutputSections $stageState.current_stage $currentManifestEntry.output $currentManifestEntry.schema
+            }
         }
     }
 }

@@ -46,6 +46,29 @@ def read_json(path: str):
         return None
 
 
+def required_sections(schema_path: str):
+    target = repo_path(schema_path)
+    if not target.exists():
+        return []
+    sections = []
+    for line in target.read_text(encoding="utf-8", errors="replace").splitlines():
+        match = re.match(r"^\s*\d+\.\s+(.+?)\s*$", line)
+        if match:
+            sections.append(match.group(1))
+    return sections
+
+
+def check_stage_sections(stage_name: str, output_path: str, schema_path: str):
+    target = repo_path(output_path)
+    if not target.exists():
+        return
+    content = target.read_text(encoding="utf-8", errors="replace")
+    for section in required_sections(schema_path):
+        pattern = r"(?m)^#{1,4}\s+(?:\d+\.\s+)?" + re.escape(section) + r"(\s|$)"
+        if not re.search(pattern, content):
+            errors.append(f"Stage output '{stage_name}' missing required section from schema: {section}")
+
+
 required_files = [
     "README.md",
     "AGENTS.md",
@@ -143,7 +166,9 @@ if output_manifest:
 if stage_state and stage_manifest:
     known = [stage.get("name") for stage in stage_manifest.get("stages", [])]
     current = stage_state.get("current_stage")
-    if current not in known:
+    if stage_state.get("status") == "complete" and current == "Complete":
+        pass
+    elif current not in known:
         errors.append(f"STAGE_STATE current_stage is not in STAGE_MANIFEST: {current}")
 
     stage_status = stage_state.get("stage_status", {})
@@ -153,6 +178,8 @@ if stage_state and stage_manifest:
             continue
         manifest_entry = next(stage for stage in stage_manifest["stages"] if stage.get("name") == completed)
         required(manifest_entry["output"], "completed stage output")
+        if strict:
+            check_stage_sections(completed, manifest_entry["output"], manifest_entry["schema"])
         if stage_status.get(completed) != "complete":
             errors.append(f"STAGE_STATE completed stage '{completed}' is not marked complete in stage_status.")
 
@@ -161,6 +188,11 @@ if stage_state and stage_manifest:
             f"STAGE_STATE current stage '{current}' has status '{stage_status.get(current)}' "
             "but top-level status is in_progress."
         )
+
+    if strict:
+        current_entry = next((stage for stage in stage_manifest["stages"] if stage.get("name") == current), None)
+        if current_entry:
+            check_stage_sections(current, current_entry["output"], current_entry["schema"])
 
 if run_modes and not run_modes.get("modes"):
     errors.append("RUN_MODES.json does not define modes.")

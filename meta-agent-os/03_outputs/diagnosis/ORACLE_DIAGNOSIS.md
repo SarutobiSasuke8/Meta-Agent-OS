@@ -166,3 +166,69 @@ This is a human decision gate. **The Oracle recommends Option A as the default**
 | Stop condition met | No |
 | Ready to advance | Yes — pending human decision on deployment target |
 | Next recommended stage | Human decision gate → then Sophia |
+
+---
+
+## Schema Alignment Addendum - 2026-05-06
+
+This addendum preserves the original Oracle output while aligning it with the current v0.4 schema.
+
+## Executive Summary
+
+Meta Agent OS is a Markdown-based methodology and control layer for diagnosing, designing, costing, building, testing, operating, and documenting multi-agent systems. The repo is the framework product itself.
+
+## What This Project Appears To Be
+
+The project appears to be a design-time operating method for multi-agent systems, not a runtime framework.
+
+## Evidence From Repository Context
+
+Evidence used includes root docs, version folders, `meta-agent-os/00_control`, stage outputs, and memory files.
+
+## Current Workflows
+
+Current workflows are staged agent runs through Oracle, Sophia, Cartographer, Architect, QS, Guardian, Builder, Evaluator, Orchestrator, and Librarian.
+
+## Likely User / Operator Needs
+
+Likely users need diagnosis before design, clear stage gates, risk review, cost planning, validation, and durable memory.
+
+## Bottlenecks
+
+Main bottlenecks were missing public-release polish, incomplete active control assets, no worked example, and state/validation drift.
+
+## Existing Assets
+
+Existing assets include root docs, v0.4 reliability files, personas, stage manifests, schemas, validators, Claude commands, Codex runbook, and memory files.
+
+## Missing Assets
+
+At diagnosis time, missing assets included complete active reliability files, stronger validation, public examples, and clearer positioning.
+
+## Agent Opportunities
+
+Agent-fit work includes diagnosis, research synthesis, workflow mapping, architecture tradeoffs, risk review, and eval design.
+
+## Non-Agent Automation Opportunities
+
+Script-fit work includes JSON validation, required file checks, required section checks, state consistency checks, and CI.
+
+## Risks
+
+Risks include overengineering, unclear product boundary, unsupported claims, weak validation, and user confusion with runtime frameworks.
+
+## Assumptions
+
+Assumptions are recorded in `meta-agent-os/05_memory/assumptions_log.md`.
+
+## Open Questions
+
+Open questions include release positioning, first public example, v0.5 scope, and whether future CLI work belongs in MAS or a separate product.
+
+## Recommended Next Stage
+
+Sophia was the recommended next stage after deployment target confirmation. Current run state has since advanced beyond Sophia.
+
+## Files Created Or Updated
+
+- `meta-agent-os/03_outputs/diagnosis/ORACLE_DIAGNOSIS.md`

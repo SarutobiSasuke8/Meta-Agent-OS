@@ -16,3 +16,6 @@
 | A8 | The active root `meta-agent-os/00_control` layer should include the complete v0.4 reliability assets already present under `versions/v0.4-reliability-layer` | High | Cartographer/Guardian | Yes - missing assets restored from the versioned source |
 | A9 | Meta Agent OS should borrow hardening patterns from the generalist template, not its full generic project structure | High | Cartographer/Guardian | Yes - adopted checks, CI, and PR template only |
 | A10 | A repo-local `skills/meta-agent-os` adapter is valuable as a trigger and navigation layer, provided `/meta-agent-os` remains the source of truth | High | Builder | Yes - skill kept compact and linked to canonical control files |
+| A11 | The support triage example is a suitable first synthetic worked example | Medium | Builder/Evaluator | Partially - needs human review |
+| A12 | Required-section validation is a useful next hardening step even though it does not prove semantic quality | High | Evaluator | Yes - implemented in strict mode |
+| A13 | CLI work should be deferred until the Markdown framework pack is clearer and example-backed | High | Architect/QS | Yes - reflected in roadmap |
