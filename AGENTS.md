@@ -118,6 +118,22 @@ Default Codex behaviour:
 - To continue after interruption, use `codex/resume.md`.
 - To check progress, use `codex/status.md`.
 
+## Claude Operator Commands
+
+Claude Code users can use the concise operator command layer:
+
+```text
+/mao-status
+/mao-diagnose
+/mao-resume
+/mao-validate
+/mao-harden
+/mao-memory
+/mao-export-pack
+```
+
+These commands are adapters only. The canonical state machine remains `/meta-agent-os/00_control`.
+
 ## v0.4 Reliability Rules
 
 When running the Meta Agent OS, use the machine-readable reliability layer:

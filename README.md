@@ -54,6 +54,18 @@ Or for the full staged run:
 /run-meta-agent-os
 ```
 
+Operator shortcuts are also available:
+
+| Command | Purpose |
+|---|---|
+| `/mao-status` | Inspect current stage, missing outputs, blockers, and next action |
+| `/mao-diagnose` | Run or refresh Oracle diagnosis |
+| `/mao-resume` | Continue from the current incomplete stage |
+| `/mao-validate` | Validate current state and current stage output |
+| `/mao-harden` | Check and repair repository structure |
+| `/mao-memory` | Update project brain, assumptions, decisions, and changelog |
+| `/mao-export-pack` | Verify the framework is ready to reuse in another repo |
+
 ### Codex or Other Coding Agents
 
 ```
@@ -102,7 +114,7 @@ ROADMAP.md          — planned milestones
 
 | Tool | Primary File | Trigger |
 |------|-------------|---------|
-| Claude Code | `CLAUDE.md` | `/diagnose`, `/run-meta-agent-os` |
+| Claude Code | `CLAUDE.md` | `/diagnose`, `/run-meta-agent-os`, `/mao-*` |
 | Codex | `AGENTS.md` + `CODEX_RUNBOOK.md` | Prompt commands |
 | Cursor / generic agent | `AGENTS.md` | Prompt commands |
 

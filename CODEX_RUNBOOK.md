@@ -126,6 +126,16 @@ Use the Full Run Trigger above.
 
 If the repo is large or messy, start with the Diagnosis-Only Trigger first.
 
+## Skill Adapter
+
+This repo includes a compact reusable skill adapter at:
+
+```text
+skills/meta-agent-os/SKILL.md
+```
+
+Use it as a navigation layer when operating Meta Agent OS from Codex. The canonical framework still lives in `/meta-agent-os`; the skill must not become a second source of truth.
+
 ## v0.4 Codex Reliability Trigger
 
 Preferred v0.4 prompt:

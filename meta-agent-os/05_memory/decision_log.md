@@ -36,3 +36,12 @@
 | # | Date | Stage | Decision | Reason | Made By |
 |---|---|---|---|---|---|
 | D4 | 2026-04-29 | Librarian | Logged v0.4 to v0.6.1 migration as pending, not implemented | User provided an external migration spec and asked to note the changes | System |
+
+---
+
+## Additional Decisions - 2026-05-06
+
+| # | Date | Stage | Decision | Reason | Made By |
+|---|---|---|---|---|---|
+| D9 | 2026-05-06 | Cartographer/Guardian | Adopted the generalist template's drift-check pattern as a Meta Agent OS hardening check | The repos are converging around canonical agent contracts, adapters, deterministic checks, and handoff discipline; Meta Agent OS needs a repo-specific validator rather than the whole generic template | Codex |
+| D10 | 2026-05-06 | Builder | Added `/mao-*` operator commands and a `skills/meta-agent-os` adapter | The command layer improves day-to-day operation while the skill makes the framework easier to reuse from Codex without duplicating canonical control files | Codex |

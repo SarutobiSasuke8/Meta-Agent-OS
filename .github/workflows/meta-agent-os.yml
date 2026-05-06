@@ -1,0 +1,53 @@
+name: Meta Agent OS Checks
+
+on:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "CODEX_RUNBOOK.md"
+      - "META_AGENT_BOOTSTRAP.md"
+      - "README.md"
+      - "INSTALL.md"
+      - "ROADMAP.md"
+      - ".github/**"
+      - ".claude/**"
+      - "meta-agent-os/**"
+      - "skills/**"
+      - "scripts/**"
+  push:
+    branches:
+      - main
+    paths:
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "CODEX_RUNBOOK.md"
+      - "META_AGENT_BOOTSTRAP.md"
+      - "README.md"
+      - "INSTALL.md"
+      - "ROADMAP.md"
+      - ".github/**"
+      - ".claude/**"
+      - "meta-agent-os/**"
+      - "skills/**"
+      - "scripts/**"
+
+jobs:
+  check-pwsh:
+    name: Hardening check (pwsh)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Meta Agent OS check
+        shell: pwsh
+        run: ./scripts/check-meta-agent-os.ps1
+
+  check-bash:
+    name: Hardening check (bash)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Meta Agent OS check
+        run: |
+          chmod +x ./scripts/check-meta-agent-os.sh
+          ./scripts/check-meta-agent-os.sh

@@ -26,7 +26,7 @@
   "stage_status": {
     "Oracle": "complete",
     "Sophia": "complete",
-    "Cartographer": "not_started",
+    "Cartographer": "in_progress",
     "Architect": "not_started",
     "QS": "not_started",
     "Guardian": "not_started",
