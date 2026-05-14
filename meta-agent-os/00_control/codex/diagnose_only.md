@@ -12,6 +12,7 @@ Create or update:
 - /meta-agent-os/05_memory/project_brain.md
 - /meta-agent-os/05_memory/assumptions_log.md
 - /meta-agent-os/05_memory/decision_log.md
+- /meta-agent-os/00_control/STAGE_STATE.json
 - /meta-agent-os/00_control/STAGE_STATE.md
 
 Do not modify application source code.

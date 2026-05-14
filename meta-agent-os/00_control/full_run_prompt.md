@@ -7,9 +7,9 @@ Read CLAUDE.md, AGENTS.md, META_AGENT_BOOTSTRAP.md, and all files in /meta-agent
 
 Run the full Meta Agent OS sequence for this repository:
 
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian.
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian.
 
-Use STAGE_STATE.md as the state tracker.
+Use STAGE_STATE.json as the machine-readable state tracker and STAGE_STATE.md as the human-readable mirror.
 
 Create each required output file under /meta-agent-os/03_outputs and update memory files under /meta-agent-os/05_memory.
 

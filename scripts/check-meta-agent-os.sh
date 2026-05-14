@@ -3,15 +3,17 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STRICT=0
+JSON_OUTPUT=0
 
 for arg in "$@"; do
   case "$arg" in
     --strict) STRICT=1 ;;
+    --json) JSON_OUTPUT=1 ;;
     *) echo "Unknown argument: $arg" >&2; exit 2 ;;
   esac
 done
 
-python3 - "$ROOT" "$STRICT" <<'PY'
+python3 - "$ROOT" "$STRICT" "$JSON_OUTPUT" <<'PY'
 import json
 import re
 import sys
@@ -19,6 +21,7 @@ from pathlib import Path
 
 root = Path(sys.argv[1])
 strict = sys.argv[2] == "1"
+json_output = sys.argv[3] == "1"
 errors = []
 
 
@@ -77,6 +80,12 @@ required_files = [
     "META_AGENT_BOOTSTRAP.md",
     "INSTALL.md",
     "ROADMAP.md",
+    "docs/PUBLIC_BOUNDARY.md",
+    "docs/RELEASE_CHECKLIST.md",
+    "docs/RUNTIME_TRACK.md",
+    "docs/WHY.md",
+    "docs/examples/WORKED_EXAMPLE_SUPPORT_TRIAGE.md",
+    "docs/examples/WORKED_EXAMPLE_RESEARCH_ASSISTANT.md",
     "LICENSE",
     ".claude/commands/mao-status.md",
     ".claude/commands/mao-diagnose.md",
@@ -85,6 +94,8 @@ required_files = [
     ".claude/commands/mao-harden.md",
     ".claude/commands/mao-memory.md",
     ".claude/commands/mao-export-pack.md",
+    ".github/pull_request_template.md",
+    ".github/workflows/meta-agent-os.yml",
     "meta-agent-os/00_control/AGENT_MANIFEST.md",
     "meta-agent-os/00_control/OUTPUT_MANIFEST.json",
     "meta-agent-os/00_control/QUALITY_BAR.md",
@@ -123,6 +134,7 @@ required_dirs = [
     "meta-agent-os/05_memory",
     "skills/meta-agent-os",
     "skills/meta-agent-os/references",
+    "docs/examples",
 ]
 
 for item in required_files:
@@ -214,7 +226,17 @@ if skill.exists():
             errors.append(f"skills/meta-agent-os/SKILL.md missing expected marker: {marker}")
 
 if strict:
-    for item in ("README.md", "AGENTS.md", "CLAUDE.md", "CODEX_RUNBOOK.md", "INSTALL.md", "ROADMAP.md"):
+    for item in (
+        "README.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "CODEX_RUNBOOK.md",
+        "INSTALL.md",
+        "ROADMAP.md",
+        "docs/PUBLIC_BOUNDARY.md",
+        "docs/RELEASE_CHECKLIST.md",
+        "docs/RUNTIME_TRACK.md",
+    ):
         target = repo_path(item)
         if not target.exists():
             continue
@@ -223,13 +245,29 @@ if strict:
             errors.append(f"Strict mode: unresolved placeholder in {item}")
 
 if errors:
-    print("Meta Agent OS hardening check failed:")
-    for error in errors:
-        print(f" - {error}")
+    if json_output:
+        print(json.dumps({
+            "ok": False,
+            "strict": strict,
+            "error_count": len(errors),
+            "errors": errors,
+        }, indent=2))
+    else:
+        print("Meta Agent OS hardening check failed:")
+        for error in errors:
+            print(f" - {error}")
     raise SystemExit(1)
 
-if strict:
-    print("Meta Agent OS hardening check passed in strict mode.")
+if json_output:
+    print(json.dumps({
+        "ok": True,
+        "strict": strict,
+        "error_count": 0,
+        "errors": [],
+    }, indent=2))
 else:
-    print("Meta Agent OS hardening check passed.")
+    if strict:
+        print("Meta Agent OS hardening check passed in strict mode.")
+    else:
+        print("Meta Agent OS hardening check passed.")
 PY

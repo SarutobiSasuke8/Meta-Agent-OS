@@ -1,5 +1,6 @@
 param(
-    [switch]$Strict
+    [switch]$Strict,
+    [switch]$Json
 )
 
 $ErrorActionPreference = "Stop"
@@ -97,6 +98,12 @@ $requiredFiles = @(
     "META_AGENT_BOOTSTRAP.md",
     "INSTALL.md",
     "ROADMAP.md",
+    "docs/PUBLIC_BOUNDARY.md",
+    "docs/RELEASE_CHECKLIST.md",
+    "docs/RUNTIME_TRACK.md",
+    "docs/WHY.md",
+    "docs/examples/WORKED_EXAMPLE_SUPPORT_TRIAGE.md",
+    "docs/examples/WORKED_EXAMPLE_RESEARCH_ASSISTANT.md",
     "LICENSE",
     ".claude/commands/mao-status.md",
     ".claude/commands/mao-diagnose.md",
@@ -105,6 +112,8 @@ $requiredFiles = @(
     ".claude/commands/mao-harden.md",
     ".claude/commands/mao-memory.md",
     ".claude/commands/mao-export-pack.md",
+    ".github/pull_request_template.md",
+    ".github/workflows/meta-agent-os.yml",
     "meta-agent-os/00_control/AGENT_MANIFEST.md",
     "meta-agent-os/00_control/OUTPUT_MANIFEST.json",
     "meta-agent-os/00_control/QUALITY_BAR.md",
@@ -142,7 +151,8 @@ $requiredDirectories = @(
     "meta-agent-os/03_outputs/runtime",
     "meta-agent-os/05_memory",
     "skills/meta-agent-os",
-    "skills/meta-agent-os/references"
+    "skills/meta-agent-os/references",
+    "docs/examples"
 )
 
 foreach ($file in $requiredFiles) {
@@ -273,7 +283,10 @@ if ($Strict) {
         "CLAUDE.md",
         "CODEX_RUNBOOK.md",
         "INSTALL.md",
-        "ROADMAP.md"
+        "ROADMAP.md",
+        "docs/PUBLIC_BOUNDARY.md",
+        "docs/RELEASE_CHECKLIST.md",
+        "docs/RUNTIME_TRACK.md"
     )
 
     foreach ($file in $scanFiles) {
@@ -287,18 +300,38 @@ if ($Strict) {
 }
 
 if ($errors.Count -gt 0) {
-    Write-Host "Meta Agent OS hardening check failed:" -ForegroundColor Red
-    foreach ($error in $errors) {
-        Write-Host " - $error" -ForegroundColor Red
+    if ($Json) {
+        [ordered]@{
+            ok = $false
+            strict = [bool]$Strict
+            error_count = $errors.Count
+            errors = @($errors)
+        } | ConvertTo-Json -Depth 4
+    }
+    else {
+        Write-Host "Meta Agent OS hardening check failed:" -ForegroundColor Red
+        foreach ($error in $errors) {
+            Write-Host " - $error" -ForegroundColor Red
+        }
     }
     exit 1
 }
 
-if ($Strict) {
-    Write-Host "Meta Agent OS hardening check passed in strict mode." -ForegroundColor Green
+if ($Json) {
+    [ordered]@{
+        ok = $true
+        strict = [bool]$Strict
+        error_count = 0
+        errors = @()
+    } | ConvertTo-Json -Depth 4
 }
 else {
-    Write-Host "Meta Agent OS hardening check passed." -ForegroundColor Green
+    if ($Strict) {
+        Write-Host "Meta Agent OS hardening check passed in strict mode." -ForegroundColor Green
+    }
+    else {
+        Write-Host "Meta Agent OS hardening check passed." -ForegroundColor Green
+    }
 }
 
 exit 0

@@ -266,7 +266,7 @@ meta-agent-os/03_outputs/diagnosis/ORACLE_DIAGNOSIS.md
 After that, move into:
 
 ```text
-Sophia → Cartographer → Architect
+Sophia -> Cartographer -> Architect
 ```
 
 unless the diagnosis shows the project is already well understood.
@@ -300,7 +300,7 @@ In Claude Code, run:
 This should attempt to progress through:
 
 ```text
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian
 ```
 
 It will stop at human decision gates.
@@ -337,7 +337,7 @@ It will not run merely because the folder exists. Markdown files are instruction
 The reliable pattern is:
 
 ```text
-Drop files into project → open with Claude Code/Codex/Cursor → run trigger → agent reads state → agent advances stages → agent stops at gates
+Drop files into project -> open with Claude Code/Codex/Cursor -> run trigger -> agent reads state -> agent advances stages -> agent stops at gates
 ```
 
 ## Recommended First Command

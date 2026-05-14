@@ -40,7 +40,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run Meta Agent OS check
         shell: pwsh
-        run: ./scripts/check-meta-agent-os.ps1
+        run: ./scripts/check-meta-agent-os.ps1 -Strict
+      - name: Run Meta Agent OS check with JSON output
+        shell: pwsh
+        run: ./scripts/check-meta-agent-os.ps1 -Strict -Json
 
   check-bash:
     name: Hardening check (bash)
@@ -50,4 +53,6 @@ jobs:
       - name: Run Meta Agent OS check
         run: |
           chmod +x ./scripts/check-meta-agent-os.sh
-          ./scripts/check-meta-agent-os.sh
+          ./scripts/check-meta-agent-os.sh --strict
+      - name: Run Meta Agent OS check with JSON output
+        run: ./scripts/check-meta-agent-os.sh --strict --json

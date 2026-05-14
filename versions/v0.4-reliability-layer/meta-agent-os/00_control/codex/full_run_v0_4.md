@@ -15,7 +15,7 @@ Pay special attention to:
 
 Run the full Meta Agent OS sequence for this repository:
 
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian.
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian.
 
 Use STAGE_STATE.json as the machine-readable state tracker and STAGE_STATE.md as the human-readable mirror.
 

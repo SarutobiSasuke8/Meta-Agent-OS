@@ -266,7 +266,7 @@ meta-agent-os/03_outputs/diagnosis/ORACLE_DIAGNOSIS.md
 After that, move into:
 
 ```text
-Sophia → Cartographer → Architect
+Sophia -> Cartographer -> Architect
 ```
 
 unless the diagnosis shows the project is already well understood.

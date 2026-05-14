@@ -16,18 +16,18 @@ It consists of ten specialised personas (Oracle, Sophia, Cartographer, Architect
 
 ---
 
-## 2. Project State — Facts
+## 2. Project State - Facts
 
 | Item | State |
 |---|---|
 | Current version | v0.4 (Reliability Layer) |
-| Repository | Local only — no commits, no remote |
+| Repository | Local only - no commits, no remote |
 | Versions present | v0.1, v0.2, companion-files, v0.4 |
-| v0.3 folder | Absent — documented in README but not built as a standalone folder |
-| CLAUDE.md | Exists in `versions/v0.4-reliability-layer/` — not yet at root |
-| AGENTS.md | Exists in `versions/v0.4-reliability-layer/` — not yet at root |
+| v0.3 folder | Absent - documented in README but not built as a standalone folder |
+| CLAUDE.md | Exists in `versions/v0.4-reliability-layer/` - not yet at root |
+| AGENTS.md | Exists in `versions/v0.4-reliability-layer/` - not yet at root |
 | Root-level meta-agent-os | Created now (first run) |
-| Target project | Not identified — framework is self-contained |
+| Target project | Not identified - framework is self-contained |
 
 ### Version Summary
 
@@ -40,7 +40,7 @@ It consists of ten specialised personas (Oracle, Sophia, Cartographer, Architect
 
 ---
 
-## 3. Project State — Assumptions
+## 3. Project State - Assumptions
 
 | Assumption | Confidence | What Would Validate It |
 |---|---|---|
@@ -59,7 +59,7 @@ It consists of ten specialised personas (Oracle, Sophia, Cartographer, Architect
 | Owner / operator | SarutobiSasuke8 (thecrypticgamingguild@gmail.com) |
 | Primary tool | Claude Code (v0.4 is Claude Code-native) |
 | Secondary tool | Codex (CODEX_RUNBOOK.md present in v0.4) |
-| End users of deployed systems | TBD — depends on target project |
+| End users of deployed systems | TBD - depends on target project |
 
 ---
 
@@ -68,7 +68,7 @@ It consists of ten specialised personas (Oracle, Sophia, Cartographer, Architect
 No live workflows are running yet. The framework defines the following intended workflow:
 
 ```
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian
 ```
 
 Supported trigger modes:
@@ -101,7 +101,7 @@ Supported trigger modes:
 
 | Gap | Risk | Fix |
 |---|---|---|
-| No git commits | Zero version history — any error loses all work | First commit immediately |
+| No git commits | Zero version history - any error loses all work | First commit immediately |
 | No remote | Work exists only locally | Push to GitHub |
 | CLAUDE.md not at root | Claude Code may not pick up project instructions automatically | Copy or symlink from v0.4 to root |
 | No target project identified | The framework has no deployment target yet | Confirm with user |
@@ -110,7 +110,7 @@ Supported trigger modes:
 
 | Gap | Risk | Fix |
 |---|---|---|
-| v0.3 not a separate folder | Version history is incomplete — makes the release story harder to follow | Build v0.3 as a named folder, or document the merge explicitly |
+| v0.3 not a separate folder | Version history is incomplete - makes the release story harder to follow | Build v0.3 as a named folder, or document the merge explicitly |
 | No INSTALL.md at root | First-time users won't know where to start | Copy companion INSTALL.md to root |
 | No README at root | GitHub repo will have no landing page | Copy or write a root README |
 
@@ -139,11 +139,11 @@ Before Sophia runs research, confirm one of the following:
 
 | Option | Description |
 |---|---|
-| A | Apply the Meta Agent OS to THIS repo — document and ship the framework itself as the product |
+| A | Apply the Meta Agent OS to THIS repo - document and ship the framework itself as the product |
 | B | Apply the Meta Agent OS to a sibling project (e.g. ai-agent-toolkit, prompt-library, Cryptic Gaming Guild) |
 | C | Apply the Meta Agent OS to a new project the user defines now |
 
-This is a human decision gate. **The Oracle recommends Option A as the default** — document and ship the framework itself first, then use it as a demonstration of its own methodology.
+This is a human decision gate. **The Oracle recommends Option A as the default** - document and ship the framework itself first, then use it as a demonstration of its own methodology.
 
 ---
 
@@ -164,8 +164,8 @@ This is a human decision gate. **The Oracle recommends Option A as the default**
 | Diagnosis complete | Yes |
 | Sensitive data present | No |
 | Stop condition met | No |
-| Ready to advance | Yes — pending human decision on deployment target |
-| Next recommended stage | Human decision gate → then Sophia |
+| Ready to advance | Yes - pending human decision on deployment target |
+| Next recommended stage | Human decision gate -> then Sophia |
 
 ---
 

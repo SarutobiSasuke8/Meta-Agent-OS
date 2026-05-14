@@ -84,7 +84,7 @@ Best when outputs naturally flow from one step to the next.
 Example:
 
 ```text
-Diagnose → Research → Design → Cost → Build → Test → Deploy
+Diagnose -> Research -> Design -> Cost -> Build -> Test -> Deploy
 ```
 
 ### Pattern 3: Manager With Specialists

@@ -2,6 +2,31 @@
 
 ---
 
+## 2026-05-15
+
+- Added `docs/RELEASE_CHECKLIST.md` for public/internal release readiness checks.
+- Added `docs/RUNTIME_TRACK.md` to define the separate path toward full agentic runtime behaviour.
+- Added `docs/examples/WORKED_EXAMPLE_RESEARCH_ASSISTANT.md` as a second synthetic worked example.
+- Added JSON output mode to `scripts/check-meta-agent-os.ps1` and `scripts/check-meta-agent-os.sh`.
+- Updated `.github/workflows/meta-agent-os.yml` to run strict validation and JSON validation output.
+- Updated `.github/pull_request_template.md` to ask for strict and JSON validation checks.
+- Added GitHub workflow and PR template presence to the hardening checks.
+- Updated Codex and control prompts to use `STAGE_STATE.json` as the source of truth and `STAGE_STATE.md` as the human-readable mirror.
+- Softened unsupported Sophia market/adoption claims by marking them as unverified before public marketing use.
+- Normalized Markdown arrows, dashes, and smart quotes to ASCII for terminal readability.
+- Updated project memory, assumptions, and decisions with the release-readiness pass.
+
+---
+
+## 2026-05-08
+
+- Added `docs/PUBLIC_BOUNDARY.md` to codify that Meta Agent OS v0.4 is complete for now as the public framework/specification layer.
+- Updated `README.md` to link the public boundary and clarify that runtime execution belongs in a separate implementation track by default.
+- Updated `ROADMAP.md` to reflect the v0.4 completion posture and public-core runtime boundary.
+- Updated project memory and decision log with the framework/spec completion decision.
+
+---
+
 ## 2026-05-06
 
 - Restored missing v0.4 reliability control assets from `versions/v0.4-reliability-layer/meta-agent-os/00_control` into the active root `meta-agent-os/00_control`.
@@ -64,7 +89,7 @@ Add a release checklist and review Sophia market claims before public launch.
 
 ## 2026-04-29
 
-### Oracle Stage — First Run
+### Oracle Stage - First Run
 
 - Created root-level `meta-agent-os/` folder structure
 - Produced `meta-agent-os/03_outputs/diagnosis/ORACLE_DIAGNOSIS.md`

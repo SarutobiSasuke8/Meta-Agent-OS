@@ -13,7 +13,13 @@ Meta Agent OS is a structured methodology and knowledge management system that l
 
 The core insight: most multi-agent projects fail because teams build before they diagnose. Meta Agent OS enforces diagnosis first.
 
-For the deeper product boundary, see [`docs/WHY.md`](docs/WHY.md).
+For the deeper product boundary, see [`docs/WHY.md`](docs/WHY.md), [`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.md), and [`docs/RUNTIME_TRACK.md`](docs/RUNTIME_TRACK.md).
+
+## Current Status
+
+Meta Agent OS v0.4 is complete for now as the public framework and specification layer. It is not permanently finished, but the current repo should remain focused on methodology, control files, examples, validation, and memory.
+
+Truly agentic runtime behavior should be explored in a separate implementation track rather than added directly to this public repo by default.
 
 ---
 
@@ -22,21 +28,21 @@ For the deeper product boundary, see [`docs/WHY.md`](docs/WHY.md).
 Ten specialist personas progress through ordered stages. Each stage produces a structured Markdown output. Human decision gates prevent unreviewed advancement.
 
 ```
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian
 ```
 
 | Stage | Persona | Output |
 |-------|---------|--------|
-| 1 | **The Oracle** | Diagnosis — project purpose, gaps, constraints, true needs |
-| 2 | **Sophia** | Research — evidence, competitive analysis, positioning |
-| 3 | **The Cartographer** | Workflow map — stakeholders, tools, data, handoffs |
-| 4 | **The Architect** | System design variants — agents, roles, architecture options |
-| 5 | **The QS** | Cost and implementation plan — tokens, effort, phased build |
-| 6 | **The Guardian** | Risk review — security, privacy, permissions, failure modes |
-| 7 | **The Builder** | Implementation — prompts, configs, workflows, scripts |
-| 8 | **The Evaluator** | QA and evals — acceptance criteria, test cases, launch readiness |
-| 9 | **The Orchestrator** | Runtime — routing, handoffs, execution, improvement loops |
-| 10 | **The Librarian** | Memory — decisions, assumptions, changelog, reusable patterns |
+| 1 | **The Oracle** | Diagnosis - project purpose, gaps, constraints, true needs |
+| 2 | **Sophia** | Research - evidence, competitive analysis, positioning |
+| 3 | **The Cartographer** | Workflow map - stakeholders, tools, data, handoffs |
+| 4 | **The Architect** | System design variants - agents, roles, architecture options |
+| 5 | **The QS** | Cost and implementation plan - tokens, effort, phased build |
+| 6 | **The Guardian** | Risk review - security, privacy, permissions, failure modes |
+| 7 | **The Builder** | Implementation - prompts, configs, workflows, scripts |
+| 8 | **The Evaluator** | QA and evals - acceptance criteria, test cases, launch readiness |
+| 9 | **The Orchestrator** | Runtime - routing, handoffs, execution, improvement loops |
+| 10 | **The Librarian** | Memory - decisions, assumptions, changelog, reusable patterns |
 
 ---
 
@@ -86,17 +92,17 @@ Read CLAUDE.md, AGENTS.md, and META_AGENT_BOOTSTRAP.md. Run The Oracle diagnosis
 
 ```
 /meta-agent-os
-  /00_control       — run manifests, stage state, schemas, validators, modes
-  /03_outputs       — stage outputs (diagnosis, research, maps, architecture, costs, risk, build, evals, runtime)
-  /05_memory        — project brain, decision log, assumptions log, changelog
-  /07_examples      — skeleton full-run examples
+  /00_control       - run manifests, stage state, schemas, validators, modes
+  /03_outputs       - stage outputs (diagnosis, research, maps, architecture, costs, risk, build, evals, runtime)
+  /05_memory        - project brain, decision log, assumptions log, changelog
+  /07_examples      - skeleton full-run examples
 
-CLAUDE.md           — instructions for Claude Code
-AGENTS.md           — instructions for Codex and other coding agents
-CODEX_RUNBOOK.md    — Codex-specific trigger manual
-META_AGENT_BOOTSTRAP.md — first-run bootstrap instructions
-INSTALL.md          — installation guide
-ROADMAP.md          — planned milestones
+CLAUDE.md           - instructions for Claude Code
+AGENTS.md           - instructions for Codex and other coding agents
+CODEX_RUNBOOK.md    - Codex-specific trigger manual
+META_AGENT_BOOTSTRAP.md - first-run bootstrap instructions
+INSTALL.md          - installation guide
+ROADMAP.md          - planned milestones
 ```
 
 ---
@@ -113,6 +119,19 @@ ROADMAP.md          — planned milestones
 ## Worked Example
 
 Start with [`docs/examples/WORKED_EXAMPLE_SUPPORT_TRIAGE.md`](docs/examples/WORKED_EXAMPLE_SUPPORT_TRIAGE.md) to see how a vague support automation idea becomes a supervised, risk-reviewed agent-system plan.
+
+For a second pattern, see [`docs/examples/WORKED_EXAMPLE_RESEARCH_ASSISTANT.md`](docs/examples/WORKED_EXAMPLE_RESEARCH_ASSISTANT.md), which shows how Meta Agent OS keeps a research-agent request grounded in sources, review gates, and citation discipline.
+
+## Release Readiness
+
+Use [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md) before tagging, publishing, or reusing this repo as a baseline.
+
+Local validation:
+
+```powershell
+./scripts/check-meta-agent-os.ps1 -Strict
+./scripts/check-meta-agent-os.ps1 -Strict -Json
+```
 
 ---
 

@@ -15,7 +15,7 @@ Pay special attention to:
 
 Run the full Meta Agent OS sequence for this repository:
 
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian.
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian.
 
 Use STAGE_STATE.json as the machine-readable state tracker and STAGE_STATE.md as the human-readable mirror.
 
@@ -23,7 +23,7 @@ After every stage:
 1. Create the required output file.
 2. Validate the output against its schema and validator.
 3. Update STAGE_STATE.json.
-4. Update STAGE_STATE.md.
+4. Update STAGE_STATE.md as the human-readable mirror.
 5. Update memory files under /meta-agent-os/05_memory where relevant.
 6. Check stage gates before advancing.
 

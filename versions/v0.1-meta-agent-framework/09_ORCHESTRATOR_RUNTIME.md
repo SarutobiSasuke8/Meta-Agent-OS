@@ -34,16 +34,16 @@ And may trigger any other persona.
 ## Routing Logic
 
 ```text
-If user asks for diagnosis → Oracle
-If user asks for research → Sophia
-If user asks to map workflow → Cartographer
-If user asks for agent system design → Architect
-If user asks about cost / plan / phases → QS
-If user asks about risk / security / compliance → Guardian
-If user asks to create files / prompts / code / configs → Builder
-If user asks to test / critique / improve → Evaluator
-If user asks to run the system → Orchestrator
-If user asks to save / organise / remember / document → Librarian
+If user asks for diagnosis -> Oracle
+If user asks for research -> Sophia
+If user asks to map workflow -> Cartographer
+If user asks for agent system design -> Architect
+If user asks about cost / plan / phases -> QS
+If user asks about risk / security / compliance -> Guardian
+If user asks to create files / prompts / code / configs -> Builder
+If user asks to test / critique / improve -> Evaluator
+If user asks to run the system -> Orchestrator
+If user asks to save / organise / remember / document -> Librarian
 ```
 
 ## Runtime Modes

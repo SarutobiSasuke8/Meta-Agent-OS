@@ -1,7 +1,7 @@
 # Codex Resume Prompt
 
 ```text
-Read AGENTS.md, CODEX_RUNBOOK.md, /meta-agent-os/00_control/STAGE_STATE.md, /meta-agent-os/00_control/RESUME_PROTOCOL.md, and /meta-agent-os/00_control/STAGE_GATES.md.
+Read AGENTS.md, CODEX_RUNBOOK.md, /meta-agent-os/00_control/STAGE_STATE.json, /meta-agent-os/00_control/STAGE_STATE.md, /meta-agent-os/00_control/RESUME_PROTOCOL.md, and /meta-agent-os/00_control/STAGE_GATES.md.
 
 Resume the Meta Agent OS from the latest incomplete stage.
 
@@ -13,7 +13,7 @@ Do not redo completed stages unless an output is missing, weak, invalid, or I as
 
 Stop at human decision gates.
 
-Update STAGE_STATE.md after progress.
+Update STAGE_STATE.json after progress and keep STAGE_STATE.md synchronized as the human-readable mirror.
 
 End with a concise status report.
 ```

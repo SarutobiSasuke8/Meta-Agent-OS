@@ -1,7 +1,7 @@
 # Codex Status Prompt
 
 ```text
-Read AGENTS.md, CODEX_RUNBOOK.md, /meta-agent-os/00_control/STAGE_STATE.md, and /meta-agent-os/00_control/STAGE_STATUS_TEMPLATE.md.
+Read AGENTS.md, CODEX_RUNBOOK.md, /meta-agent-os/00_control/STAGE_STATE.json, /meta-agent-os/00_control/STAGE_STATE.md, and /meta-agent-os/00_control/STAGE_STATUS_TEMPLATE.md.
 
 Check whether the expected output files exist.
 

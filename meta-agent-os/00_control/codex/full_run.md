@@ -5,9 +5,9 @@ Read AGENTS.md, CODEX_RUNBOOK.md, META_AGENT_BOOTSTRAP.md, and all files in /met
 
 Run the full Meta Agent OS sequence for this repository:
 
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian.
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian.
 
-Use /meta-agent-os/00_control/STAGE_STATE.md as the state tracker.
+Use /meta-agent-os/00_control/STAGE_STATE.json as the machine-readable state tracker and /meta-agent-os/00_control/STAGE_STATE.md as the human-readable mirror.
 
 Create each required output file under /meta-agent-os/03_outputs and update memory files under /meta-agent-os/05_memory.
 

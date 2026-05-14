@@ -62,13 +62,14 @@ When invoked:
    - `CLAUDE.md`
    - `AGENTS.md`
    - `META_AGENT_BOOTSTRAP.md`
+   - `/meta-agent-os/00_control/STAGE_STATE.json`
    - `/meta-agent-os/00_control/STAGE_STATE.md`
    - `/meta-agent-os/00_control/STAGE_GATES.md`
    - `/meta-agent-os/00_control/AGENT_MANIFEST.md`
 
 2. Inspect the repository context.
 
-3. Determine the current stage from `STAGE_STATE.md`.
+3. Determine the current stage from `STAGE_STATE.json`.
 
 4. Check whether the expected output file for the current stage already exists.
 
@@ -77,7 +78,8 @@ When invoked:
 6. If it does exist, validate it briefly and move to the next incomplete stage.
 
 7. After every stage:
-   - Update `STAGE_STATE.md`
+   - Update `STAGE_STATE.json`
+   - Update `STAGE_STATE.md` as the human-readable mirror
    - Update `/meta-agent-os/05_memory/project_brain.md`
    - Update `/meta-agent-os/05_memory/assumptions_log.md`
    - Update `/meta-agent-os/05_memory/decision_log.md` if a decision was made

@@ -9,7 +9,7 @@ It is intentionally skeletal. Use it as a shape reference, not as content to cop
 ## Expected Flow
 
 ```text
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian
 ```
 
 ## Why This Exists

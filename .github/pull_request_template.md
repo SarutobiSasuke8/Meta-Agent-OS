@@ -16,8 +16,10 @@
 
 ## Verification
 
-- [ ] `./scripts/check-meta-agent-os.ps1`
-- [ ] `./scripts/check-meta-agent-os.sh`
+- [ ] `./scripts/check-meta-agent-os.ps1 -Strict`
+- [ ] `./scripts/check-meta-agent-os.ps1 -Strict -Json`
+- [ ] `./scripts/check-meta-agent-os.sh --strict`
+- [ ] `./scripts/check-meta-agent-os.sh --strict --json`
 - [ ] Stage output validated, if relevant:
 
 ## Assumptions

@@ -11,7 +11,7 @@ Run modes prevent the Meta Agent OS from over-processing simple tasks.
 Stages:
 
 ```text
-Oracle → Librarian
+Oracle -> Librarian
 ```
 
 Use when you only need an initial repo/project diagnosis.
@@ -21,7 +21,7 @@ Use when you only need an initial repo/project diagnosis.
 Stages:
 
 ```text
-Oracle → Sophia → Cartographer → Architect → Librarian
+Oracle -> Sophia -> Cartographer -> Architect -> Librarian
 ```
 
 Use when you want strategy and architecture but not costing or building.
@@ -31,7 +31,7 @@ Use when you want strategy and architecture but not costing or building.
 Stages:
 
 ```text
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Librarian
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Librarian
 ```
 
 Use when you want a costed, risk-reviewed plan before implementation.
@@ -41,7 +41,7 @@ Use when you want a costed, risk-reviewed plan before implementation.
 Stages:
 
 ```text
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian
 ```
 
 Use when you want the full controlled lifecycle.
@@ -51,7 +51,7 @@ Use when you want the full controlled lifecycle.
 Stages:
 
 ```text
-Evaluator → Guardian → Orchestrator → Librarian
+Evaluator -> Guardian -> Orchestrator -> Librarian
 ```
 
 Use after the system already exists.
@@ -61,7 +61,7 @@ Use after the system already exists.
 Stages:
 
 ```text
-Oracle → Sophia → Cartographer → Librarian
+Oracle -> Sophia -> Cartographer -> Librarian
 ```
 
 Use when the main need is research and workflow mapping.
@@ -71,7 +71,7 @@ Use when the main need is research and workflow mapping.
 Stages:
 
 ```text
-Guardian → Evaluator → Librarian
+Guardian -> Evaluator -> Librarian
 ```
 
 Use when the main need is validation, safety, and QA.

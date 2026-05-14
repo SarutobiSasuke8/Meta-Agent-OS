@@ -19,7 +19,7 @@ Run the full Meta Agent OS sequence for this repository.
 3. Continue through the Meta Agent OS stages in order:
 
 ```text
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian
 ```
 
 4. After each stage:

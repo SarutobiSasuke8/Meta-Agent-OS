@@ -27,9 +27,9 @@ Read AGENTS.md, CODEX_RUNBOOK.md, META_AGENT_BOOTSTRAP.md, and all files in /met
 
 Run the full Meta Agent OS sequence for this repository:
 
-Oracle → Sophia → Cartographer → Architect → QS → Guardian → Builder → Evaluator → Orchestrator → Librarian.
+Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Evaluator -> Orchestrator -> Librarian.
 
-Use /meta-agent-os/00_control/STAGE_STATE.md as the state tracker.
+Use `/meta-agent-os/00_control/STAGE_STATE.json` as the machine-readable state tracker and `/meta-agent-os/00_control/STAGE_STATE.md` as the human-readable mirror.
 
 Create each required output file under /meta-agent-os/03_outputs and update memory files under /meta-agent-os/05_memory.
 
@@ -59,6 +59,7 @@ Create or update:
 - /meta-agent-os/05_memory/project_brain.md
 - /meta-agent-os/05_memory/assumptions_log.md
 - /meta-agent-os/05_memory/decision_log.md
+- /meta-agent-os/00_control/STAGE_STATE.json
 - /meta-agent-os/00_control/STAGE_STATE.md
 
 Do not modify application source code.
@@ -69,7 +70,7 @@ End with the recommended next stage.
 ## Resume Trigger
 
 ```text
-Read AGENTS.md, CODEX_RUNBOOK.md, /meta-agent-os/00_control/STAGE_STATE.md, /meta-agent-os/00_control/RESUME_PROTOCOL.md, and /meta-agent-os/00_control/STAGE_GATES.md.
+Read AGENTS.md, CODEX_RUNBOOK.md, /meta-agent-os/00_control/STAGE_STATE.json, /meta-agent-os/00_control/STAGE_STATE.md, /meta-agent-os/00_control/RESUME_PROTOCOL.md, and /meta-agent-os/00_control/STAGE_GATES.md.
 
 Resume the Meta Agent OS from the latest incomplete stage.
 
@@ -81,7 +82,7 @@ Do not redo completed stages unless an output is missing, weak, invalid, or I as
 
 Stop at human decision gates.
 
-Update STAGE_STATE.md after progress.
+Update `STAGE_STATE.json` after progress and keep `STAGE_STATE.md` as its human-readable mirror.
 
 End with a concise status report.
 ```
@@ -89,7 +90,7 @@ End with a concise status report.
 ## Status Trigger
 
 ```text
-Read AGENTS.md, CODEX_RUNBOOK.md, /meta-agent-os/00_control/STAGE_STATE.md, and /meta-agent-os/00_control/STAGE_STATUS_TEMPLATE.md.
+Read AGENTS.md, CODEX_RUNBOOK.md, /meta-agent-os/00_control/STAGE_STATE.json, /meta-agent-os/00_control/STAGE_STATE.md, and /meta-agent-os/00_control/STAGE_STATUS_TEMPLATE.md.
 
 Check whether the expected output files exist.
 
@@ -111,7 +112,7 @@ When using this system, Codex should:
 
 1. Read `AGENTS.md` first.
 2. Treat `CODEX_RUNBOOK.md` as the Codex-specific trigger manual.
-3. Use `STAGE_STATE.md` to track progress.
+3. Use `STAGE_STATE.json` to track progress and keep `STAGE_STATE.md` synchronized as the human-readable mirror.
 4. Use `STAGE_GATES.md` to decide when to stop.
 5. Use `RESUME_PROTOCOL.md` after interruptions.
 6. Prefer Markdown output during diagnosis and planning.

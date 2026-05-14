@@ -2,6 +2,8 @@
 
 Current stable release: **v0.4 (Reliability Layer)**
 
+v0.4 is complete for now as the public framework and specification layer. Future runtime execution should be treated as a separate implementation track unless the project deliberately re-scopes this public repo.
+
 ---
 
 ## Released
@@ -25,9 +27,12 @@ JSON state machine, stage manifest, run modes, output manifest, per-stage schema
 ### v0.5 - Public Framework Polish
 
 - Clearer positioning and `docs/WHY.md`
-- At least one complete worked example
+- Public boundary clarified in `docs/PUBLIC_BOUNDARY.md`
+- Runtime track boundary documented in `docs/RUNTIME_TRACK.md`
+- Release checklist documented in `docs/RELEASE_CHECKLIST.md`
+- At least two complete worked examples
 - Stronger stage-output validation
-- Release checklist
+- JSON output mode for local validation
 - Public documentation cleanup
 - Community contribution guidelines
 - Open Core and commercial-pack boundaries clarified
@@ -61,6 +66,6 @@ JSON state machine, stage manifest, run modes, output manifest, per-stage schema
 
 ## Not Planned
 
-- Runtime execution engine
+- Runtime execution engine in the public core repo
 - GUI or web application in the core repo
 - Hosted SaaS in the core repo

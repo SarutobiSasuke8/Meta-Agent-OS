@@ -109,7 +109,7 @@ With this structure:
 Usually hand off to:
 
 ```text
-Sophia → Cartographer → Architect
+Sophia -> Cartographer -> Architect
 ```
 
 If the project is already well understood, skip Sophia and go directly to Cartographer.
