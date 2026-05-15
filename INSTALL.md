@@ -127,7 +127,7 @@ Read AGENTS.md and CODEX_RUNBOOK.md, then run the full Meta Agent OS.
 Paste:
 
 ```text
-Read AGENTS.md and CODEX_RUNBOOK.md, then run the Codex Diagnosis-Only Prompt from /meta-agent-os/00_control/codex/diagnose_only.md.
+Read AGENTS.md and CODEX_RUNBOOK.md, then run the Diagnosis-Only Trigger from CODEX_RUNBOOK.md.
 ```
 
 ### Resume In Codex
@@ -135,7 +135,7 @@ Read AGENTS.md and CODEX_RUNBOOK.md, then run the Codex Diagnosis-Only Prompt fr
 Paste:
 
 ```text
-Read AGENTS.md and CODEX_RUNBOOK.md, then run the Codex Resume Prompt from /meta-agent-os/00_control/codex/resume.md.
+Read AGENTS.md and CODEX_RUNBOOK.md, then run the Resume Trigger from CODEX_RUNBOOK.md.
 ```
 
 ### Status In Codex
@@ -143,7 +143,7 @@ Read AGENTS.md and CODEX_RUNBOOK.md, then run the Codex Resume Prompt from /meta
 Paste:
 
 ```text
-Read AGENTS.md and CODEX_RUNBOOK.md, then run the Codex Status Prompt from /meta-agent-os/00_control/codex/status.md.
+Read AGENTS.md and CODEX_RUNBOOK.md, then run the Status Trigger from CODEX_RUNBOOK.md.
 ```
 
 ## v0.4 Reliability Layer
@@ -153,7 +153,7 @@ v0.4 adds machine-readable state and validation.
 After install, the most robust Codex trigger is:
 
 ```text
-Read AGENTS.md and CODEX_RUNBOOK.md, then run the Codex Full Run Prompt v0.4 from /meta-agent-os/00_control/codex/full_run_v0_4.md.
+Read AGENTS.md and CODEX_RUNBOOK.md, then run the Full Run Trigger from CODEX_RUNBOOK.md.
 ```
 
 The most robust Claude Code trigger remains:

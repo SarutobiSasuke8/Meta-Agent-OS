@@ -131,7 +131,7 @@ If the repo is large or messy, start with the Diagnosis-Only Trigger first.
 Preferred v0.4 prompt:
 
 ```text
-Read AGENTS.md and CODEX_RUNBOOK.md, then run the Codex Full Run Prompt v0.4 from /meta-agent-os/00_control/codex/full_run_v0_4.md.
+Read AGENTS.md and CODEX_RUNBOOK.md, then run the Full Run Trigger from CODEX_RUNBOOK.md.
 ```
 
 Codex should use:

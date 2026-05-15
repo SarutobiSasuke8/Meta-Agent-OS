@@ -79,7 +79,7 @@ Supported trigger modes:
 | `/run-meta-agent-os` | `.claude/commands/run-meta-agent-os.md` |
 | `/continue-meta-agent-os` | `.claude/commands/continue-meta-agent-os.md` |
 | `/stage-status` | `.claude/commands/stage-status.md` |
-| Codex full run | `meta-agent-os/00_control/codex/full_run_v0_4.md` |
+| Codex full run | `CODEX_RUNBOOK.md` → Full Run Trigger |
 
 ---
 
@@ -166,3 +166,25 @@ This is a human decision gate. **The Oracle recommends Option A as the default**
 | Stop condition met | No |
 | Ready to advance | Yes — pending human decision on deployment target |
 | Next recommended stage | Human decision gate → then Sophia |
+
+---
+
+## 12. Post-Diagnosis State Correction (2026-05-15)
+
+The original diagnosis above is preserved as the point-in-time Oracle
+snapshot from 2026-04-29. The following facts have since changed and
+supersede the corresponding rows in §2 and §7:
+
+| Original finding | Current state |
+|---|---|
+| Repository: local only — no commits, no remote | Resolved — repo is committed and has a remote |
+| CLAUDE.md not at root | Resolved — present at root |
+| AGENTS.md not at root | Resolved — present at root |
+| No README.md at root | Resolved — present at root |
+| No INSTALL.md at root | Resolved — present at root |
+| Deployment target not identified | Resolved — Option A confirmed (ship the framework itself) — see decision_log D5 |
+
+Stage progress has also advanced: Oracle and Sophia are complete and the
+current stage is Cartographer. `meta-agent-os/00_control/STAGE_STATE.json`
+is the authoritative state tracker. The v0.3 folder gap and the
+documented-but-deferred v0.6.1 migration remain open and unchanged.

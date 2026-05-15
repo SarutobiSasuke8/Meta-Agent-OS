@@ -57,7 +57,7 @@ Or for the full staged run:
 ### Codex or Other Coding Agents
 
 ```
-Read AGENTS.md and CODEX_RUNBOOK.md, then run the Codex Full Run Prompt v0.4 from /meta-agent-os/00_control/codex/full_run_v0_4.md.
+Read AGENTS.md and CODEX_RUNBOOK.md, then run the Full Run Trigger from CODEX_RUNBOOK.md.
 ```
 
 ### Manual Trigger
@@ -72,10 +72,9 @@ Read CLAUDE.md, AGENTS.md, and META_AGENT_BOOTSTRAP.md. Run The Oracle diagnosis
 
 ```
 /meta-agent-os
-  /00_control       — run manifests, stage state, schemas, validators, modes
+  /00_control       — run manifests, stage state, modes
   /03_outputs       — stage outputs (diagnosis, research, maps, architecture, costs, risk, build, evals, runtime)
   /05_memory        — project brain, decision log, assumptions log, changelog
-  /07_examples      — skeleton full-run examples
 
 CLAUDE.md           — instructions for Claude Code
 AGENTS.md           — instructions for Codex and other coding agents

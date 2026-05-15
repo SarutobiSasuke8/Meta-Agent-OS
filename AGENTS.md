@@ -102,21 +102,22 @@ Do not treat the presence of this file as automatic execution. The system begins
 
 Codex should use `CODEX_RUNBOOK.md` as the primary trigger manual after reading this file.
 
-Codex does not use Claude slash commands. Instead, use prompt-based triggers:
+Codex does not use Claude slash commands. Instead, use the prompt-based
+triggers defined as named sections inside `CODEX_RUNBOOK.md`:
 
 ```text
-/meta-agent-os/00_control/codex/full_run_v0_4.md
-/meta-agent-os/00_control/codex/diagnose_only.md
-/meta-agent-os/00_control/codex/resume.md
-/meta-agent-os/00_control/codex/status.md
+CODEX_RUNBOOK.md → Full Run Trigger
+CODEX_RUNBOOK.md → Diagnosis-Only Trigger
+CODEX_RUNBOOK.md → Resume Trigger
+CODEX_RUNBOOK.md → Status Trigger
 ```
 
 Default Codex behaviour:
 
-- For a full setup, use `codex/full_run_v0_4.md`.
-- For first diagnosis only, use `codex/diagnose_only.md`.
-- To continue after interruption, use `codex/resume.md`.
-- To check progress, use `codex/status.md`.
+- For a full setup, use the Full Run Trigger.
+- For first diagnosis only, use the Diagnosis-Only Trigger.
+- To continue after interruption, use the Resume Trigger.
+- To check progress, use the Status Trigger.
 
 ## v0.4 Reliability Rules
 

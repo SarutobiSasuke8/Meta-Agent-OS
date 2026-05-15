@@ -1,7 +1,7 @@
 # project_brain.md
 
-**Last updated:** 2026-04-29  
-**Stage:** Oracle (complete)
+**Last updated:** 2026-05-15  
+**Stage:** Sophia (complete) — Cartographer next
 
 ---
 
@@ -23,13 +23,15 @@ SarutobiSasuke8 / thecrypticgamingguild@gmail.com
 
 Claude Code. Secondary: Codex.
 
-## Stage State (as of 2026-04-29)
+## Stage State (as of 2026-05-15)
+
+Authoritative tracker: `meta-agent-os/00_control/STAGE_STATE.json`.
 
 | Stage | Status |
 |---|---|
 | Oracle | Complete |
-| Sophia | Not started — awaiting deployment target decision |
-| Cartographer | Not started |
+| Sophia | Complete |
+| Cartographer | In progress (current stage) |
 | Architect | Not started |
 | QS | Not started |
 | Guardian | Not started |
@@ -38,18 +40,16 @@ Claude Code. Secondary: Codex.
 | Orchestrator | Not started |
 | Librarian | Not started |
 
-## Open Decision
+## Resolved Decision
 
-**Deployment target not confirmed.**  
-Options: (A) ship the framework itself, (B) apply to a sibling repo, (C) apply to a new project.  
-Oracle recommends Option A.
+**Deployment target confirmed: Option A** — ship the Meta Agent OS itself
+as an open framework product (decision_log D5). The framework is its own
+demonstration use case.
 
 ## Known Gaps
 
-- No git commits or remote yet
-- CLAUDE.md not at root (lives in versions/v0.4)
-- v0.3 not a separate folder
-- No README at root
+- v0.3 not a separate folder (documented in README/ROADMAP, never built as a named version folder)
+- v0.6.1 migration documented but deliberately deferred (decision_log D8)
 
 ## Pending Migration Target
 
