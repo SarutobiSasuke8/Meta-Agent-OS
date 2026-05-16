@@ -113,6 +113,7 @@ ROADMAP.md          — planned milestones
 |---------|------|-------------|
 | v0.1 | Meta Agent Framework | Ten personas, ten stage outputs |
 | v0.2 | Agentic Runner | Stage state, gates, resume protocol, Claude commands |
+| v0.3 | Codex-Ready Layer | First-class Codex support — folded into v0.4; never shipped as a standalone folder |
 | v0.4 | Reliability Layer | JSON state, schemas, validators, quality bar, run modes |
 
 See [ROADMAP.md](ROADMAP.md) for planned milestones.

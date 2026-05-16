@@ -12,6 +12,9 @@ Ten personas, ten stage outputs. The foundational methodology.
 ### v0.2 — Agentic Runner Layer
 Stage state, gates, resume protocol. Claude Code slash commands (`/diagnose`, `/run-meta-agent-os`, `/continue-meta-agent-os`, `/stage-status`).
 
+### v0.3 — Codex-Ready Layer
+First-class Codex support: `CODEX_RUNBOOK.md`, trigger index, and the Codex prompt set. Folded into v0.4 — never released as a standalone version folder.
+
 ### v0.4 — Reliability Layer
 JSON state machine, stage manifest, run modes, output manifest, per-stage schemas, validators, quality bar, advancement protocol. First-class Codex support.
 

@@ -36,3 +36,12 @@
 | # | Date | Stage | Decision | Reason | Made By |
 |---|---|---|---|---|---|
 | D4 | 2026-04-29 | Librarian | Logged v0.4 to v0.6.1 migration as pending, not implemented | User provided an external migration spec and asked to note the changes | System |
+
+---
+
+## Additional Decisions - 2026-05-15
+
+| # | Date | Stage | Decision | Reason | Made By |
+|---|---|---|---|---|---|
+| D9 | 2026-05-15 | Quality cleanup | Document v0.3 as the Codex-Ready Layer folded into v0.4 rather than build a standalone v0.3 folder | Closes the unexplained v0.2→v0.4 version jump without rewriting release history | System |
+| D10 | 2026-05-15 | Quality cleanup | Treat the v0.6.1 migration spec as external/machine-local provenance only — not vendored | Source file is not present in the repo and cannot be reproduced from it | System |

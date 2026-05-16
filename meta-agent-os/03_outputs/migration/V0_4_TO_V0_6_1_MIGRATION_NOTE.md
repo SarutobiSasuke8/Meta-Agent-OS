@@ -19,7 +19,9 @@ Record the changes described in the external migration specification so future M
 - `meta-agent-os/05_memory/project_brain.md`
 - `meta-agent-os/05_memory/decision_log.md`
 - `meta-agent-os/05_memory/assumptions_log.md`
-- `C:\Users\sarut\Documents\Astraeus Business Solutions\Astraeus Internal Website\src\Meta_Agent_OS_v0.4_to_v0.6.1_Migration.md`
+- External migration spec (NOT vendored in this repo; author's machine only):
+  `C:\Users\sarut\Documents\Astraeus Business Solutions\Astraeus Internal Website\src\Meta_Agent_OS_v0.4_to_v0.6.1_Migration.md` —
+  this note is not reproducible from the repository alone
 
 ## Findings
 
@@ -48,6 +50,8 @@ Record the changes described in the external migration specification so future M
 - Should the repo now be upgraded fully to v0.6.1?
 - Should v0.6.1 be implemented as a single migration commit or split into v0.5, v0.6, and v0.6.1 commits?
 - Should the external migration document be copied into this repository as a durable source artifact?
+  (Status 2026-05-15: the spec is not present in this repo and cannot be vendored from here;
+  treat the path above as external provenance only until the author supplies the file.)
 
 ## Recommended Next Action
 

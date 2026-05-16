@@ -48,8 +48,8 @@ demonstration use case.
 
 ## Known Gaps
 
-- v0.3 not a separate folder (documented in README/ROADMAP, never built as a named version folder)
-- v0.6.1 migration documented but deliberately deferred (decision_log D8)
+- v0.3 has no standalone folder by design — now explicitly documented in README/ROADMAP as the Codex-Ready Layer folded into v0.4 (no longer an undocumented gap)
+- v0.6.1 migration documented but deliberately deferred (decision_log D8); source spec is external/machine-local and not vendored
 
 ## Pending Migration Target
 

@@ -186,5 +186,8 @@ supersede the corresponding rows in §2 and §7:
 
 Stage progress has also advanced: Oracle and Sophia are complete and the
 current stage is Cartographer. `meta-agent-os/00_control/STAGE_STATE.json`
-is the authoritative state tracker. The v0.3 folder gap and the
-documented-but-deferred v0.6.1 migration remain open and unchanged.
+is the authoritative state tracker. The v0.3 "missing folder" gap is now
+resolved-as-documented (README/ROADMAP record it as the Codex-Ready Layer
+folded into v0.4). The v0.6.1 migration remains documented but
+deliberately deferred, with its source spec flagged as external and
+not vendored.
