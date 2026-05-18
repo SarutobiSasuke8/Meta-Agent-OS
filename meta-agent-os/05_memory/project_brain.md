@@ -1,7 +1,7 @@
 # project_brain.md
 
 **Last updated:** 2026-05-18  
-**Stage:** Architect (complete) — next: QS
+**Stage:** QS (complete) — next: Guardian
 
 ---
 
@@ -31,7 +31,8 @@ Claude Code. Secondary: Codex.
 | Sophia | Complete |
 | Cartographer | Complete |
 | Architect | Complete |
-| QS | Not started — next |
+| QS | Complete |
+| Guardian | Not started — next |
 | QS | Not started |
 | Guardian | Not started |
 | Builder | Not started |
