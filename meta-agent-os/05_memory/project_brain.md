@@ -1,7 +1,7 @@
 # project_brain.md
 
 **Last updated:** 2026-05-18  
-**Stage:** Cartographer (complete) — next: Architect
+**Stage:** Architect (complete) — next: QS
 
 ---
 
@@ -30,7 +30,8 @@ Claude Code. Secondary: Codex.
 | Oracle | Complete |
 | Sophia | Complete |
 | Cartographer | Complete |
-| Architect | Not started — next |
+| Architect | Complete |
+| QS | Not started — next |
 | QS | Not started |
 | Guardian | Not started |
 | Builder | Not started |
@@ -50,7 +51,7 @@ Claude Code. Secondary: Codex.
 
 ## Known Gaps
 
-- **Root control-layer integrity gap (High):** `schemas/` and `validators/` exist only under `versions/v0.4-reliability-layer/`, not at root `meta-agent-os/00_control/`; STAGE_MANIFEST.json paths do not resolve at root. Architect to resolve.
+- **Root control-layer integrity gap (High):** `schemas/` and `validators/` exist only under `versions/v0.4-reliability-layer/`, not at root. **Architect resolution (D9): Variant B** — Builder will mirror them into root `00_control/` (no manifest change) + add a CI drift script. Pending QS cost + Guardian approval.
 - Self-hosting risk: this run's example outputs must not ship as framework defaults.
 - No contribution guidelines (deferred to v0.5).
 - Git commits + remote now in place; root CLAUDE.md/README/INSTALL/AGENTS present.

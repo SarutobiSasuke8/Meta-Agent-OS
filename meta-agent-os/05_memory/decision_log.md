@@ -1,6 +1,6 @@
 # decision_log.md
 
-**Last updated:** 2026-04-29
+**Last updated:** 2026-05-18
 
 ---
 
@@ -36,3 +36,12 @@
 | # | Date | Stage | Decision | Reason | Made By |
 |---|---|---|---|---|---|
 | D4 | 2026-04-29 | Librarian | Logged v0.4 to v0.6.1 migration as pending, not implemented | User provided an external migration spec and asked to note the changes | System |
+
+---
+
+## Additional Decisions — 2026-05-18
+
+| # | Date | Stage | Decision | Reason | Made By |
+|---|---|---|---|---|---|
+| D9 | 2026-05-18 | Architect | Recommend Architecture Variant B (root is canonical: mirror schemas/validators into root `00_control/`, no manifest change, add a CI drift/lint script, mark self-hosted outputs as example) | Minimum architecture that makes the framework correct from an adopter's root tree without re-pointing dependencies at `versions/` history (Variant A flaw) or pulling v0.5 scope forward (Variant C flaw) | Architect |
+| D10 | 2026-05-18 | Architect | Reject Variant A (re-point manifest at versioned paths) and Variant C (docs site + release automation) for v0.4; C folded into v0.5 roadmap | A reverses the correct dependency direction; C is overbuilt and collides with D8 | Architect |

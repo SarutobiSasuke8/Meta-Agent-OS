@@ -16,3 +16,5 @@
 | A8 | "Public release" means a GitHub-distributed Apache-2.0 framework; a docs site is optional and out of v0.4 scope | Medium | Cartographer | No |
 | A9 | The 10-persona set is frozen for v0.4 — no new agents are needed to ship | High | Cartographer | No |
 | A10 | The root `meta-agent-os/00_control/` folder should be the adopter's source of truth, not `versions/` | High | Cartographer | No |
+| A11 | Mirroring schemas/validators to root satisfies STAGE_MANIFEST.json without manifest edits (paths already expect root) | Medium | Architect | No — validate in Builder/Evaluator |
+| A12 | A single read-only CI drift/lint script is acceptable v0.4 (Level 2) scope | Medium | Architect | No — Guardian to confirm |
