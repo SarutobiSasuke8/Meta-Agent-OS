@@ -1,7 +1,7 @@
 # project_brain.md
 
-**Last updated:** 2026-04-29  
-**Stage:** Oracle (complete)
+**Last updated:** 2026-05-18  
+**Stage:** Cartographer (complete) — next: Architect
 
 ---
 
@@ -23,14 +23,14 @@ SarutobiSasuke8 / thecrypticgamingguild@gmail.com
 
 Claude Code. Secondary: Codex.
 
-## Stage State (as of 2026-04-29)
+## Stage State (as of 2026-05-18)
 
 | Stage | Status |
 |---|---|
 | Oracle | Complete |
-| Sophia | Not started — awaiting deployment target decision |
-| Cartographer | Not started |
-| Architect | Not started |
+| Sophia | Complete |
+| Cartographer | Complete |
+| Architect | Not started — next |
 | QS | Not started |
 | Guardian | Not started |
 | Builder | Not started |
@@ -38,18 +38,22 @@ Claude Code. Secondary: Codex.
 | Orchestrator | Not started |
 | Librarian | Not started |
 
+## Resolved Decisions
+
+- **Deployment target:** Option A — ship the framework itself as the product (D5).
+- **License:** Apache 2.0 core; commercial vertical packs (D6).
+- **Audience:** management consultants + enterprise architects (D7).
+
 ## Open Decision
 
-**Deployment target not confirmed.**  
-Options: (A) ship the framework itself, (B) apply to a sibling repo, (C) apply to a new project.  
-Oracle recommends Option A.
+**PD2 — v0.6.1 migration handling.** Effectively deferred by D8 (ship clean v0.4, keep v0.5–v0.6.1 as ROADMAP only) but not formally closed. Cartographer flags this must be confirmed by a human before the Builder stage.
 
 ## Known Gaps
 
-- No git commits or remote yet
-- CLAUDE.md not at root (lives in versions/v0.4)
-- v0.3 not a separate folder
-- No README at root
+- **Root control-layer integrity gap (High):** `schemas/` and `validators/` exist only under `versions/v0.4-reliability-layer/`, not at root `meta-agent-os/00_control/`; STAGE_MANIFEST.json paths do not resolve at root. Architect to resolve.
+- Self-hosting risk: this run's example outputs must not ship as framework defaults.
+- No contribution guidelines (deferred to v0.5).
+- Git commits + remote now in place; root CLAUDE.md/README/INSTALL/AGENTS present.
 
 ## Pending Migration Target
 

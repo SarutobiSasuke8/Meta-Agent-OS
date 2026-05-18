@@ -1,6 +1,6 @@
 # assumptions_log.md
 
-**Last updated:** 2026-04-29
+**Last updated:** 2026-05-18
 
 ---
 
@@ -13,3 +13,6 @@
 | A5 | The framework should be published to GitHub as an open or semi-open repo | Medium | Oracle | No |
 | A6 | No sensitive data is present in this repo | High | Oracle | Yes — manual scan confirmed |
 | A7 | The user wants the v0.4 to v0.6.1 migration changes recorded before implementation | Medium | Librarian | Partially - migration note created |
+| A8 | "Public release" means a GitHub-distributed Apache-2.0 framework; a docs site is optional and out of v0.4 scope | Medium | Cartographer | No |
+| A9 | The 10-persona set is frozen for v0.4 — no new agents are needed to ship | High | Cartographer | No |
+| A10 | The root `meta-agent-os/00_control/` folder should be the adopter's source of truth, not `versions/` | High | Cartographer | No |
