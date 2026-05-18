@@ -20,3 +20,4 @@
 | A12 | A single read-only CI drift/lint script is acceptable v0.4 (Level 2) scope | Medium | Architect | No — Guardian to confirm |
 | A13 | Public-repo CI free tier (GitHub Actions) is available → operating cost ≈ $0 | Medium | QS | No — validate at Builder |
 | A14 | D8 holds; PD2 treated as closed for budget purposes (no v0.5–v0.6.1 cost in v0.4) | Medium | QS | No — human to formally confirm |
+| A15 | CI drift script will be authored read-only, secret-free, network-free (else escalates to Level 3) | Medium | Guardian | No — validate at Builder |

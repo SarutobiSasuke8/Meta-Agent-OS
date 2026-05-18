@@ -1,7 +1,7 @@
 # project_brain.md
 
 **Last updated:** 2026-05-18  
-**Stage:** QS (complete) — next: Guardian
+**Stage:** Guardian (complete) — PAUSED at human decision gate before Builder (PD2 closure required)
 
 ---
 
@@ -32,7 +32,8 @@ Claude Code. Secondary: Codex.
 | Cartographer | Complete |
 | Architect | Complete |
 | QS | Complete |
-| Guardian | Not started — next |
+| Guardian | Complete — verdict: Approved with restrictions |
+| Builder | BLOCKED — human must close PD2 first |
 | QS | Not started |
 | Guardian | Not started |
 | Builder | Not started |
