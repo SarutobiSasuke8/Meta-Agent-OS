@@ -8,9 +8,15 @@ Copy these files into the root of your target project:
 CLAUDE.md
 AGENTS.md
 META_AGENT_BOOTSTRAP.md
-.claude/commands/diagnose.md
+.claude/commands/
 meta-agent-os/
 ```
+
+The `meta-agent-os/00_control/` folder is the **canonical control layer**
+and now ships its own `schemas/` and `validators/` at root — you do **not**
+need the `versions/` history for a working install. The slim install bundle
+in `versions/companion-files/` includes this complete control layer and a
+fresh `STAGE_STATE.json`.
 
 ## 2. Start Diagnosis
 
@@ -170,6 +176,32 @@ But the agent should now also read:
 /meta-agent-os/00_control/RUN_MODES.json
 /meta-agent-os/00_control/OUTPUT_MANIFEST.json
 /meta-agent-os/00_control/QUALITY_BAR.md
-/meta-agent-os/00_control/STAGE_ADVANCEMENT_PROTOCOL.md
-/meta-agent-os/00_control/JSON_STATE_UPDATE_PROTOCOL.md
+/meta-agent-os/00_control/schemas/
+/meta-agent-os/00_control/validators/
 ```
+
+## Control-Layer Integrity Check
+
+This release ships a read-only integrity check that verifies the root
+control layer has not drifted from the v0.4 snapshot, that all
+`STAGE_MANIFEST.json` schema/validator paths resolve, and that
+`STAGE_STATE.json` is well-formed:
+
+```text
+python3 scripts/check_control_integrity.py
+```
+
+It runs automatically in CI (`.github/workflows/control-integrity.yml`) on
+every push and pull request. It is strictly read-only — no writes, no
+network, no secrets — and exits non-zero on drift so a broken control
+layer cannot be released.
+
+## Example Run vs. Framework
+
+This upstream repository contains a **self-hosted example run** (the
+framework was run on itself). When you adopt it, reset
+`meta-agent-os/00_control/STAGE_STATE.json` and clear
+`meta-agent-os/03_outputs/` and `meta-agent-os/05_memory/` to start a
+fresh run for your own project. See `EXAMPLE_RUN.md` for the exact
+framework-vs-example file split. Do not delete the upstream example
+history — it is preserved deliberately as the methodology's audit trail.

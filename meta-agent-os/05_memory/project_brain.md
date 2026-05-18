@@ -1,7 +1,7 @@
 # project_brain.md
 
 **Last updated:** 2026-05-18  
-**Stage:** Guardian (complete) — PAUSED at human decision gate before Builder (PD2 closure required)
+**Stage:** Builder (complete) — next: Evaluator
 
 ---
 
@@ -33,7 +33,8 @@ Claude Code. Secondary: Codex.
 | Architect | Complete |
 | QS | Complete |
 | Guardian | Complete — verdict: Approved with restrictions |
-| Builder | BLOCKED — human must close PD2 first |
+| Builder | Complete — Variant B executed under restrictions |
+| Evaluator | Not started — next |
 | QS | Not started |
 | Guardian | Not started |
 | Builder | Not started |
@@ -49,11 +50,11 @@ Claude Code. Secondary: Codex.
 
 ## Open Decision
 
-**PD2 — v0.6.1 migration handling.** Effectively deferred by D8 (ship clean v0.4, keep v0.5–v0.6.1 as ROADMAP only) but not formally closed. Cartographer flags this must be confirmed by a human before the Builder stage.
+**None.** PD2 formally CLOSED 2026-05-18 (D11 = D8: clean v0.4, v0.5–v0.6.1 in ROADMAP only). No open decision gates.
 
 ## Known Gaps
 
-- **Root control-layer integrity gap (High):** `schemas/` and `validators/` exist only under `versions/v0.4-reliability-layer/`, not at root. **Architect resolution (D9): Variant B** — Builder will mirror them into root `00_control/` (no manifest change) + add a CI drift script. Pending QS cost + Guardian approval.
+- **Root control-layer integrity gap (High): RESOLVED.** Builder mirrored `schemas/` (10) + `validators/` (11) into root `00_control/` byte-identical; all 20 manifest paths resolve from root (no manifest edit); read-only CI integrity script + workflow added; `EXAMPLE_RUN.md` marks the self-hosted example; companion bundle control layer + fresh state refreshed. Pending Evaluator verification.
 - Self-hosting risk: this run's example outputs must not ship as framework defaults.
 - No contribution guidelines (deferred to v0.5).
 - Git commits + remote now in place; root CLAUDE.md/README/INSTALL/AGENTS present.

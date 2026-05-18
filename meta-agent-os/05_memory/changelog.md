@@ -16,6 +16,25 @@
 
 ## 2026-05-18
 
+### PD2 Closed (Human Decision)
+
+- User formally closed PD2 = D8 (D11): ship clean v0.4; keep v0.5/v0.6/v0.6.1 in ROADMAP.md only. Satisfies Guardian Restriction 7; unblocked Builder.
+
+### Builder Stage — Complete
+
+- Produced `meta-agent-os/03_outputs/build/BUILDER_IMPLEMENTATION_LOG.md` (created `03_outputs/build/`)
+- Executed Variant B under Guardian restrictions 1–7 (all applied; no app code, no deletions, mirror-by-copy, least-privilege CI)
+- Mirrored `schemas/` (10) + `validators/` (11) into root `00_control/` byte-identical (verified by `diff -r` + integrity script)
+- Confirmed all 20 STAGE_MANIFEST.json schema/validator paths resolve from root — **no manifest edit needed** (A11 validated)
+- Added read-only `scripts/check_control_integrity.py` (stdlib-only) + least-privilege `.github/workflows/control-integrity.yml` (contents:read, no secrets, checkout SHA-pinned) — A15 validated
+- Added top-level `EXAMPLE_RUN.md` (framework vs. self-hosted example split)
+- Refreshed `versions/companion-files/` control layer (schemas/validators + 8 control files + fresh STAGE_STATE.json); existing bundle files preserved
+- Updated `INSTALL.md` (root-tree install path, integrity check, example-run note)
+- Root control-layer integrity gap (High, Cartographer) RESOLVED pending Evaluator verification
+- Advanced STAGE_STATE.json: Builder → complete, unblocked; current/next stage → Evaluator
+
+---
+
 ### Guardian Stage — Complete (PAUSED at human decision gate)
 
 - Produced `meta-agent-os/03_outputs/risk/GUARDIAN_RISK_SECURITY_REVIEW.md` (created `03_outputs/risk/`)

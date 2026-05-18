@@ -1,0 +1,27 @@
+name: Control Layer Integrity
+
+# Read-only release gate (Meta Agent OS Variant B, Guardian-approved).
+# Verifies the root control layer has not drifted from the v0.4 snapshot,
+# that manifest paths resolve, and that STAGE_STATE.json is consistent.
+
+on:
+  push:
+  pull_request:
+
+# Least privilege (Guardian Restriction 4): read-only, no secrets, no deploy.
+permissions:
+  contents: read
+
+jobs:
+  control-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      # actions/checkout pinned to a commit SHA (Guardian Restriction 4),
+      # v4.2.2. No other third-party actions are used.
+      - name: Checkout (read-only)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - name: Run control-layer integrity check
+        run: python3 scripts/check_control_integrity.py

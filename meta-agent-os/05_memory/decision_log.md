@@ -14,9 +14,9 @@
 
 ## Pending Decisions
 
-| # | Decision Needed | Options | Recommended |
+| # | Decision Needed | Options | Status |
 |---|---|---|---|
-| PD2 | v0.6.1 migration execution | (A) Implement full migration now, (B) split into v0.5/v0.6/v0.6.1 commits, (C) keep as noted only | B if preparing a clean public history; A if speed matters |
+| PD2 | v0.6.1 migration execution | (A) Implement full migration now, (B) split into v0.5/v0.6/v0.6.1 commits, (C) keep as noted only | **CLOSED 2026-05-18 → D11 (= D8)** |
 
 ---
 
@@ -45,3 +45,4 @@
 |---|---|---|---|---|---|
 | D9 | 2026-05-18 | Architect | Recommend Architecture Variant B (root is canonical: mirror schemas/validators into root `00_control/`, no manifest change, add a CI drift/lint script, mark self-hosted outputs as example) | Minimum architecture that makes the framework correct from an adopter's root tree without re-pointing dependencies at `versions/` history (Variant A flaw) or pulling v0.5 scope forward (Variant C flaw) | Architect |
 | D10 | 2026-05-18 | Architect | Reject Variant A (re-point manifest at versioned paths) and Variant C (docs site + release automation) for v0.4; C folded into v0.5 roadmap | A reverses the correct dependency direction; C is overbuilt and collides with D8 | Architect |
+| D11 | 2026-05-18 | Guardian gate (PD2 closure) | **PD2 formally CLOSED = D8**: ship a clean v0.4 baseline; keep v0.5/v0.6/v0.6.1 in ROADMAP.md only — no migration code in v0.4 | Satisfies Guardian Restriction 7; aligns with Sophia (D8), Architect, QS; unblocks Builder with unambiguous scope | User |

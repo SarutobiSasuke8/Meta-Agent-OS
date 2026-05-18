@@ -1,0 +1,26 @@
+# QS Costs And Options Schema
+
+Required sections:
+
+1. Executive Summary
+2. Architecture Options Reviewed
+3. Cost Drivers
+4. Variant A Cost Plan
+5. Variant B Cost Plan
+6. Variant C Cost Plan
+7. Infrastructure Options
+8. Model Options
+9. Tooling Options
+10. Human Labour Estimate
+11. Build Timeline
+12. Operating Costs
+13. Maintenance Costs
+14. Risk Contingency
+15. Recommended Phased Plan
+16. Minimum Viable Build
+17. Budget Warnings
+18. Files Created Or Updated
+
+Required quality:
+- Mark estimates as estimates.
+- Avoid fake precision.
