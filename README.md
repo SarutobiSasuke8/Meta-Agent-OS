@@ -154,6 +154,8 @@ Local validation:
 | v0.2 | Agentic Runner | Stage state, gates, resume protocol, Claude commands |
 | v0.4 | Reliability Layer | JSON state, schemas, validators, quality bar, run modes |
 
+Earlier full-tree snapshots are preserved as git tags rather than in-tree folders. Retrieve one with `git checkout v0.1` (or `v0.2` / `v0.4`), or pull a single file with `git checkout v0.4 -- <path>`.
+
 See [ROADMAP.md](ROADMAP.md) for planned milestones.
 
 ---

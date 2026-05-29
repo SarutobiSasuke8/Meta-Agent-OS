@@ -28,7 +28,7 @@ Harden the Meta Agent OS repository structure.
 ./scripts/check-meta-agent-os.ps1 -Strict
 ```
 
-4. If the check fails because expected files are missing and the source is available under `versions/`, restore the missing files from the matching versioned source.
+4. If the check fails because expected files are missing, restore them from a preserved version snapshot. Historical versions are archived as git tags (`v0.1`, `v0.2`, `v0.4`), not in-tree folders. Recover a file with `git checkout <tag> -- <path>` (e.g. `git checkout v0.4 -- versions/v0.4-reliability-layer/meta-agent-os/00_control/...`), or list a snapshot's tree with `git ls-tree -r <tag> versions/`.
 
 5. Keep changes scoped to repo hardening. Do not alter stage methodology unless requested.
 
