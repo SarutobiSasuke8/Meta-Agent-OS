@@ -299,6 +299,39 @@ if ($Strict) {
     }
 }
 
+# STAGE_STATE.json must stay in sync with its human-readable Markdown mirror.
+$stateMdPath = Resolve-RepoPath "meta-agent-os/00_control/STAGE_STATE.md"
+if ($null -ne $stageState -and (Test-Path -LiteralPath $stateMdPath)) {
+    $stateMd = (Get-Content -Raw -LiteralPath $stateMdPath).ToLowerInvariant()
+
+    if ($stageState.current_stage -and -not $stateMd.Contains(([string]$stageState.current_stage).ToLowerInvariant())) {
+        Add-Error "STAGE_STATE.md out of sync: current_stage '$($stageState.current_stage)' from JSON not found in Markdown mirror."
+    }
+    if ($stageState.status -and -not $stateMd.Contains(([string]$stageState.status).ToLowerInvariant())) {
+        Add-Error "STAGE_STATE.md out of sync: status '$($stageState.status)' from JSON not found in Markdown mirror."
+    }
+    foreach ($completed in $stageState.completed_stages) {
+        if (-not $stateMd.Contains(([string]$completed).ToLowerInvariant())) {
+            Add-Error "STAGE_STATE.md out of sync: completed stage '$completed' from JSON not found in Markdown mirror."
+        }
+    }
+}
+
+# README must not document meta-agent-os subdirectories that do not exist.
+$readmePath = Resolve-RepoPath "README.md"
+if (Test-Path -LiteralPath $readmePath) {
+    $readmeContent = Get-Content -Raw -LiteralPath $readmePath
+    $readmeSubdirs = New-Object System.Collections.Generic.HashSet[string]
+    foreach ($match in [regex]::Matches($readmeContent, '/(\d\d_[a-z_]+)')) {
+        [void]$readmeSubdirs.Add($match.Groups[1].Value)
+    }
+    foreach ($sub in $readmeSubdirs) {
+        if (-not (Test-Path -LiteralPath (Resolve-RepoPath "meta-agent-os/$sub"))) {
+            Add-Error "README documents meta-agent-os/$sub but that directory does not exist."
+        }
+    }
+}
+
 if ($errors.Count -gt 0) {
     if ($Json) {
         [ordered]@{

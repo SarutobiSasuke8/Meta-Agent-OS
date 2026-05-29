@@ -95,7 +95,8 @@ Read CLAUDE.md, AGENTS.md, and META_AGENT_BOOTSTRAP.md. Run The Oracle diagnosis
   /00_control       - run manifests, stage state, schemas, validators, modes
   /03_outputs       - stage outputs (diagnosis, research, maps, architecture, costs, risk, build, evals, runtime)
   /05_memory        - project brain, decision log, assumptions log, changelog
-  /07_examples      - skeleton full-run examples
+
+/docs/examples      - worked examples (support triage, research assistant)
 
 CLAUDE.md           - instructions for Claude Code
 AGENTS.md           - instructions for Codex and other coding agents

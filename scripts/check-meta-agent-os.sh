@@ -244,6 +244,28 @@ if strict:
         if re.search(r"TODO:|{{[^}]+}}", content):
             errors.append(f"Strict mode: unresolved placeholder in {item}")
 
+# STAGE_STATE.json must stay in sync with its human-readable Markdown mirror.
+state_md_path = repo_path("meta-agent-os/00_control/STAGE_STATE.md")
+if stage_state and state_md_path.exists():
+    state_md = state_md_path.read_text(encoding="utf-8", errors="replace").lower()
+    current = stage_state.get("current_stage")
+    if current and current.lower() not in state_md:
+        errors.append(f"STAGE_STATE.md out of sync: current_stage '{current}' from JSON not found in Markdown mirror.")
+    status_val = stage_state.get("status")
+    if status_val and status_val.lower() not in state_md:
+        errors.append(f"STAGE_STATE.md out of sync: status '{status_val}' from JSON not found in Markdown mirror.")
+    for completed in stage_state.get("completed_stages", []):
+        if completed.lower() not in state_md:
+            errors.append(f"STAGE_STATE.md out of sync: completed stage '{completed}' from JSON not found in Markdown mirror.")
+
+# README must not document meta-agent-os subdirectories that do not exist.
+readme_path = repo_path("README.md")
+if readme_path.exists():
+    readme_content = readme_path.read_text(encoding="utf-8", errors="replace")
+    for sub in sorted(set(re.findall(r"/(\d\d_[a-z_]+)", readme_content))):
+        if not repo_path(f"meta-agent-os/{sub}").exists():
+            errors.append(f"README documents meta-agent-os/{sub} but that directory does not exist.")
+
 if errors:
     if json_output:
         print(json.dumps({
