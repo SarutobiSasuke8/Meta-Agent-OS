@@ -1,0 +1,33 @@
+{
+  "_comment": "Synthetic example for the support triage worked example. Token counts and volumes are illustrative, not measured.",
+  "workflow": "Support ticket triage (synthetic example)",
+  "runs_per_month": 4000,
+  "build_cost": 18000,
+  "retry_rate": 0.08,
+  "steps": [
+    {
+      "name": "Classify and route",
+      "model": "example-fast-model",
+      "input_tokens": 1800,
+      "cached_input_tokens": 1200,
+      "output_tokens": 250,
+      "calls_per_run": 1
+    },
+    {
+      "name": "Draft reply",
+      "model": "example-frontier-model",
+      "input_tokens": 3200,
+      "output_tokens": 700,
+      "calls_per_run": 1
+    }
+  ],
+  "human_review": {
+    "share_of_runs": 0.25,
+    "minutes_per_review": 4,
+    "loaded_hourly_rate": 42.0
+  },
+  "baseline": {
+    "minutes_per_run_without_agents": 9,
+    "loaded_hourly_rate": 42.0
+  }
+}

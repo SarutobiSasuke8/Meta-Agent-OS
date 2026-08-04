@@ -2,7 +2,7 @@
 
 A Markdown-based operating system for diagnosing, designing, costing, building, testing, and operating multi-agent AI systems.
 
-**Current version:** v0.5 (Public Framework Polish)  
+**Current version:** v0.6 (Inference Economics Layer)  
 **License:** Apache 2.0
 
 ---
@@ -17,7 +17,7 @@ For the deeper product boundary, see [`docs/WHY.md`](docs/WHY.md), [`docs/PUBLIC
 
 ## Current Status
 
-Meta Agent OS v0.5 is complete as the public framework and specification layer. It is not permanently finished, but the current repo should remain focused on methodology, control files, examples, validation, and memory.
+Meta Agent OS v0.6 is complete as the public framework and specification layer. It is not permanently finished, but the current repo should remain focused on methodology, control files, examples, validation, and memory.
 
 Truly agentic runtime behavior should be explored in a separate implementation track rather than added directly to this public repo by default.
 
@@ -150,6 +150,22 @@ Strict mode goes beyond checking that files and headings exist. It also verifies
 
 ---
 
+## Costing An Agent Workflow
+
+The QS stage estimates what a workflow costs to run before it is built.
+
+```bash
+python scripts/roi-calculator.py YOUR_WORKFLOW.json
+```
+
+The calculation, its thresholds, and what it deliberately does not price are defined in [`meta-agent-os/00_control/economics/ROI_METHOD.md`](meta-agent-os/00_control/economics/ROI_METHOD.md). Start from [`TOKEN_BUDGET_TEMPLATE.md`](meta-agent-os/00_control/economics/TOKEN_BUDGET_TEMPLATE.md) for the input shape, and [`docs/examples/roi/`](docs/examples/roi/) for a runnable synthetic example.
+
+Supervision cost is inside the running cost, and a baseline is mandatory. Both are how agent proposals usually overstate their return.
+
+**Meta Agent OS ships no model prices.** Published rates change, and a stale rate produces a confident wrong number. Populate [`MODEL_PRICING.json`](meta-agent-os/00_control/economics/MODEL_PRICING.json) with rates you verified today; strict validation rejects any entry that is undated, unsourced, or older than `max_age_days`.
+
+---
+
 ## Contributing
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for what belongs in this repository and what is routed to the separate runtime track. Report security issues privately per [`SECURITY.md`](SECURITY.md). Participation is governed by [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
@@ -174,8 +190,9 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for what belongs in this repository and
 | v0.2 | Agentic Runner | Stage state, gates, resume protocol, Claude commands |
 | v0.4 | Reliability Layer | JSON state, schemas, validators, quality bar, run modes |
 | v0.5 | Public Framework Polish | Positioning docs, worked examples, substance-level validation, link and provenance checks, community guidelines |
+| v0.6 | Inference Economics Layer | Token budgets, ROI method and calculator, verified-pricing registry, extended QS stage |
 
-Earlier full-tree snapshots are preserved as git tags rather than in-tree folders. Retrieve one with `git checkout v0.1` (or `v0.2` / `v0.4` / `v0.5`), or pull a single file with `git checkout v0.5 -- <path>`.
+Earlier full-tree snapshots are preserved as git tags rather than in-tree folders. Retrieve one with `git checkout v0.1` (or `v0.2` / `v0.4` / `v0.5` / `v0.6`), or pull a single file with `git checkout v0.6 -- <path>`.
 
 See [ROADMAP.md](ROADMAP.md) for planned milestones.
 

@@ -1,0 +1,17 @@
+{
+  "_comment": "Operator-supplied model pricing registry. Ships empty on purpose. Meta Agent OS does not bake in prices, because published rates change and a stale rate is worse than no rate: it produces a confident wrong number. Populate `models` before running a QS cost estimate. Strict validation rejects any entry that is undated, unsourced, or older than max_age_days.",
+  "schema_version": "1.0",
+  "currency": "USD",
+  "unit": "per_1m_tokens",
+  "max_age_days": 90,
+  "models": [],
+  "_example_entry": {
+    "id": "vendor-model-name",
+    "input": 0.0,
+    "output": 0.0,
+    "cached_input": null,
+    "verified_on": "YYYY-MM-DD",
+    "source": "https://vendor.example/pricing",
+    "notes": "Optional. Record tier, region, or contract terms that affect the rate."
+  }
+}

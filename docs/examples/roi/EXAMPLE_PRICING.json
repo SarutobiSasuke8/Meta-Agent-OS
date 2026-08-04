@@ -1,0 +1,27 @@
+{
+  "_comment": "FICTIONAL TEST FIXTURE. These are not any vendor's real rates and must never be used for a real estimate. It exists so the ROI calculator can be exercised without shipping real prices that would silently rot. Real estimates use meta-agent-os/00_control/economics/MODEL_PRICING.json, populated by the operator with rates verified on the day of use.",
+  "schema_version": "1.0",
+  "currency": "USD",
+  "unit": "per_1m_tokens",
+  "max_age_days": 90,
+  "models": [
+    {
+      "id": "example-fast-model",
+      "input": 1.0,
+      "output": 5.0,
+      "cached_input": 0.1,
+      "verified_on": "2026-08-04",
+      "source": "https://example.invalid/pricing - fictional fixture, not a real vendor",
+      "notes": "Fictional. Round numbers chosen to make the arithmetic checkable by hand."
+    },
+    {
+      "id": "example-frontier-model",
+      "input": 10.0,
+      "output": 50.0,
+      "cached_input": 1.0,
+      "verified_on": "2026-08-04",
+      "source": "https://example.invalid/pricing - fictional fixture, not a real vendor",
+      "notes": "Fictional. Round numbers chosen to make the arithmetic checkable by hand."
+    }
+  ]
+}

@@ -35,3 +35,8 @@
 | A20 | Placeholder tokens inside code spans are being discussed rather than left behind, so they should not fail validation | High | Evaluator | Yes - confirmed against the Evaluator failure-mode tests, which name `TODO:` deliberately |
 | A21 | Substance checks raise the floor but still cannot prove an output is correct or insightful | High | Evaluator | Yes - accepted limitation, recorded rather than solved |
 | A22 | Splitting v0.6 and v0.6.1 into separate increments is lower risk than one migration commit | Medium | Architect/QS | No - will be validated when v0.6 is implemented |
+
+| A23 | 90 days is a reasonable default staleness window for model pricing | Medium | QS | No - operators may need shorter windows during rapid pricing changes |
+| A24 | Token counts estimated before a build are assumptions that must be re-measured after real runs | High | QS | Yes - stated in the template and the assumptions discipline |
+| A25 | The ROI thresholds (0.5 marginal, 12-month payback, 50% supervision share) are reasonable defaults | Low | QS | No - chosen as defensible starting points, not derived from data |
+| A26 | This project cannot meaningfully compute its own ROI because its baseline is a counterfactual | High | QS | Yes - recorded as a limitation rather than papered over |

@@ -1,8 +1,8 @@
 # ROADMAP.md
 
-Current stable release: **v0.5 (Public Framework Polish)**
+Current stable release: **v0.6 (Inference Economics Layer)**
 
-v0.5 is complete as the public framework and specification layer. Future runtime execution should be treated as a separate implementation track unless the project deliberately re-scopes this public repo.
+v0.6 is complete as the public framework and specification layer. Future runtime execution should be treated as a separate implementation track unless the project deliberately re-scopes this public repo.
 
 ---
 
@@ -37,18 +37,19 @@ JSON state machine, stage manifest, run modes, output manifest, per-stage schema
 - Community contribution guidelines (`CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, issue templates)
 - Open Core and commercial-pack boundaries clarified
 
+### v0.6 - Inference Economics Layer
+
+- Token budget tooling integrated into the QS stage (`00_control/economics/TOKEN_BUDGET_TEMPLATE.md`)
+- Cost modelling with pricing verified at time of use, enforced by strict validation
+- ROI calculator for agent workflows (`scripts/roi-calculator.py`), with sensitivity ranges
+- QS schema extended with Token Budget, ROI Assessment, and Pricing Verification sections
+- Operator-supplied pricing registry that ships empty on purpose
+
 ---
 
 ## Planned
 
-The remaining migration toward the v0.6.1 target state is deliberately split into two increments rather than shipped as a single migration commit. Each increment must land its own validators; a control that cannot be checked becomes documentation-only.
-
-### v0.6 - Inference Economics Layer
-
-- Token budget tooling integrated into QS stage
-- Cost modelling templates per model, with pricing verified at time of use
-- ROI calculator for agent workflows
-- Inference efficiency guidance in Guardian stage
+The remaining migration toward the v0.6.1 target state is deliberately split rather than shipped as a single migration commit. Each increment must land its own validators; a control that cannot be checked becomes documentation-only.
 
 ### v0.6.1 - Inference Safety Layer
 

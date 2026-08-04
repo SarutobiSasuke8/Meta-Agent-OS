@@ -19,8 +19,15 @@ Required sections:
 15. Recommended Phased Plan
 16. Minimum Viable Build
 17. Budget Warnings
-18. Files Created Or Updated
+18. Token Budget
+19. ROI Assessment
+20. Pricing Verification
+21. Files Created Or Updated
 
 Required quality:
 - Mark estimates as estimates.
 - Avoid fake precision.
+- State the baseline cost of doing the work without agents. Without it, ROI has no denominator.
+- Include supervision cost in the running cost. Review time is part of the agent design, not an externality.
+- Report a sensitivity range, not a single point estimate.
+- Quote rates only from `meta-agent-os/00_control/economics/MODEL_PRICING.json`, verified on the day of use.

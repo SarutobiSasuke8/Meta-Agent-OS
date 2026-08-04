@@ -33,6 +33,7 @@ if [ ${#PYTHON_BIN[@]} -eq 0 ]; then
 fi
 
 "${PYTHON_BIN[@]}" - "$ROOT" "$STRICT" "$JSON_OUTPUT" <<'PY'
+import datetime
 import json
 import re
 import sys
@@ -240,6 +241,12 @@ required_files = [
     "meta-agent-os/00_control/STAGE_STATE.md",
     "meta-agent-os/00_control/JSON_STATE_UPDATE_PROTOCOL.md",
     "meta-agent-os/00_control/validators/GLOBAL_STAGE_VALIDATOR.md",
+    "meta-agent-os/00_control/economics/MODEL_PRICING.json",
+    "meta-agent-os/00_control/economics/TOKEN_BUDGET_TEMPLATE.md",
+    "meta-agent-os/00_control/economics/ROI_METHOD.md",
+    "scripts/roi-calculator.py",
+    "docs/examples/roi/EXAMPLE_WORKFLOW.json",
+    "docs/examples/roi/EXAMPLE_PRICING.json",
     "meta-agent-os/05_memory/project_brain.md",
     "meta-agent-os/05_memory/decision_log.md",
     "meta-agent-os/05_memory/assumptions_log.md",
@@ -392,6 +399,62 @@ if stage_state and state_md_path.exists():
     for completed in stage_state.get("completed_stages", []):
         if completed.lower() not in state_md:
             errors.append(f"STAGE_STATE.md out of sync: completed stage '{completed}' from JSON not found in Markdown mirror.")
+
+# Pricing registry integrity. Rates are inputs, not constants: an undated or
+# unsourced rate produces a confident wrong cost, which is worse than no cost.
+# Mirrors the checks in scripts/roi-calculator.py so the two cannot drift apart.
+pricing = read_json("meta-agent-os/00_control/economics/MODEL_PRICING.json")
+if pricing is not None:
+    max_age = pricing.get("max_age_days")
+    if not isinstance(max_age, int) or max_age <= 0:
+        errors.append("MODEL_PRICING.json must set a positive integer 'max_age_days'.")
+    if not isinstance(pricing.get("models"), list):
+        errors.append("MODEL_PRICING.json must define a 'models' list (empty is valid).")
+    else:
+        today = datetime.date.today()
+        seen_ids = set()
+        for index, entry in enumerate(pricing["models"]):
+            model_id = entry.get("id")
+            if not model_id:
+                errors.append(f"MODEL_PRICING.json entry {index} has no 'id'.")
+                continue
+            if model_id in seen_ids:
+                errors.append(f"MODEL_PRICING.json has a duplicate model id: {model_id}")
+            seen_ids.add(model_id)
+
+            for field in ("input", "output"):
+                if not isinstance(entry.get(field), (int, float)):
+                    errors.append(
+                        f"MODEL_PRICING.json entry '{model_id}' has a non-numeric '{field}' rate."
+                    )
+            if not entry.get("source"):
+                errors.append(
+                    f"MODEL_PRICING.json entry '{model_id}' has no 'source'. "
+                    "An unsourced rate is a guess."
+                )
+
+            raw_date = entry.get("verified_on")
+            try:
+                verified = datetime.date.fromisoformat(str(raw_date))
+            except (TypeError, ValueError):
+                errors.append(
+                    f"MODEL_PRICING.json entry '{model_id}' needs a 'verified_on' ISO date "
+                    f"(YYYY-MM-DD), got: {raw_date!r}"
+                )
+                continue
+
+            if isinstance(max_age, int) and max_age > 0:
+                age = (today - verified).days
+                if age < 0:
+                    errors.append(
+                        f"MODEL_PRICING.json entry '{model_id}' is dated in the future: {verified}."
+                    )
+                elif age > max_age:
+                    errors.append(
+                        f"MODEL_PRICING.json entry '{model_id}' was verified {age} days ago, "
+                        f"exceeding max_age_days={max_age}. Re-verify against current published "
+                        "pricing rather than raising the threshold."
+                    )
 
 # Relative Markdown links must resolve. Renames are the usual way docs rot.
 if strict:

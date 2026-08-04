@@ -9,6 +9,19 @@ Running record of material changes to the framework, newest first.
 
 ---
 
+## 2026-08-04 - v0.6 Inference Economics Layer
+
+- Added `meta-agent-os/00_control/economics/` with `MODEL_PRICING.json`, `TOKEN_BUDGET_TEMPLATE.md`, and `ROI_METHOD.md`.
+- Added `scripts/roi-calculator.py`, which implements the ROI method, prints every term so the number can be argued with, and reports a sensitivity range across token counts, retry rate, and review share.
+- Shipped the pricing registry empty on purpose. Meta Agent OS bakes in no model prices, because a stale rate produces a confident wrong number.
+- Extended strict validation to enforce pricing integrity: every entry needs numeric rates, a `source`, a `verified_on` ISO date, no duplicate ids, and an age within `max_age_days`.
+- Extended the QS schema with Token Budget, ROI Assessment, and Pricing Verification, plus quality rules requiring a baseline, supervision cost inside running cost, and a sensitivity range.
+- Updated `QS_COSTS_AND_OPTIONS.md` against the extended schema, including the honest limitation that this project cannot compute its own ROI because its baseline is a counterfactual.
+- Added a synthetic ROI example and a clearly fictional pricing fixture under `docs/examples/roi/`.
+- Added CI steps that run the calculator against the fixture and assert it refuses to produce a number from the empty default registry.
+
+---
+
 ## 2026-08-04
 
 - Added `CONTRIBUTING.md`, `SECURITY.md`, and `CODE_OF_CONDUCT.md`, completing the v0.5 community guidelines item.
