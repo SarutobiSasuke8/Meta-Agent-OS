@@ -1,0 +1,55 @@
+name: Feature request
+description: Propose an addition to the framework, schemas, validation, or docs
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This repository is a methodology and specification layer, not a runtime.
+        Before proposing, read [PUBLIC_BOUNDARY.md](../../docs/PUBLIC_BOUNDARY.md) and [RUNTIME_TRACK.md](../../docs/RUNTIME_TRACK.md).
+        Runtime execution proposals are routed to the separate runtime track rather than added to the public core.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What breaks or stays unreliable today? Describe the problem, not the solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+
+  - type: dropdown
+    id: boundary
+    attributes:
+      label: Does this stay inside the public core boundary?
+      options:
+        - "Yes - methodology, schemas, validation, docs, or control files"
+        - "No - this is runtime execution and belongs in the runtime track"
+        - "Unsure - please advise"
+    validations:
+      required: true
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: How would this be validated?
+      description: A control that cannot be checked tends to become documentation-only. How would a validator or eval prove this works?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+
+  - type: textarea
+    id: assumptions
+    attributes:
+      label: Assumptions
+      description: What are you assuming rather than verifying? What would confirm it?

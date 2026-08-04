@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/SarutobiSasuke8/Meta-Agent-OS/security/advisories/new
+    about: Report privately. Do not open a public issue for security problems.
+  - name: Question or discussion
+    url: https://github.com/SarutobiSasuke8/Meta-Agent-OS/discussions
+    about: Ask how to apply the framework, or discuss an idea before filing an issue.
+  - name: Contribution guide
+    url: https://github.com/SarutobiSasuke8/Meta-Agent-OS/blob/master/CONTRIBUTING.md
+    about: What belongs in this repository, and how to run validation locally.

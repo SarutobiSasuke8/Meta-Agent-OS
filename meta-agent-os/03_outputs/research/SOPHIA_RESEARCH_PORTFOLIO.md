@@ -221,7 +221,14 @@ Risks include unsupported market claims, unclear public/private boundaries, and 
 
 ## Strategic Implications
 
-MAS should stay focused on agent-system design and governance before implementation.
+Meta Agent OS should stay focused on agent-system design and governance before implementation. The research points to four consequences of that position.
+
+- **Category placement.** Competing on execution against established runtime frameworks would be a losing comparison. The defensible position is upstream of them: the layer that decides whether an agent system should be built at all, and in what shape.
+- **Complementary, not substitutable.** The framework should read as something a team uses *before* and *alongside* a runtime, which widens the addressable audience rather than splitting it.
+- **Credibility comes from restraint.** The Non-Agent Automation Opportunities and anti-agent gating are differentiators precisely because most of the market is incentivised to recommend more agents. That restraint should be made explicit in public positioning.
+- **Validation is the moat.** Methodology is easy to copy and hard to enforce. Machine-checkable schemas, validators, and gates are what make the method reproducible rather than aspirational, so investment belongs there before it goes into breadth.
+
+Market size and adoption figures referenced elsewhere in this portfolio remain unverified and must not be used in public marketing without a cited source.
 
 ## Recommendations For The Cartographer / Architect
 

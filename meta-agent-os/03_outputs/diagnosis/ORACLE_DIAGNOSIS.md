@@ -2,6 +2,7 @@
 
 **Stage:** Oracle  
 **Date:** 2026-04-29  
+**Status:** Complete  
 **Project:** Meta Agent OS  
 **Version In Use:** v0.4 (Reliability Layer)  
 **Run Mode:** Full Run
@@ -215,15 +216,29 @@ Script-fit work includes JSON validation, required file checks, required section
 
 ## Risks
 
-Risks include overengineering, unclear product boundary, unsupported claims, weak validation, and user confusion with runtime frameworks.
+| Risk | Why It Matters |
+|---|---|
+| Overengineering the framework | Ten personas and fifteen required sections can produce ceremony without insight if outputs are not validated for substance. |
+| Unclear product boundary | Users mistake a design-time methodology for a runtime framework and evaluate it against the wrong criteria. |
+| Unsupported market claims | Positioning language that asserts adoption or market size without citation damages credibility on first inspection. |
+| Weak validation | Structural checks that only confirm headings exist allow thin or templated outputs to pass as complete. |
+| Confusion with runtime frameworks | Comparison against LangGraph, CrewAI, or AutoGen frames the project as a weaker version of a different category. |
 
 ## Assumptions
 
-Assumptions are recorded in `meta-agent-os/05_memory/assumptions_log.md`.
+- The repository is the product; there is no separate application whose code this framework serves.
+- The primary operator is a single practitioner using an agentic coding tool, not a large team with a review pipeline.
+- Markdown plus JSON state is sufficient control substrate; no database or service layer is needed at this stage.
+- Human approval gates will be honoured by operators rather than routed around under time pressure.
+- The full assumption register is maintained in `meta-agent-os/05_memory/assumptions_log.md`; the entries above are the ones this diagnosis depends on.
 
 ## Open Questions
 
-Open questions include release positioning, first public example, v0.5 scope, and whether future CLI work belongs in MAS or a separate product.
+- How should the project be positioned publicly so it is not read as a runtime framework?
+- Which worked example best demonstrates the method to a first-time reader?
+- What is the correct scope boundary for v0.5 relative to commercial vertical packs?
+- Does future CLI or runner work belong in this repository or in a separate product?
+- What evidence would show the method produced a better outcome than building directly?
 
 ## Recommended Next Stage
 

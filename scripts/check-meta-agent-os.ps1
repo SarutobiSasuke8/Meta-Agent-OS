@@ -69,6 +69,53 @@ function Get-RequiredSections {
     return $sections
 }
 
+# Sections that must enumerate their content rather than gesture at it.
+$script:EnumeratedSections = @(
+    "assumptions",
+    "risks",
+    "open questions",
+    "files created or updated"
+)
+
+# Minimum non-whitespace characters of body text under a required prose section.
+$script:MinSectionChars = 80
+
+$script:PlaceholderPattern = '\bTBD\b|\bTODO\b|\bFIXME\b|\bXXX\b|lorem ipsum|\{\{[^}]*\}\}|<placeholder'
+
+function Get-SectionBodies {
+    param(
+        [string]$Content,
+        [string]$Section
+    )
+
+    $headings = [regex]::Matches($Content, '(?m)^(#{1,6})[ \t]+(.*?)[ \t]*$')
+    $normalized = $Section.Trim().ToLowerInvariant()
+    $bodies = New-Object System.Collections.Generic.List[string]
+
+    for ($i = 0; $i -lt $headings.Count; $i++) {
+        $level = $headings[$i].Groups[1].Value.Length
+        $title = ($headings[$i].Groups[2].Value -replace '^\d+\.\s*', '').Trim().ToLowerInvariant()
+        if ($title -ne $normalized) { continue }
+
+        $start = $headings[$i].Index + $headings[$i].Length
+        $stop = $Content.Length
+        for ($j = $i + 1; $j -lt $headings.Count; $j++) {
+            if ($headings[$j].Groups[1].Value.Length -le $level) {
+                $stop = $headings[$j].Index
+                break
+            }
+        }
+        $bodies.Add($Content.Substring($start, $stop - $start).Trim())
+    }
+
+    return $bodies
+}
+
+function Test-EnumeratedItem {
+    param([string]$Body)
+    return [bool]([regex]::IsMatch($Body, '(?m)^\s*(?:[-*+]\s+\S|\d+\.\s+\S|\|)'))
+}
+
 function Test-StageOutputSections {
     param(
         [string]$StageName,
@@ -83,9 +130,75 @@ function Test-StageOutputSections {
 
     $content = Get-Content -Raw -LiteralPath $outputResolved
     foreach ($section in Get-RequiredSections $SchemaPath) {
-        $sectionPattern = "(?m)^#{1,4}\s+(?:\d+\.\s+)?$([regex]::Escape($section))(\s|$)"
-        if ($content -notmatch $sectionPattern) {
+        $bodies = Get-SectionBodies $content $section
+        if ($bodies.Count -eq 0) {
             Add-Error "Stage output '$StageName' missing required section from schema: $section"
+            continue
+        }
+
+        # A section may legitimately appear more than once (for example, a schema
+        # alignment addendum). Accept the stage if any occurrence carries substance.
+        # Enumerated sections are judged on having entries; a one-line list is complete.
+        # Prose sections are judged on length, since a single clause is not an analysis.
+        if ($script:EnumeratedSections -contains $section.Trim().ToLowerInvariant()) {
+            $substantive = @($bodies | Where-Object { Test-EnumeratedItem $_ })
+            if ($substantive.Count -eq 0) {
+                Add-Error "Stage output '$StageName' section '$section' must enumerate entries as a list or table, not a single narrative sentence."
+                continue
+            }
+        }
+        else {
+            # A list or table is self-evidently content regardless of length. Only
+            # pure prose has to clear the length bar.
+            $substantive = @($bodies | Where-Object {
+                (Test-EnumeratedItem $_) -or (($_ -replace '\s', '').Length -ge $script:MinSectionChars)
+            })
+            if ($substantive.Count -eq 0) {
+                Add-Error "Stage output '$StageName' section '$section' has no substantive content (needs a list, a table, or at least $($script:MinSectionChars) non-whitespace characters)."
+                continue
+            }
+        }
+
+        foreach ($body in $substantive) {
+            # Placeholder tokens inside code spans or fences are being discussed,
+            # not left behind. Strip them before scanning.
+            $prose = [regex]::Replace($body, '```.*?```', ' ', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+            $prose = [regex]::Replace($prose, '`[^`]*`', ' ')
+            $placeholder = [regex]::Match($prose, $script:PlaceholderPattern, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+            if ($placeholder.Success) {
+                Add-Error "Stage output '$StageName' section '$section' contains an unresolved placeholder: $($placeholder.Value)"
+                break
+            }
+        }
+    }
+}
+
+function Test-StageOutputMetadata {
+    param(
+        [string]$StageName,
+        [string]$OutputPath,
+        [string]$StateUpdated
+    )
+
+    $outputResolved = Resolve-RepoPath $OutputPath
+    if (-not (Test-Path -LiteralPath $outputResolved)) {
+        return
+    }
+
+    $content = Get-Content -Raw -LiteralPath $outputResolved
+
+    # `\r?` keeps these anchored correctly when the file is checked out with CRLF endings.
+    $dateMatch = [regex]::Match($content, '(?m)^\*\*Date:\*\*[ \t]*(\d{4}-\d{2}-\d{2})[ \t]*\r?$')
+    if (-not $dateMatch.Success) {
+        Add-Error "Stage output '$StageName' is missing a '**Date:** YYYY-MM-DD' metadata line."
+    }
+    if (-not [regex]::IsMatch($content, '(?m)^\*\*Status:\*\*[ \t]*\S')) {
+        Add-Error "Stage output '$StageName' is missing a '**Status:**' metadata line."
+    }
+
+    if ($dateMatch.Success -and $StateUpdated) {
+        if ([string]::Compare($dateMatch.Groups[1].Value, $StateUpdated, [System.StringComparison]::Ordinal) -gt 0) {
+            Add-Error "Stage output '$StageName' is dated $($dateMatch.Groups[1].Value) but STAGE_STATE.json last_updated is $StateUpdated. State is stale relative to its own output."
         }
     }
 }
@@ -112,8 +225,14 @@ $requiredFiles = @(
     ".claude/commands/mao-harden.md",
     ".claude/commands/mao-memory.md",
     ".claude/commands/mao-export-pack.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CODE_OF_CONDUCT.md",
     ".github/pull_request_template.md",
     ".github/workflows/meta-agent-os.yml",
+    ".github/ISSUE_TEMPLATE/bug_report.yml",
+    ".github/ISSUE_TEMPLATE/feature_request.yml",
+    ".github/ISSUE_TEMPLATE/config.yml",
     "meta-agent-os/00_control/AGENT_MANIFEST.md",
     "meta-agent-os/00_control/OUTPUT_MANIFEST.json",
     "meta-agent-os/00_control/QUALITY_BAR.md",
@@ -224,6 +343,7 @@ if ($null -ne $stageState -and $null -ne $stageManifest) {
 
         if ($Strict) {
             Test-StageOutputSections $completedStage $manifestEntry.output $manifestEntry.schema
+            Test-StageOutputMetadata $completedStage $manifestEntry.output $stageState.last_updated
         }
 
         if ($null -ne $stageState.stage_status -and $stageState.stage_status.$completedStage -ne "complete") {
@@ -293,7 +413,10 @@ if ($Strict) {
         $resolved = Resolve-RepoPath $file
         if (-not (Test-Path -LiteralPath $resolved)) { continue }
         $content = Get-Content -Raw -LiteralPath $resolved
-        if ($content -match "TODO:|{{[^}]+}}") {
+        # Code spans and fences name these tokens deliberately; only prose counts.
+        $prose = [regex]::Replace($content, '```.*?```', ' ', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+        $prose = [regex]::Replace($prose, '`[^`]*`', ' ')
+        if ($prose -match "TODO:|{{[^}]+}}") {
             Add-Error "Strict mode: unresolved placeholder in $file"
         }
     }
@@ -313,6 +436,46 @@ if ($null -ne $stageState -and (Test-Path -LiteralPath $stateMdPath)) {
     foreach ($completed in $stageState.completed_stages) {
         if (-not $stateMd.Contains(([string]$completed).ToLowerInvariant())) {
             Add-Error "STAGE_STATE.md out of sync: completed stage '$completed' from JSON not found in Markdown mirror."
+        }
+    }
+}
+
+# Relative Markdown links must resolve. Renames are the usual way docs rot.
+if ($Strict) {
+    $skipDirs = @(".git", "node_modules")
+    $markdownFiles = Get-ChildItem -LiteralPath $root -Filter "*.md" -Recurse -File |
+        Where-Object {
+            $relative = $_.FullName.Substring($root.Length).TrimStart('\', '/')
+            $parts = $relative -split '[\\/]'
+            -not ($parts | Where-Object { $skipDirs -contains $_ })
+        }
+
+    foreach ($mdFile in $markdownFiles) {
+        $relFile = ($mdFile.FullName.Substring($root.Length).TrimStart('\', '/')) -replace '\\', '/'
+        $mdContent = Get-Content -Raw -LiteralPath $mdFile.FullName
+        if ($null -eq $mdContent) { continue }
+
+        foreach ($linkMatch in [regex]::Matches($mdContent, '\[[^\]]*\]\(\s*(<[^>]*>|[^)\s]+)')) {
+            $targetRaw = $linkMatch.Groups[1].Value.Trim()
+            if ($targetRaw.StartsWith("<") -and $targetRaw.EndsWith(">")) {
+                $targetRaw = $targetRaw.Substring(1, $targetRaw.Length - 2)
+            }
+            if ([string]::IsNullOrWhiteSpace($targetRaw)) { continue }
+            if ($targetRaw -match '^(https?://|mailto:|#)') { continue }
+
+            $targetClean = ($targetRaw -split '#', 2)[0].Replace("%20", " ")
+            if ([string]::IsNullOrWhiteSpace($targetClean)) { continue }
+
+            if ($targetClean.StartsWith("/")) {
+                $resolvedLink = Resolve-RepoPath $targetClean
+            }
+            else {
+                $resolvedLink = Join-Path $mdFile.DirectoryName ($targetClean -replace '/', '\')
+            }
+
+            if (-not (Test-Path -LiteralPath $resolvedLink)) {
+                Add-Error "Broken relative link in $relFile`: $targetRaw"
+            }
         }
     }
 }

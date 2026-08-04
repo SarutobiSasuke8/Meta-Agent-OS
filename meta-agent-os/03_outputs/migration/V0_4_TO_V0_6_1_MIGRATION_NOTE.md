@@ -45,13 +45,25 @@ Record the changes described in the external migration specification so future M
 
 ## Open Questions
 
-- Should the repo now be upgraded fully to v0.6.1?
-- Should v0.6.1 be implemented as a single migration commit or split into v0.5, v0.6, and v0.6.1 commits?
-- Should the external migration document be copied into this repository as a durable source artifact?
+The three questions raised at the time of writing were resolved on 2026-08-04. They are kept here with their answers rather than deleted.
+
+- Should the repo now be upgraded fully to v0.6.1? **Resolved: no, not in one step.** v0.5 was cut first as its own release.
+- Should v0.6.1 be implemented as a single migration commit or split? **Resolved: split.** v0.5, v0.6, and v0.6.1 are separate increments. See decision D24.
+- Should the external migration document be copied into this repository as a durable source artifact? **Open.** The external path is outside the public repo and may not survive. Copying it in would make this repo self-contained, but the document has not been reviewed for internal or client-identifying material, so it must not be copied until it has.
+
+## Resolution Status - 2026-08-04
+
+| Increment | Status |
+|---|---|
+| v0.5 Public Framework Polish | Released |
+| v0.6 Inference Economics Layer | Planned, not started |
+| v0.6.1 Inference Safety Layer | Planned, not started |
 
 ## Recommended Next Action
 
-Run a controlled Builder migration to v0.6.1 using the migration specification, then validate file presence, JSON state, manifests, schemas, validators, README, AGENTS.md, and CODEX_RUNBOOK.md.
+Implement v0.6 as a controlled Builder increment: token budget tooling in the QS stage, per-model cost templates with pricing verified at time of use, and an ROI calculator. Ship validators alongside the documentation in the same increment, then validate file presence, JSON state, manifests, schemas, validators, README, AGENTS.md, and CODEX_RUNBOOK.md before starting v0.6.1.
+
+Review the external migration specification for internal or client-identifying material before deciding whether to copy it into this public repository.
 
 ## Files Created Or Updated
 

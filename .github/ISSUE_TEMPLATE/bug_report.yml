@@ -1,0 +1,76 @@
+name: Bug report
+description: Something in the framework, validators, or control files is wrong or inconsistent
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For security issues, do not use this form. Follow [SECURITY.md](../../SECURITY.md) instead.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Describe the incorrect or inconsistent behaviour.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run ./scripts/check-meta-agent-os.sh --strict
+        2. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: validator-output
+    attributes:
+      label: Validator output
+      description: Paste the output of the strict check. JSON mode is often the most useful.
+      render: shell
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Validation scripts
+        - Control files or state machine
+        - Schemas or validators
+        - Slash commands or skill adapter
+        - Documentation or worked examples
+        - CI workflow
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Release tag or commit SHA.
+      placeholder: v0.5
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - Windows (PowerShell)
+        - Linux or macOS (bash)
+        - Both
+        - Not applicable
+    validations:
+      required: true

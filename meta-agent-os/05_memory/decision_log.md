@@ -52,3 +52,18 @@
 | D15 | 2026-05-08 | Librarian | Codified v0.4 as complete for now as the public framework/spec layer | The repo is public and should remain the inspectable methodology/control-plane while true runtime execution moves to a separate implementation track | Codex |
 | D16 | 2026-05-15 | Builder/Evaluator | Added release-readiness, runtime-track, and second-example assets without external actions | User asked to progress through all safe internal steps without further intervention | Codex |
 | D17 | 2026-05-15 | Builder/Evaluator | Added JSON output mode to validation scripts and CI strict checks | Machine-readable validator results help future automation without creating a runtime engine | Codex |
+
+---
+
+## Additional Decisions - 2026-08-04
+
+| # | Date | Stage | Decision | Reason | Made By |
+|---|---|---|---|---|---|
+| D18 | 2026-08-04 | Librarian | Cut v0.5 (Public Framework Polish) and tagged it | Every v0.5 roadmap item was already shipped except community guidelines; leaving the release undeclared made the repo look stalled at v0.4 | Claude |
+| D19 | 2026-08-04 | Builder | Added `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, and issue templates | Last outstanding v0.5 item, and the files a public repo is judged on first; `CONTRIBUTING.md` also routes runtime proposals to the separate track instead of rejecting them | Claude |
+| D20 | 2026-08-04 | Evaluator | Extended strict validation from structural checks to substance checks | Heading-presence checks let an empty section pass as complete, which made the framework's own outputs the weakest evidence for its method | Claude |
+| D21 | 2026-08-04 | Evaluator | Required `**Date:**` and `**Status:**` provenance on completed stage outputs, and blocked state older than its own outputs | The prior run left `STAGE_STATE.json` claiming a date earlier than an output it described, with nothing to catch it | Claude |
+| D22 | 2026-08-04 | Evaluator | Added relative Markdown link validation to strict mode rather than a separate CI action | Keeps local and CI behaviour identical and avoids a third tool in a repo that deliberately has no dependencies | Claude |
+| D23 | 2026-08-04 | Builder | Made the bash validator probe for a Python 3 interpreter by execution | The Windows Store `python3` alias is on PATH under Git Bash but only prints an install prompt, so presence checks resolved to a non-functional interpreter | Claude |
+| D24 | 2026-08-04 | Architect/QS | Split the pending v0.6.1 migration into separate v0.6 and v0.6.1 increments | A single migration commit risks leaving state, manifests, schemas, and docs partially updated, which is the exact risk the migration note itself flags | Claude |
+| D25 | 2026-08-04 | Guardian | Kept runtime track work outside this repository | Preserves the public core as the specification layer; R0 and R1 remain the correct first milestones | Claude |

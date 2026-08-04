@@ -13,7 +13,9 @@ It is a methodology, prompt library, specification layer, and control layer. It 
 
 ## Current Version
 
-v0.4 - Reliability Layer. Adds JSON state, schemas, run modes, quality bar, and advancement protocol on top of the v0.2 agentic runner.
+v0.5 - Public Framework Polish. Adds positioning and boundary docs, two worked examples, community guidelines, and validation that checks substance rather than structure alone: section content floors, enumerated-section rules, placeholder detection in prose, stage-output provenance, state-freshness, and relative link resolution.
+
+Built on v0.4 - Reliability Layer, which added JSON state, schemas, run modes, quality bar, and the advancement protocol to the v0.2 agentic runner.
 
 ## Owner
 
@@ -98,3 +100,16 @@ Repo-level completion boundary:
 - The public repo should remain focused on methodology, control files, examples, validation, and memory.
 - Truly agentic runtime behavior should move into a separate private implementation track unless the project deliberately re-scopes this repo.
 - The public boundary is now documented in `docs/PUBLIC_BOUNDARY.md`.
+
+---
+
+## Update - 2026-08-04
+
+v0.5 released. What changed in how this project should be understood:
+
+- The framework's weakest point was that its validation could only prove structure, not substance. A stage output could satisfy every required heading while saying nothing. Strict mode now checks content depth, enumeration, placeholders, provenance, and link integrity.
+- Applying those checks to this repo's own outputs surfaced eight genuinely thin sections, which were deepened rather than waived. The framework is now its own first real test case.
+- The two validator scripts are a behavioural pair. A divergence between them is a defect, not a platform difference. CI runs both on Windows and Ubuntu for exactly this reason.
+- Community guidelines exist and route runtime proposals to the separate track rather than rejecting them, which keeps the public boundary enforceable without being hostile.
+- The path to v0.6.1 is deliberately two increments, not one migration. Each must ship validators with its documentation or its controls become documentation-only.
+- Runtime work still belongs outside this repository. R0 (read-only status runner) and R1 (single-stage local runner) remain the correct first milestones.
