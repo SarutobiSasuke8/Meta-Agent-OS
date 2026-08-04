@@ -116,6 +116,23 @@ function Test-EnumeratedItem {
     return [bool]([regex]::IsMatch($Body, '(?m)^\s*(?:[-*+]\s+\S|\d+\.\s+\S|\|)'))
 }
 
+# Windows PowerShell 5.1 and PowerShell 7 deserialize JSON numbers to different
+# CLR types (int vs long, double vs decimal). Test the value, not its type.
+function Test-IsNumber {
+    param($Value)
+    if ($null -eq $Value) { return $false }
+    if ($Value -is [string] -or $Value -is [bool]) { return $false }
+    return ($Value -is [int] -or $Value -is [long] -or $Value -is [double] -or
+            $Value -is [decimal] -or $Value -is [single] -or $Value -is [byte] -or $Value -is [int16])
+}
+
+function Test-IsPositiveInteger {
+    param($Value)
+    if (-not (Test-IsNumber $Value)) { return $false }
+    $asDouble = [double]$Value
+    return ($asDouble -gt 0 -and $asDouble -eq [math]::Floor($asDouble))
+}
+
 function Test-StageOutputSections {
     param(
         [string]$StageName,
@@ -452,7 +469,8 @@ if ($null -ne $stageState -and (Test-Path -LiteralPath $stateMdPath)) {
 $pricing = Read-JsonFile "meta-agent-os/00_control/economics/MODEL_PRICING.json"
 if ($null -ne $pricing) {
     $maxAge = $pricing.max_age_days
-    if (-not ($maxAge -is [int]) -or $maxAge -le 0) {
+    $maxAgeValid = Test-IsPositiveInteger $maxAge
+    if (-not $maxAgeValid) {
         Add-Error "MODEL_PRICING.json must set a positive integer 'max_age_days'."
     }
     if ($null -eq $pricing.PSObject.Properties['models']) {
@@ -474,8 +492,7 @@ if ($null -ne $pricing) {
             }
 
             foreach ($field in @("input", "output")) {
-                $value = $entry.$field
-                if ($null -eq $value -or -not ($value -is [int] -or $value -is [double] -or $value -is [decimal])) {
+                if (-not (Test-IsNumber $entry.$field)) {
                     Add-Error "MODEL_PRICING.json entry '$modelId' has a non-numeric '$field' rate."
                 }
             }
@@ -495,7 +512,7 @@ if ($null -ne $pricing) {
                 continue
             }
 
-            if ($maxAge -is [int] -and $maxAge -gt 0) {
+            if ($maxAgeValid) {
                 $age = [int]($today - $verified.Date).TotalDays
                 if ($age -lt 0) {
                     Add-Error "MODEL_PRICING.json entry '$modelId' is dated in the future: $($verified.ToString('yyyy-MM-dd'))."
