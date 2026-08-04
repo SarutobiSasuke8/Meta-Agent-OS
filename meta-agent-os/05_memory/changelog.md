@@ -1,5 +1,26 @@
 # changelog.md
 
+**Stage:** Librarian  
+**Date:** 2026-08-04  
+**Status:** Complete  
+**Project:** Meta Agent OS  
+
+Running record of material changes to the framework, newest first.
+
+---
+
+## 2026-08-04
+
+- Added `CONTRIBUTING.md`, `SECURITY.md`, and `CODE_OF_CONDUCT.md`, completing the v0.5 community guidelines item.
+- Added GitHub issue templates (`bug_report.yml`, `feature_request.yml`, `config.yml`) with blank issues disabled and security reports routed privately.
+- Extended strict validation from structural checks to substance checks: required sections must now carry real content, enumerated sections must list entries, and unresolved placeholders in prose fail the build.
+- Added stage-output provenance checks: completed outputs must carry `**Date:**` and `**Status:**` metadata, and `STAGE_STATE.json` may not be older than the outputs it claims to describe.
+- Added relative Markdown link validation across the repository so renames cannot silently rot the docs.
+- Made `scripts/check-meta-agent-os.sh` probe for a working Python 3 interpreter by execution, fixing the Windows Store alias failure under Git Bash.
+- Deepened thin sections surfaced by the new checks in the Oracle, Sophia, and Librarian outputs.
+- Moved the April strategic-steps note out of the repository root into `docs/notes/`.
+- Cut v0.5 (Public Framework Polish) and split the pending migration into separate v0.6 and v0.6.1 increments.
+
 ---
 
 ## 2026-05-15
@@ -79,7 +100,13 @@ The 2026-05-06 run converted Meta Agent OS from a partially hardened v0.4 framew
 
 ## Next Maintenance Action
 
-Add a release checklist and review Sophia market claims before public launch.
+The release checklist and the Sophia market-claim review are both done, and v0.5 has been cut. The next maintenance actions, in order:
+
+1. Implement the v0.6 Inference Economics Layer as its own increment: token budget tooling in the QS stage, per-model cost templates with pricing verified at time of use, and an ROI calculator for agent workflows.
+2. Implement the v0.6.1 Inference Safety Layer separately: anti-agent gating formalised in Oracle, agent suitability scoring, ROI threshold checks before Architect advances, and inference risk profiles in Guardian.
+3. Stand up R0 and R1 of the runtime track outside this repository, per `docs/RUNTIME_TRACK.md`.
+
+Each increment must add validators alongside its documentation, or the new controls become documentation-only.
 
 ## Files Created Or Updated
 

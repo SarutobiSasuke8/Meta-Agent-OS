@@ -26,12 +26,21 @@ The repo is ready for internal use when strict validation passes and all stage o
 | Stage state | `STAGE_STATE.json` and `STAGE_STATE.md` agree |
 | Outputs | Every completed stage has the expected output file |
 | Schemas | Completed stage outputs include required schema sections |
-| Validation | PowerShell strict validation passes |
+| Substance | Required sections carry real content; Assumptions, Risks, Open Questions, and file lists enumerate entries |
+| Placeholders | No unresolved `TBD`, `TODO`, `FIXME`, or `{{template}}` markers in prose |
+| Provenance | Every completed stage output carries `**Date:**` and `**Status:**` metadata |
+| State freshness | `STAGE_STATE.json` `last_updated` is not older than any output it describes |
+| Links | Every relative Markdown link resolves |
+| Validation | Strict validation passes in both PowerShell and Bash, in plain and JSON modes |
+| Validator parity | Both scripts report the same findings; a divergence is a defect, not a platform difference |
 | CI | GitHub workflow runs strict PowerShell and Bash checks |
 | Examples | Public examples use synthetic data only |
 | Claims | Market, adoption, pricing, and benchmark claims are cited, softened, or marked unverified |
 | External actions | No deployment, publishing, credentials, or paid services are required |
+| Community files | `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, and issue templates are present and current |
+| Version | README, ROADMAP, `STAGE_STATE.json`, and `project_brain.md` all name the same version |
 | Memory | Project brain, decision log, assumptions log, and changelog are current |
+| Tag | The release is tagged, and the tag is pushed |
 
 ## Release Commands
 
@@ -58,7 +67,8 @@ Bash:
 
 - Users may expect autonomous runtime behaviour because of the word "OS".
 - Unsupported market claims may be copied into public materials without verification.
-- Stage outputs can pass structural validation while still needing human editorial review.
+- Stage outputs can pass substance validation while still needing human editorial review. The checks raise the floor; they cannot prove an output is correct or insightful.
+- Content floors are tunable heuristics. An author who wants to pad a section can still pass them, which is why editorial review stays on this list.
 
 ## Open Questions
 

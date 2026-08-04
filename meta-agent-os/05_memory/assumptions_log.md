@@ -22,3 +22,16 @@
 | A14 | A research-assistant example is a useful second synthetic example because it stresses citations, monitoring, and human review gates | Medium | Builder | Partially - created, needs human review |
 | A15 | JSON validator output is useful for future CI, dashboards, or runtime-track tooling | High | Builder/Evaluator | Yes - implemented for PowerShell and Bash validators |
 | A16 | Runtime work should begin as a separate read-only/status runner before any autonomous external actions | High | Guardian/Orchestrator | Yes - documented in runtime track |
+
+---
+
+## Additional Assumptions - 2026-08-04
+
+| # | Assumption | Confidence | Stage | Validated? |
+|---|---|---|---|---|
+| A17 | An 80 non-whitespace character floor is a reasonable proxy for a substantive prose section | Medium | Evaluator | Partially - tuned against the existing ten stage outputs, not against external ones |
+| A18 | Assumptions, Risks, Open Questions, and file lists are the sections where a narrative sentence is most likely to hide missing work | Medium | Evaluator | Partially - based on the thin sections this repo actually contained |
+| A19 | A stage output dated later than `STAGE_STATE.json.last_updated` always indicates stale state rather than a legitimate pattern | Medium | Evaluator | Partially - held for every case in this repo |
+| A20 | Placeholder tokens inside code spans are being discussed rather than left behind, so they should not fail validation | High | Evaluator | Yes - confirmed against the Evaluator failure-mode tests, which name `TODO:` deliberately |
+| A21 | Substance checks raise the floor but still cannot prove an output is correct or insightful | High | Evaluator | Yes - accepted limitation, recorded rather than solved |
+| A22 | Splitting v0.6 and v0.6.1 into separate increments is lower risk than one migration commit | Medium | Architect/QS | No - will be validated when v0.6 is implemented |

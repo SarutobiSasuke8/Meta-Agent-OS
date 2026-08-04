@@ -13,7 +13,26 @@ for arg in "$@"; do
   esac
 done
 
-python3 - "$ROOT" "$STRICT" "$JSON_OUTPUT" <<'PY'
+# Resolve a Python 3 interpreter. Git Bash on Windows often exposes only the `py` launcher.
+# Candidates are probed by execution, not by presence: the Windows Store aliases for
+# `python`/`python3` exist on PATH but only print an install prompt when run.
+PYTHON_BIN=()
+probe='import sys; sys.exit(0 if sys.version_info[0] == 3 else 1)'
+for candidate in "python3" "python" "py -3"; do
+  # shellcheck disable=SC2086
+  if $candidate -c "$probe" >/dev/null 2>&1; then
+    # shellcheck disable=SC2206
+    PYTHON_BIN=($candidate)
+    break
+  fi
+done
+
+if [ ${#PYTHON_BIN[@]} -eq 0 ]; then
+  echo "Python 3 is required to run this check. Tried: python3, python, py -3." >&2
+  exit 2
+fi
+
+"${PYTHON_BIN[@]}" - "$ROOT" "$STRICT" "$JSON_OUTPUT" <<'PY'
 import json
 import re
 import sys
@@ -61,15 +80,121 @@ def required_sections(schema_path: str):
     return sections
 
 
+# Sections that must enumerate their content rather than gesture at it.
+ENUMERATED_SECTIONS = {
+    "assumptions",
+    "risks",
+    "open questions",
+    "files created or updated",
+}
+
+# Minimum non-whitespace characters of body text under a required section.
+MIN_SECTION_CHARS = 80
+
+PLACEHOLDER_PATTERN = re.compile(
+    r"\bTBD\b|\bTODO\b|\bFIXME\b|\bXXX\b|lorem ipsum|\{\{[^}]*\}\}|<placeholder",
+    re.IGNORECASE,
+)
+
+HEADING_PATTERN = re.compile(r"(?m)^(#{1,6})\s+(.*?)\s*$")
+
+
+def section_bodies(content: str, section: str):
+    """Return every body block that sits under a heading matching `section`."""
+    headings = [
+        (match.start(), match.end(), len(match.group(1)), match.group(2))
+        for match in HEADING_PATTERN.finditer(content)
+    ]
+    normalized = section.strip().lower()
+    bodies = []
+    for index, (_, end, level, title) in enumerate(headings):
+        clean_title = re.sub(r"^\d+\.\s*", "", title).strip().lower()
+        if clean_title != normalized:
+            continue
+        stop = len(content)
+        for later_start, _, later_level, _ in headings[index + 1:]:
+            if later_level <= level:
+                stop = later_start
+                break
+        bodies.append(content[end:stop].strip())
+    return bodies
+
+
+def has_enumerated_item(body: str) -> bool:
+    return bool(re.search(r"(?m)^\s*(?:[-*+]\s+\S|\d+\.\s+\S|\|)", body))
+
+
 def check_stage_sections(stage_name: str, output_path: str, schema_path: str):
     target = repo_path(output_path)
     if not target.exists():
         return
     content = target.read_text(encoding="utf-8", errors="replace")
     for section in required_sections(schema_path):
-        pattern = r"(?m)^#{1,4}\s+(?:\d+\.\s+)?" + re.escape(section) + r"(\s|$)"
-        if not re.search(pattern, content):
+        bodies = section_bodies(content, section)
+        if not bodies:
             errors.append(f"Stage output '{stage_name}' missing required section from schema: {section}")
+            continue
+
+        # A section may legitimately appear more than once (for example, a schema
+        # alignment addendum). Accept the stage if any occurrence carries substance.
+        # Enumerated sections are judged on having entries; a one-line list is complete.
+        # Prose sections are judged on length, since a single clause is not an analysis.
+        if section.strip().lower() in ENUMERATED_SECTIONS:
+            substantive = [b for b in bodies if has_enumerated_item(b)]
+            if not substantive:
+                errors.append(
+                    f"Stage output '{stage_name}' section '{section}' must enumerate entries "
+                    "as a list or table, not a single narrative sentence."
+                )
+                continue
+        else:
+            # A list or table is self-evidently content regardless of length. Only
+            # pure prose has to clear the length bar.
+            substantive = [
+                b for b in bodies
+                if has_enumerated_item(b) or len(re.sub(r"\s", "", b)) >= MIN_SECTION_CHARS
+            ]
+            if not substantive:
+                errors.append(
+                    f"Stage output '{stage_name}' section '{section}' has no substantive content "
+                    f"(needs a list, a table, or at least {MIN_SECTION_CHARS} non-whitespace characters)."
+                )
+                continue
+
+        for body in substantive:
+            # Placeholder tokens inside code spans or fences are being discussed,
+            # not left behind. Strip them before scanning.
+            prose = re.sub(r"```.*?```", " ", body, flags=re.DOTALL)
+            prose = re.sub(r"`[^`]*`", " ", prose)
+            placeholder = PLACEHOLDER_PATTERN.search(prose)
+            if placeholder:
+                errors.append(
+                    f"Stage output '{stage_name}' section '{section}' contains an unresolved "
+                    f"placeholder: {placeholder.group(0)}"
+                )
+                break
+
+
+def check_stage_metadata(stage_name: str, output_path: str, state_updated: str):
+    """Completed outputs must carry their own provenance, and state must not lag them."""
+    target = repo_path(output_path)
+    if not target.exists():
+        return
+    content = target.read_text(encoding="utf-8", errors="replace")
+
+    date_match = re.search(r"(?m)^\*\*Date:\*\*\s*(\d{4}-\d{2}-\d{2})\s*$", content)
+    if not date_match:
+        errors.append(
+            f"Stage output '{stage_name}' is missing a '**Date:** YYYY-MM-DD' metadata line."
+        )
+    if not re.search(r"(?m)^\*\*Status:\*\*\s*\S", content):
+        errors.append(f"Stage output '{stage_name}' is missing a '**Status:**' metadata line.")
+
+    if date_match and state_updated and date_match.group(1) > state_updated:
+        errors.append(
+            f"Stage output '{stage_name}' is dated {date_match.group(1)} but STAGE_STATE.json "
+            f"last_updated is {state_updated}. State is stale relative to its own output."
+        )
 
 
 required_files = [
@@ -94,8 +219,14 @@ required_files = [
     ".claude/commands/mao-harden.md",
     ".claude/commands/mao-memory.md",
     ".claude/commands/mao-export-pack.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CODE_OF_CONDUCT.md",
     ".github/pull_request_template.md",
     ".github/workflows/meta-agent-os.yml",
+    ".github/ISSUE_TEMPLATE/bug_report.yml",
+    ".github/ISSUE_TEMPLATE/feature_request.yml",
+    ".github/ISSUE_TEMPLATE/config.yml",
     "meta-agent-os/00_control/AGENT_MANIFEST.md",
     "meta-agent-os/00_control/OUTPUT_MANIFEST.json",
     "meta-agent-os/00_control/QUALITY_BAR.md",
@@ -192,6 +323,7 @@ if stage_state and stage_manifest:
         required(manifest_entry["output"], "completed stage output")
         if strict:
             check_stage_sections(completed, manifest_entry["output"], manifest_entry["schema"])
+            check_stage_metadata(completed, manifest_entry["output"], stage_state.get("last_updated", ""))
         if stage_status.get(completed) != "complete":
             errors.append(f"STAGE_STATE completed stage '{completed}' is not marked complete in stage_status.")
 
@@ -241,7 +373,10 @@ if strict:
         if not target.exists():
             continue
         content = target.read_text(encoding="utf-8", errors="replace")
-        if re.search(r"TODO:|{{[^}]+}}", content):
+        # Code spans and fences name these tokens deliberately; only prose counts.
+        prose = re.sub(r"```.*?```", " ", content, flags=re.DOTALL)
+        prose = re.sub(r"`[^`]*`", " ", prose)
+        if re.search(r"TODO:|{{[^}]+}}", prose):
             errors.append(f"Strict mode: unresolved placeholder in {item}")
 
 # STAGE_STATE.json must stay in sync with its human-readable Markdown mirror.
@@ -257,6 +392,31 @@ if stage_state and state_md_path.exists():
     for completed in stage_state.get("completed_stages", []):
         if completed.lower() not in state_md:
             errors.append(f"STAGE_STATE.md out of sync: completed stage '{completed}' from JSON not found in Markdown mirror.")
+
+# Relative Markdown links must resolve. Renames are the usual way docs rot.
+if strict:
+    skip_dirs = {".git", "node_modules"}
+    link_pattern = re.compile(r"\[[^\]]*\]\(\s*(<[^>]*>|[^)\s]+)")
+    for md_file in sorted(root.rglob("*.md")):
+        if any(part in skip_dirs for part in md_file.relative_to(root).parts):
+            continue
+        rel_file = md_file.relative_to(root).as_posix()
+        content = md_file.read_text(encoding="utf-8", errors="replace")
+        for match in link_pattern.finditer(content):
+            target_raw = match.group(1).strip()
+            if target_raw.startswith("<") and target_raw.endswith(">"):
+                target_raw = target_raw[1:-1]
+            if not target_raw or target_raw.startswith(("http://", "https://", "mailto:", "#")):
+                continue
+            target_clean = target_raw.split("#", 1)[0].replace("%20", " ")
+            if not target_clean:
+                continue
+            if target_clean.startswith("/"):
+                resolved = repo_path(target_clean)
+            else:
+                resolved = (md_file.parent / target_clean).resolve()
+            if not resolved.exists():
+                errors.append(f"Broken relative link in {rel_file}: {target_raw}")
 
 # README must not document meta-agent-os subdirectories that do not exist.
 readme_path = repo_path("README.md")

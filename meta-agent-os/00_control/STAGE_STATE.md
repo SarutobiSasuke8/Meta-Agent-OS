@@ -30,11 +30,11 @@ No
 
 ## Last Updated
 
-2026-05-15
+2026-08-04
 
 ## Current Objective
 
-Full Meta Agent OS improvement run complete. Release checklist, runtime-track boundary, second worked example, JSON validator output, and state-reference cleanup have been added.
+v0.5 Public Framework Polish released. Community guidelines, issue templates, substance-level strict validation, stage-output provenance checks, and relative link validation are in place. Next increments are v0.6 (Inference Economics) and v0.6.1 (Inference Safety), to be shipped separately.
 
 ## Stage Checklist
 
