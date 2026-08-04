@@ -40,3 +40,9 @@
 | A24 | Token counts estimated before a build are assumptions that must be re-measured after real runs | High | QS | Yes - stated in the template and the assumptions discipline |
 | A25 | The ROI thresholds (0.5 marginal, 12-month payback, 50% supervision share) are reasonable defaults | Low | QS | No - chosen as defensible starting points, not derived from data |
 | A26 | This project cannot meaningfully compute its own ROI because its baseline is a counterfactual | High | QS | Yes - recorded as a limitation rather than papered over |
+
+| A27 | The four anti-agent gate conditions are the right preconditions | Medium | Oracle | No - derived from common agent-project failure patterns, not from a study |
+| A28 | The scoring bands (8/14/19) are reasonable cut points | Low | Oracle | No - chosen as defensible starting points; expect to tune after real use |
+| A29 | Guardian is the stage most damaged by a weaker model, because its failures are silent | Medium | Guardian | No - reasoned, not measured |
+| A30 | Requiring justifications meaningfully improves score quality rather than just adding friction | Medium | Evaluator | No - will be validated by whether review discussions land on specific dimensions |
+| A31 | Operators will honour a non-zero exit as a stop rather than routing around it | Medium | Architect | No - the gate is enforceable in a pipeline but not enforced against a determined operator |

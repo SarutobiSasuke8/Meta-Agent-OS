@@ -34,7 +34,7 @@ No
 
 ## Current Objective
 
-v0.6 Inference Economics Layer released. Token budget template, ROI method, ROI calculator, and an operator-supplied pricing registry with enforced verification dates are in place. QS stage extended with Token Budget, ROI Assessment, and Pricing Verification sections. Next increment is v0.6.1 (Inference Safety Layer).
+v0.6.1 Inference Safety Layer released. Anti-agent gate formalised in Oracle, agent suitability scoring with enforced justifications, suitability and ROI threshold gates before Architect, and Guardian extended with task criticality, model quality floors, and inference risk profiles. The v0.4-to-v0.6.1 migration is complete.
 
 ## Stage Checklist
 

@@ -2,7 +2,7 @@
 
 A Markdown-based operating system for diagnosing, designing, costing, building, testing, and operating multi-agent AI systems.
 
-**Current version:** v0.6 (Inference Economics Layer)  
+**Current version:** v0.6.1 (Inference Safety Layer)  
 **License:** Apache 2.0
 
 ---
@@ -17,7 +17,7 @@ For the deeper product boundary, see [`docs/WHY.md`](docs/WHY.md), [`docs/PUBLIC
 
 ## Current Status
 
-Meta Agent OS v0.6 is complete as the public framework and specification layer. It is not permanently finished, but the current repo should remain focused on methodology, control files, examples, validation, and memory.
+Meta Agent OS v0.6.1 is complete as the public framework and specification layer. It is not permanently finished, but the current repo should remain focused on methodology, control files, examples, validation, and memory.
 
 Truly agentic runtime behavior should be explored in a separate implementation track rather than added directly to this public repo by default.
 
@@ -150,6 +150,22 @@ Strict mode goes beyond checking that files and headings exist. It also verifies
 
 ---
 
+## Should This Be An Agent?
+
+The Oracle stage runs an anti-agent gate before any design work. Its default answer is no; an agent has to be argued for.
+
+```bash
+python scripts/agent-suitability.py YOUR_ASSESSMENT.json
+```
+
+Four conditions must all hold, and six dimensions are scored with mandatory justifications. `tolerance_for_error` and `recoverability` are critical: a zero on either caps the workflow at Not Suitable no matter how valuable it is. The tool exits non-zero when it blocks, so [`STAGE_GATES.md`](meta-agent-os/00_control/STAGE_GATES.md) can enforce it rather than rely on someone remembering.
+
+Concluding that a workflow does **not** need agents is a valid and valuable output. See [`ANTI_AGENT_GATE.md`](meta-agent-os/00_control/safety/ANTI_AGENT_GATE.md) and [`AGENT_SUITABILITY_SCORING.md`](meta-agent-os/00_control/safety/AGENT_SUITABILITY_SCORING.md).
+
+Model choice carries its own risks, covered in [`INFERENCE_RISK_PROFILES.md`](meta-agent-os/00_control/safety/INFERENCE_RISK_PROFILES.md): task criticality tiers, model quality floors, local-model limits, and escalation paths. A cost saving that drops a step below its tier floor is not a saving.
+
+---
+
 ## Costing An Agent Workflow
 
 The QS stage estimates what a workflow costs to run before it is built.
@@ -191,8 +207,9 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for what belongs in this repository and
 | v0.4 | Reliability Layer | JSON state, schemas, validators, quality bar, run modes |
 | v0.5 | Public Framework Polish | Positioning docs, worked examples, substance-level validation, link and provenance checks, community guidelines |
 | v0.6 | Inference Economics Layer | Token budgets, ROI method and calculator, verified-pricing registry, extended QS stage |
+| v0.6.1 | Inference Safety Layer | Anti-agent gate, suitability scoring, suitability and ROI gates before Architect, model quality floors |
 
-Earlier full-tree snapshots are preserved as git tags rather than in-tree folders. Retrieve one with `git checkout v0.1` (or `v0.2` / `v0.4` / `v0.5` / `v0.6`), or pull a single file with `git checkout v0.6 -- <path>`.
+Earlier full-tree snapshots are preserved as git tags rather than in-tree folders. Retrieve one with `git checkout v0.1` (or `v0.2` / `v0.4` / `v0.5` / `v0.6` / `v0.6.1`), or pull a single file with `git checkout v0.6.1 -- <path>`.
 
 See [ROADMAP.md](ROADMAP.md) for planned milestones.
 

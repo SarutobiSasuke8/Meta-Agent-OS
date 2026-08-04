@@ -192,7 +192,44 @@ For this repo, kill switch means stop the run and do not advance stage state if:
 - A risky external action is requested without approval.
 - Validation fails.
 
-## 16. Guardian Verdict
+## 16. Task Criticality And Model Floors
+
+Added 2026-08-04 with the v0.6.1 Inference Safety Layer. Tiers and floors are defined in `meta-agent-os/00_control/safety/INFERENCE_RISK_PROFILES.md`.
+
+Applied to operating this framework:
+
+| Stage | Criticality | Reasoning | Model Floor |
+|---|---|---|---|
+| Oracle | C2 | A wrong diagnosis misdirects everything downstream, but it is reviewed before it drives a build | Mid-tier or better |
+| Sophia | C2 | Unsupported claims that reach public materials cause reputational damage | Mid-tier or better |
+| Cartographer | C3 | Mapping errors are visible and cheap to correct | Any model passing evals |
+| Architect | C2 | Architecture choices are expensive to reverse after a build starts | Mid-tier or better |
+| QS | C2 | Cost errors drive investment decisions | Mid-tier or better |
+| Guardian | C1 | This stage is the safety control. A missed risk is exactly the failure nobody catches downstream | Highest available; no local substitution |
+| Builder | C3 | Output is code and docs, reviewed before merge | Any model passing evals |
+| Evaluator | C2 | Weak evals create false confidence, which is worse than no evals | Mid-tier or better |
+| Orchestrator | C3 | Routing decisions are visible in state files | Any model passing evals |
+| Librarian | C3 | Memory errors are correctable and version-controlled | Any model passing evals |
+
+Guardian is the only C1 stage, and deliberately so. It is the stage whose failure is silent: a risk that is never surfaced produces no error message. Downgrading the model on this stage to save cost moves spend from the inference budget to the failure budget, where it is larger and harder to see.
+
+## 17. Inference Risk Profile
+
+| Risk | Applies Here | Control |
+|---|---|---|
+| Silent capability gap | Yes | A weaker model produces fluent, plausible stage outputs. Substance validation raises the floor but cannot detect confident wrongness. Human review remains required. |
+| No vendor safety layer | Low | The framework produces documents, not actions. It holds no credentials and takes no external actions. |
+| Unversioned local drift | Yes, if local models are used | Record the model and quantisation used for each stage output; re-run evals after any change. |
+| False privacy assurance | Yes | Local inference protects repository content from a vendor, not from an unsecured host or logs. |
+| Eval debt | Yes | This is the live gap. The framework defines eval requirements but has no automated evals of stage-output *quality*, only of structure and substance. |
+
+**Escalation:** where a cheaper model runs a C3 stage, escalate to a mid-tier model on refusal, malformed output, or a validation failure that persists after one retry. Escalations must be recorded in the Orchestrator runtime log. An escalation rate that climbs is the earliest signal that the cheaper model was the wrong choice.
+
+**Local versus hosted:** local models are permitted for C3 stages, permitted for C2 only with a parity eval on the real task, and not permitted for Guardian.
+
+**Honest limitation:** the parity evals this profile requires do not yet exist in this repository. Until they do, local substitution for C2 stages is a hypothesis, not an approved option. This is recorded as eval debt rather than waived.
+
+## 18. Guardian Verdict
 
 Approved with restrictions.
 
@@ -204,9 +241,10 @@ Restrictions:
 - Use synthetic example data only.
 - Clean unsupported claims before public marketing.
 
-## 17. Files Created Or Updated
+## 19. Files Created Or Updated
 
 - `meta-agent-os/03_outputs/risk/GUARDIAN_RISK_SECURITY_REVIEW.md`
+- `meta-agent-os/00_control/safety/INFERENCE_RISK_PROFILES.md`
 
 ## Assumptions
 

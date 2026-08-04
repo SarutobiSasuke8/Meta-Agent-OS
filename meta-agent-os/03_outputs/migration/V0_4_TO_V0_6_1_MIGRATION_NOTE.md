@@ -56,14 +56,19 @@ The three questions raised at the time of writing were resolved on 2026-08-04. T
 | Increment | Status |
 |---|---|
 | v0.5 Public Framework Polish | Released |
-| v0.6 Inference Economics Layer | Planned, not started |
-| v0.6.1 Inference Safety Layer | Planned, not started |
+| v0.6 Inference Economics Layer | Released |
+| v0.6.1 Inference Safety Layer | Released |
+
+The migration is complete. It shipped as three increments, each with its own validators, rather than as a single migration commit. The partial-update risk recorded in the Findings section above did not materialise: strict validation passed at every step, and the two validator scripts were kept in behavioural parity throughout.
 
 ## Recommended Next Action
 
-Implement v0.6 as a controlled Builder increment: token budget tooling in the QS stage, per-model cost templates with pricing verified at time of use, and an ROI calculator. Ship validators alongside the documentation in the same increment, then validate file presence, JSON state, manifests, schemas, validators, README, AGENTS.md, and CODEX_RUNBOOK.md before starting v0.6.1.
+The migration is done. Two follow-ups remain, neither blocking:
 
-Review the external migration specification for internal or client-identifying material before deciding whether to copy it into this public repository.
+1. Build the parity evals that `INFERENCE_RISK_PROFILES.md` requires before local model substitution can be approved for C2 stages. Until they exist, local substitution is a hypothesis and is recorded as eval debt.
+2. Review the external migration specification for internal or client-identifying material before deciding whether to copy it into this public repository. This remains the one open question from the original note.
+
+Substantial further work belongs to the runtime track, outside this repository. See `docs/RUNTIME_TRACK.md`.
 
 ## Files Created Or Updated
 

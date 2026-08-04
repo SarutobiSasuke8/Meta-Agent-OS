@@ -17,8 +17,16 @@ Required sections:
 13. Human Approval Gates
 14. Monitoring Requirements
 15. Kill Switch Requirements
-16. Guardian Verdict
-17. Files Created Or Updated
+16. Task Criticality And Model Floors
+17. Inference Risk Profile
+18. Guardian Verdict
+19. Files Created Or Updated
+
+Required quality:
+- Classify each step by task criticality (C1, C2, C3) before choosing a model for it.
+- State the model quality floor per tier and name any step that sits below it.
+- Define the escalation trigger, target, budget, and logging for cheaper or local models.
+- A favourable ROI does not override a Guardian block.
 
 Required verdict:
 - Approved for prototype

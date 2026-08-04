@@ -43,11 +43,30 @@ Stop only if workflow context is too thin to map meaningfully.
 
 ### Architect
 
-May run automatically.
+May run automatically **only after the suitability gate passes.**
 
 Must include at least one lightweight option.
 
 Do not assume complex multi-agent architecture is required.
+
+#### Suitability Gate (added v0.6.1)
+
+Architect must not advance when any of the following holds. Each is a stop, not a warning.
+
+| Condition | Source | Action |
+|---|---|---|
+| Any anti-agent gate condition fails | `scripts/agent-suitability.py` exits non-zero | Stop. Report the finding and recommend the deterministic alternative. |
+| Suitability band is Not Suitable | Total 0-8, or a zero on `tolerance_for_error` or `recoverability` | Stop. Build deterministic automation instead. |
+| Suitability band is Marginal | Total 9-14 | Stop for human decision. Proceed only with an explicit, recorded justification and a narrowed scope. |
+| ROI is negative | `scripts/roi-calculator.py` | Stop. Running cost exceeds the baseline. |
+| ROI is between 0 and 0.5 | `scripts/roi-calculator.py` | Stop for human decision. Proceed only if a named non-cost benefit justifies it. |
+| The verdict flips inside the sensitivity range | `scripts/roi-calculator.py` | Stop. Run a measured pilot before committing to a build. |
+
+Run suitability **before** ROI. A workflow that fails the gate should never reach a cost model, because the cost of the wrong architecture is not a useful number.
+
+Both tools exit non-zero when they block, so this gate can be enforced in a pipeline rather than remembered.
+
+A blocked advancement is a successful outcome for the framework. It is cheaper to stop here than after a build.
 
 ### QS
 
