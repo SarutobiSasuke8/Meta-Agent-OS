@@ -1,0 +1,15 @@
+# Normalize line endings in the repo to LF; check out per-platform as needed.
+* text=auto eol=lf
+
+# Shell scripts MUST stay LF — CRLF breaks bash on the Linux CI runner.
+*.sh text eol=lf
+
+# PowerShell scripts use CRLF on checkout (Windows convention; pwsh accepts both).
+*.ps1 text eol=crlf
+
+# Treat archives and images as binary so Git never rewrites them.
+*.zip binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.pdf binary

@@ -15,23 +15,23 @@ Use:
 Or paste:
 
 ```text
-Read STAGE_STATE.md and RESUME_PROTOCOL.md. Continue the Meta Agent OS from the latest incomplete stage.
+Read STAGE_STATE.json, STAGE_STATE.md, and RESUME_PROTOCOL.md. Continue the Meta Agent OS from the latest incomplete stage.
 ```
 
 ## Resume Steps
 
-1. Read `STAGE_STATE.md`.
+1. Read `STAGE_STATE.json` as the source of truth and `STAGE_STATE.md` as the human-readable mirror.
 2. Read the last completed output file.
 3. Verify whether the stage marked as complete actually has an output.
 4. Check `STAGE_GATES.md`.
 5. Continue from the first incomplete stage.
 6. Do not redo completed stages unless the user asks for a revision.
 7. If a prior output is weak or missing required fields, improve it before advancing.
-8. Update `STAGE_STATE.md` after the next stage.
+8. Update `STAGE_STATE.json` after the next stage and mirror the change in `STAGE_STATE.md`.
 
 ## Recovery Rules
 
-### If `STAGE_STATE.md` is missing
+### If `STAGE_STATE.json` is missing
 
 Recreate it by inspecting files in:
 

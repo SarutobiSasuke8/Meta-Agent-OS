@@ -92,7 +92,7 @@ If the user asks to run the full Meta Agent OS, use:
 /meta-agent-os/00_control/RUN_META_AGENT_OS.md
 ```
 
-Progress through stages in order, updating `STAGE_STATE.md` after each stage. Stop at human decision gates defined in `STAGE_GATES.md`.
+Progress through stages in order, updating `STAGE_STATE.json` after each stage and keeping `STAGE_STATE.md` synchronized as the human-readable mirror. Stop at human decision gates defined in `STAGE_GATES.md`.
 
 Supported Claude commands:
 

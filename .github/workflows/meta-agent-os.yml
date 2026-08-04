@@ -1,0 +1,59 @@
+name: Meta Agent OS Checks
+
+on:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "CODEX_RUNBOOK.md"
+      - "META_AGENT_BOOTSTRAP.md"
+      - "README.md"
+      - "INSTALL.md"
+      - "ROADMAP.md"
+      - ".github/**"
+      - ".claude/**"
+      - "meta-agent-os/**"
+      - "skills/**"
+      - "scripts/**"
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "CODEX_RUNBOOK.md"
+      - "META_AGENT_BOOTSTRAP.md"
+      - "README.md"
+      - "INSTALL.md"
+      - "ROADMAP.md"
+      - ".github/**"
+      - ".claude/**"
+      - "meta-agent-os/**"
+      - "skills/**"
+      - "scripts/**"
+
+jobs:
+  check-pwsh:
+    name: Hardening check (pwsh)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Meta Agent OS check
+        shell: pwsh
+        run: ./scripts/check-meta-agent-os.ps1 -Strict
+      - name: Run Meta Agent OS check with JSON output
+        shell: pwsh
+        run: ./scripts/check-meta-agent-os.ps1 -Strict -Json
+
+  check-bash:
+    name: Hardening check (bash)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Meta Agent OS check
+        run: |
+          chmod +x ./scripts/check-meta-agent-os.sh
+          ./scripts/check-meta-agent-os.sh --strict
+      - name: Run Meta Agent OS check with JSON output
+        run: ./scripts/check-meta-agent-os.sh --strict --json

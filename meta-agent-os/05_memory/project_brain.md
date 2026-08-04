@@ -1,19 +1,19 @@
 # project_brain.md
 
-**Last updated:** 2026-04-29  
-**Stage:** Oracle (complete)
+**Last updated:** 2026-05-15
+**Stage:** Full run complete
 
 ---
 
 ## What This Project Is
 
-The Meta Agent OS is a Markdown-based framework for running structured multi-agent workflows. It orchestrates ten specialised personas (Oracle through Librarian) in a controlled stage sequence, from diagnosis to live operation.
+The Meta Agent OS is a Markdown-based framework for running structured multi-agent workflows. It coordinates ten specialised personas (Oracle through Librarian) in a controlled stage sequence, from diagnosis to operation planning.
 
-It is a methodology + prompt library + control layer — not a running application.
+It is a methodology, prompt library, specification layer, and control layer. It is not a running application or runtime engine.
 
 ## Current Version
 
-v0.4 — Reliability Layer. Adds JSON state, schemas, run modes, quality bar, and advancement protocol on top of the v0.2 agentic runner.
+v0.4 - Reliability Layer. Adds JSON state, schemas, run modes, quality bar, and advancement protocol on top of the v0.2 agentic runner.
 
 ## Owner
 
@@ -23,33 +23,31 @@ SarutobiSasuke8 / thecrypticgamingguild@gmail.com
 
 Claude Code. Secondary: Codex.
 
-## Stage State (as of 2026-04-29)
+## Stage State (as of 2026-05-15)
 
 | Stage | Status |
 |---|---|
 | Oracle | Complete |
-| Sophia | Not started — awaiting deployment target decision |
-| Cartographer | Not started |
-| Architect | Not started |
-| QS | Not started |
-| Guardian | Not started |
-| Builder | Not started |
-| Evaluator | Not started |
-| Orchestrator | Not started |
-| Librarian | Not started |
+| Sophia | Complete |
+| Cartographer | Complete |
+| Architect | Complete |
+| QS | Complete |
+| Guardian | Complete |
+| Builder | Complete |
+| Evaluator | Complete |
+| Orchestrator | Complete |
+| Librarian | Complete |
 
-## Open Decision
+## Resolved Decision
 
-**Deployment target not confirmed.**  
-Options: (A) ship the framework itself, (B) apply to a sibling repo, (C) apply to a new project.  
-Oracle recommends Option A.
+The deployment target is the Meta Agent OS framework itself. The active run completed Oracle through Librarian and positioned this repo as the public framework/specification layer.
 
 ## Known Gaps
 
-- No git commits or remote yet
-- CLAUDE.md not at root (lives in versions/v0.4)
-- v0.3 not a separate folder
-- No README at root
+- No confirmed public release tag in this working context.
+- Runtime execution is intentionally out of scope for the public core repo.
+- v0.3 is not preserved as a separate version folder.
+- External market claims still need citation before public marketing use.
 
 ## Pending Migration Target
 
@@ -66,3 +64,37 @@ meta-agent-os/03_outputs/migration/V0_4_TO_V0_6_1_MIGRATION_NOTE.md
 ```
 
 Open implementation decision: whether to run the full v0.6.1 Builder migration now, split it into v0.5/v0.6/v0.6.1 commits, or keep the migration noted only.
+
+---
+
+## Update - 2026-05-06
+
+Current active run is complete. Stages Oracle through Librarian are complete in the active root `meta-agent-os` run.
+
+Public framework direction:
+
+- Meta Agent OS remains a design-time methodology and governance layer for multi-agent systems.
+- It should not merge with Agent Ops OS.
+- The recommended architecture is the Balanced framework pack: Markdown/control core, operator commands, skill adapter, stronger validation, one worked example, and clearer positioning.
+- CLI, dashboard, hosted platform, and vertical packs are deferred.
+
+New public-facing assets:
+
+- `docs/WHY.md`
+- `docs/examples/WORKED_EXAMPLE_SUPPORT_TRIAGE.md`
+
+Validation improvement:
+
+- Strict hardening now checks required stage-output sections against stage schemas for completed stages.
+
+---
+
+## Update - 2026-05-08
+
+Repo-level completion boundary:
+
+- Meta Agent OS v0.4 is complete for now as the public framework and specification layer.
+- This does not mean the project is permanently finished.
+- The public repo should remain focused on methodology, control files, examples, validation, and memory.
+- Truly agentic runtime behavior should move into a separate private implementation track unless the project deliberately re-scopes this repo.
+- The public boundary is now documented in `docs/PUBLIC_BOUNDARY.md`.

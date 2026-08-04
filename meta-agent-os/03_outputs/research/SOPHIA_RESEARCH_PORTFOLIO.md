@@ -1,6 +1,6 @@
 # SOPHIA_RESEARCH_PORTFOLIO.md
 
-**Stage:** Sophia — Research & Positioning  
+**Stage:** Sophia - Research & Positioning
 **Date:** 2026-04-29  
 **Status:** Complete  
 **Feeds into:** Cartographer, Architect, QS
@@ -13,7 +13,7 @@ Inform how Meta Agent OS should be positioned, licensed, and differentiated as a
 
 ---
 
-## 1. Competitive Landscape (2025–2026)
+## 1. Competitive Landscape (2025-2026)
 
 ### Major Frameworks
 
@@ -27,11 +27,11 @@ Inform how Meta Agent OS should be positioned, licensed, and differentiated as a
 
 ### What None of Them Provide
 
-1. **Pre-design and specification** — no structured design-time methodology before code
-2. **Cost estimation** — no token budgeting or ROI analysis before build
-3. **Personas as first-class documented roles** — agents exist in config, not as operating manuals
-4. **Human-in-the-loop by design** — no structured approval checkpoints
-5. **Multi-stage lifecycle** — frameworks cover "build" and "run"; none cover "diagnose," "cost," "evaluate" in a structured way
+1. **Pre-design and specification** - no structured design-time methodology before code
+2. **Cost estimation** - no token budgeting or ROI analysis before build
+3. **Personas as first-class documented roles** - agents exist in config, not as operating manuals
+4. **Human-in-the-loop by design** - no structured approval checkpoints
+5. **Multi-stage lifecycle** - frameworks cover "build" and "run"; none cover "diagnose," "cost," "evaluate" in a structured way
 
 ---
 
@@ -42,7 +42,7 @@ Meta Agent OS is **not a runtime**. It is a **design-time methodology and knowle
 | Dimension | Code-Heavy Frameworks | Meta Agent OS |
 |-----------|----------------------|---------------|
 | Entry Point | Code / config files | Markdown specs + persona-driven design |
-| Process | Build → Run | Diagnose → Design → Cost → Build → Test → Operate → Evaluate |
+| Process | Build -> Run | Diagnose -> Design -> Cost -> Build -> Test -> Operate -> Evaluate |
 | Artifacts | Code objects (Agents, Tasks, Tools) | Structured Markdown (personas, stage gates, reasoning traces) |
 | Governance | Execution control | Design review + cost approval + audit trails |
 | Team Alignment | Technical (devs/MLEs) | Cross-functional (consultants, architects, stakeholders, builders) |
@@ -50,7 +50,7 @@ Meta Agent OS is **not a runtime**. It is a **design-time methodology and knowle
 
 ### Key Insight
 
-"Prototype with CrewAI, productionize with LangGraph" is a common pattern in 2025–2026. There is **no structured methodology for the design and productionisation decision** in between. Meta Agent OS fills that gap.
+"Prototype with CrewAI, productionize with LangGraph" is a common pattern in 2025-2026. There is **no structured methodology for the design and productionisation decision** in between. Meta Agent OS fills that gap.
 
 ### Recommended Positioning Statement
 
@@ -73,11 +73,11 @@ Meta Agent OS is **not a runtime**. It is a **design-time methodology and knowle
 ### Recommendation: **Apache 2.0 for the free framework; proprietary/commercial for vertical packs**
 
 **Reasons:**
-1. Multi-contributor clarity — explicit patent grant protects contributors and users
-2. Open Core precedent — Databricks (MLflow, Delta Lake), Elastic, Strapi use Apache 2.0 for open layers
-3. Enterprise legal acceptance — Apache 2.0 is the de facto standard for enterprise-friendly OSS
+1. Multi-contributor clarity - explicit patent grant protects contributors and users
+2. Open Core precedent - Databricks (MLflow, Delta Lake), Elastic, Strapi use Apache 2.0 for open layers
+3. Enterprise legal acceptance - Apache 2.0 is the de facto standard for enterprise-friendly OSS
 4. Vertical packs can be distributed under a separate commercial license without friction
-5. Patent coverage — if methodology or persona templates attract IP claims, Apache 2.0 provides explicit protection
+5. Patent coverage - if methodology or persona templates attract IP claims, Apache 2.0 provides explicit protection
 
 ### Market Precedent
 
@@ -94,8 +94,8 @@ Meta Agent OS is **not a runtime**. It is a **design-time methodology and knowle
 
 | Audience | Why They Benefit | Willingness to Pay |
 |----------|-----------------|-------------------|
-| **Management consultants** (EY, Deloitte, boutiques) | Standard templates for specifying client agent solutions; reduce scoping time | High — vertical packs as billable toolkit |
-| **Enterprise architects** | Design multi-agent strategies with stakeholders before engineering; cost + risk modeling | High — governance and audit trail value |
+| **Management consultants** (EY, Deloitte, boutiques) | Standard templates for specifying client agent solutions; reduce scoping time | High - vertical packs as billable toolkit |
+| **Enterprise architects** | Design multi-agent strategies with stakeholders before engineering; cost + risk modeling | High - governance and audit trail value |
 | **Solution engineers / pre-sales** | Spec solutions for RFPs without dev resources; reusable playbooks per vertical | Medium-high |
 
 ### Tier 2: Growth Audience
@@ -112,11 +112,19 @@ Meta Agent OS is **not a runtime**. It is a **design-time methodology and knowle
 - Teams with existing internal playbooks
 - Single-agent chatbot builders (overkill)
 
-### Evidence
+### Evidence Status
 
-- 72% of enterprise AI projects involve multi-agent architectures in 2026 (up from 23% in 2024) — demand for governance and design methodology is growing
-- CrewAI enterprise adoption (PwC: 7x code generation improvement; IBM Consulting) reflects demand for role-based team abstraction at design time
-- No comparable open-source methodology-first framework exists
+The original research pass identified a plausible market direction, but external statistics, customer-adoption examples, and benchmark-style claims have not been source-verified inside this repo.
+
+Before using this material in public marketing copy:
+
+- Replace market-size or adoption percentages with cited sources, or remove them.
+- Cite specific vendor/customer adoption claims, or describe them as examples to verify.
+- Treat "no comparable open-source methodology-first framework exists" as an internal hypothesis until external research confirms it.
+
+Safe internal conclusion:
+
+- The repo's differentiator is its design-time, diagnosis-first control layer for agent systems, not a claim about market dominance or runtime replacement.
 
 ---
 
@@ -126,7 +134,7 @@ Recommended priority order for paid vertical packs:
 
 | Pack | Personas Added | Primary Buyers |
 |------|---------------|----------------|
-| **Consulting Delivery Pack** | Engagement Manager, Consultant, QA Lead, Client Advocate | Management consulting firms — highest WTP |
+| **Consulting Delivery Pack** | Engagement Manager, Consultant, QA Lead, Client Advocate | Management consulting firms - highest WTP |
 | **Financial Services Pack** | Risk Officer, Compliance Reviewer, Portfolio Analyst, Trader Agent | Investment firms, wealth management, treasury |
 | **Healthcare & Life Sciences Pack** | Chief Medical Information Officer, Ethics Reviewer, Clinical Trial Coordinator | Healthcare systems, pharma, payers |
 | **Legal & Compliance Pack** | General Counsel, Risk & Compliance, Document Analyst, Contract Reviewer | Law firms, in-house counsel, financial institutions |
@@ -155,10 +163,70 @@ Recommended priority order for paid vertical packs:
 
 ## Recommended Next Stage
 
-**Cartographer** — map the framework's own workflows, users, and handoffs as if it were a product being designed. This produces the product map needed for Architect to design the public release structure.
+**Cartographer** - map the framework's own workflows, users, and handoffs as if it were a product being designed. This produces the product map needed for Architect to design the public release structure.
 
 ---
 
 ## Files Created
 
 - `meta-agent-os/03_outputs/research/SOPHIA_RESEARCH_PORTFOLIO.md` (this file)
+
+---
+
+## Schema Alignment Addendum - 2026-05-06
+
+This addendum preserves the original Sophia output while aligning it with the current v0.4 schema.
+
+## Research Brief
+
+Research focused on whether Meta Agent OS can be positioned as a public design-time framework for multi-agent systems.
+
+## Key Research Questions
+
+- What does MAS do that runtime frameworks do not?
+- Who benefits most from diagnosis/design/cost/risk before build?
+- Which parts should be open core versus commercial packs?
+
+## Context Already Known
+
+Meta Agent OS is a Markdown-first framework with ten stages, control files, schemas, validators, and durable memory.
+
+## Internal Evidence From Project Files
+
+Internal evidence includes `README.md`, `ROADMAP.md`, `AGENTS.md`, `CODEX_RUNBOOK.md`, and existing stage/memory files.
+
+## External Research Needed
+
+External research is still needed before using market statistics or competitive claims in public marketing copy.
+
+## Comparable Systems Or Patterns
+
+Comparable patterns include runtime frameworks, AI coding templates, internal engineering playbooks, governance checklists, and agent operations tools.
+
+## Tooling Landscape
+
+MAS sits upstream of tools such as LangGraph, CrewAI, AutoGen, OpenAI Agents SDK, n8n, and custom runtimes.
+
+## Technical Feasibility
+
+The framework is technically feasible as Markdown, JSON manifests, validators, slash commands, and a reusable skill adapter.
+
+## Cost Signals
+
+Cost is mostly human/agent time for stage execution. No infrastructure is required for the core framework.
+
+## Risks And Unknowns
+
+Risks include unsupported market claims, unclear public/private boundaries, and product confusion with Agent Ops OS.
+
+## Strategic Implications
+
+MAS should stay focused on agent-system design and governance before implementation.
+
+## Recommendations For The Cartographer / Architect
+
+Map the public-release workflow and design a balanced framework pack rather than a CLI or hosted product.
+
+## Files Created Or Updated
+
+- `meta-agent-os/03_outputs/research/SOPHIA_RESEARCH_PORTFOLIO.md`
