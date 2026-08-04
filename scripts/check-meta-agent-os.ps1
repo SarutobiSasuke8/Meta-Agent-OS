@@ -246,6 +246,12 @@ $requiredFiles = @(
     "meta-agent-os/00_control/STAGE_STATE.md",
     "meta-agent-os/00_control/JSON_STATE_UPDATE_PROTOCOL.md",
     "meta-agent-os/00_control/validators/GLOBAL_STAGE_VALIDATOR.md",
+    "meta-agent-os/00_control/economics/MODEL_PRICING.json",
+    "meta-agent-os/00_control/economics/TOKEN_BUDGET_TEMPLATE.md",
+    "meta-agent-os/00_control/economics/ROI_METHOD.md",
+    "scripts/roi-calculator.py",
+    "docs/examples/roi/EXAMPLE_WORKFLOW.json",
+    "docs/examples/roi/EXAMPLE_PRICING.json",
     "meta-agent-os/05_memory/project_brain.md",
     "meta-agent-os/05_memory/decision_log.md",
     "meta-agent-os/05_memory/assumptions_log.md",
@@ -436,6 +442,69 @@ if ($null -ne $stageState -and (Test-Path -LiteralPath $stateMdPath)) {
     foreach ($completed in $stageState.completed_stages) {
         if (-not $stateMd.Contains(([string]$completed).ToLowerInvariant())) {
             Add-Error "STAGE_STATE.md out of sync: completed stage '$completed' from JSON not found in Markdown mirror."
+        }
+    }
+}
+
+# Pricing registry integrity. Rates are inputs, not constants: an undated or
+# unsourced rate produces a confident wrong cost, which is worse than no cost.
+# Mirrors the checks in scripts/roi-calculator.py so the two cannot drift apart.
+$pricing = Read-JsonFile "meta-agent-os/00_control/economics/MODEL_PRICING.json"
+if ($null -ne $pricing) {
+    $maxAge = $pricing.max_age_days
+    if (-not ($maxAge -is [int]) -or $maxAge -le 0) {
+        Add-Error "MODEL_PRICING.json must set a positive integer 'max_age_days'."
+    }
+    if ($null -eq $pricing.PSObject.Properties['models']) {
+        Add-Error "MODEL_PRICING.json must define a 'models' list (empty is valid)."
+    }
+    else {
+        $today = (Get-Date).Date
+        $seenIds = New-Object System.Collections.Generic.HashSet[string]
+        $modelIndex = 0
+        foreach ($entry in @($pricing.models)) {
+            $modelId = $entry.id
+            if (-not $modelId) {
+                Add-Error "MODEL_PRICING.json entry $modelIndex has no 'id'."
+                $modelIndex++
+                continue
+            }
+            if (-not $seenIds.Add([string]$modelId)) {
+                Add-Error "MODEL_PRICING.json has a duplicate model id: $modelId"
+            }
+
+            foreach ($field in @("input", "output")) {
+                $value = $entry.$field
+                if ($null -eq $value -or -not ($value -is [int] -or $value -is [double] -or $value -is [decimal])) {
+                    Add-Error "MODEL_PRICING.json entry '$modelId' has a non-numeric '$field' rate."
+                }
+            }
+            if (-not $entry.source) {
+                Add-Error "MODEL_PRICING.json entry '$modelId' has no 'source'. An unsourced rate is a guess."
+            }
+
+            $verified = [datetime]::MinValue
+            if (-not [datetime]::TryParseExact(
+                    [string]$entry.verified_on,
+                    'yyyy-MM-dd',
+                    [System.Globalization.CultureInfo]::InvariantCulture,
+                    [System.Globalization.DateTimeStyles]::None,
+                    [ref]$verified)) {
+                Add-Error "MODEL_PRICING.json entry '$modelId' needs a 'verified_on' ISO date (YYYY-MM-DD), got: $($entry.verified_on)"
+                $modelIndex++
+                continue
+            }
+
+            if ($maxAge -is [int] -and $maxAge -gt 0) {
+                $age = [int]($today - $verified.Date).TotalDays
+                if ($age -lt 0) {
+                    Add-Error "MODEL_PRICING.json entry '$modelId' is dated in the future: $($verified.ToString('yyyy-MM-dd'))."
+                }
+                elseif ($age -gt $maxAge) {
+                    Add-Error "MODEL_PRICING.json entry '$modelId' was verified $age days ago, exceeding max_age_days=$maxAge. Re-verify against current published pricing rather than raising the threshold."
+                }
+            }
+            $modelIndex++
         }
     }
 }

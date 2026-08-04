@@ -201,9 +201,56 @@ Minimum viable public MAS:
 - Do not create vertical packs before the generic method is polished.
 - Do not overinvest in exact cost calculations without current model pricing verification.
 
-## 18. Files Created Or Updated
+## 18. Token Budget
+
+Added 2026-08-04 with the v0.6 Inference Economics Layer.
+
+This project is a Markdown framework, not an agent workflow that consumes tokens in production. Its own token budget is therefore the cost of *operating* the framework with an agentic coding tool, not the cost of a deployed system.
+
+| Item | Estimate | Basis |
+|---|---|---|
+| Full ten-stage run | One long agent session per stage, dominated by repository reading | Assumption, not measured |
+| Repeat runs | Cheaper than the first, since diagnosis and memory already exist | Assumption |
+| Validation | Zero inference cost; the checks are deterministic scripts | Fact |
+| Ongoing operation | Occasional stage refresh plus memory updates | Assumption |
+
+The framework deliberately pushes work that does not need judgement into scripts. Every check in `scripts/check-meta-agent-os.ps1` and `scripts/check-meta-agent-os.sh` is work an agent would otherwise pay tokens to redo on each run.
+
+For agent workflows designed *using* this framework, use `meta-agent-os/00_control/economics/TOKEN_BUDGET_TEMPLATE.md` and `scripts/roi-calculator.py` rather than estimating by hand.
+
+## 19. ROI Assessment
+
+Added 2026-08-04 with the v0.6 Inference Economics Layer.
+
+The ROI method is defined in `meta-agent-os/00_control/economics/ROI_METHOD.md` and implemented in `scripts/roi-calculator.py`. Applied to this project:
+
+- **Baseline:** designing a multi-agent system ad hoc, without staged diagnosis. The dominant cost of that baseline is not tokens; it is building the wrong system and discovering it late.
+- **Running cost:** operator time per stage plus inference for the agentic tool. No infrastructure, no paid services, no credentials.
+- **Return:** avoided rework, and avoided builds that should not have happened at all. Both are real and neither is precisely measurable here.
+- **Verdict:** favourable, but on an unmeasured baseline. This is stated as a judgement, not a calculation.
+
+The honest limitation: this project cannot compute its own ROI with the calculator, because its baseline is a counterfactual rather than a metered process. Workflows designed with the framework can, and should.
+
+## 20. Pricing Verification
+
+Added 2026-08-04 with the v0.6 Inference Economics Layer.
+
+| Check | State |
+|---|---|
+| Rates used in this output | None. No figure here depends on a model rate. |
+| Pricing registry | `meta-agent-os/00_control/economics/MODEL_PRICING.json`, shipped empty by design |
+| Registry integrity | Enforced in strict validation: every entry needs `verified_on`, `source`, numeric rates, and must be newer than `max_age_days` |
+| Staleness policy | Re-verify against the vendor's current published pricing; do not raise the threshold |
+
+Meta Agent OS ships no default prices. Published rates change, and a stale rate produces a confident wrong number, which is more damaging than no number. Any cost figure quoted externally must be traceable to a registry entry verified on the day of use.
+
+## 21. Files Created Or Updated
 
 - `meta-agent-os/03_outputs/costs/QS_COSTS_AND_OPTIONS.md`
+- `meta-agent-os/00_control/economics/MODEL_PRICING.json`
+- `meta-agent-os/00_control/economics/TOKEN_BUDGET_TEMPLATE.md`
+- `meta-agent-os/00_control/economics/ROI_METHOD.md`
+- `scripts/roi-calculator.py`
 
 ## Assumptions
 

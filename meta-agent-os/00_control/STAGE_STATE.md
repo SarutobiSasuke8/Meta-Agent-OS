@@ -34,7 +34,7 @@ No
 
 ## Current Objective
 
-v0.5 Public Framework Polish released. Community guidelines, issue templates, substance-level strict validation, stage-output provenance checks, and relative link validation are in place. Next increments are v0.6 (Inference Economics) and v0.6.1 (Inference Safety), to be shipped separately.
+v0.6 Inference Economics Layer released. Token budget template, ROI method, ROI calculator, and an operator-supplied pricing registry with enforced verification dates are in place. QS stage extended with Token Budget, ROI Assessment, and Pricing Verification sections. Next increment is v0.6.1 (Inference Safety Layer).
 
 ## Stage Checklist
 

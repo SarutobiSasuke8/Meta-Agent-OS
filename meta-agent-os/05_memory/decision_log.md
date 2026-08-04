@@ -67,3 +67,9 @@
 | D23 | 2026-08-04 | Builder | Made the bash validator probe for a Python 3 interpreter by execution | The Windows Store `python3` alias is on PATH under Git Bash but only prints an install prompt, so presence checks resolved to a non-functional interpreter | Claude |
 | D24 | 2026-08-04 | Architect/QS | Split the pending v0.6.1 migration into separate v0.6 and v0.6.1 increments | A single migration commit risks leaving state, manifests, schemas, and docs partially updated, which is the exact risk the migration note itself flags | Claude |
 | D25 | 2026-08-04 | Guardian | Kept runtime track work outside this repository | Preserves the public core as the specification layer; R0 and R1 remain the correct first milestones | Claude |
+
+| D26 | 2026-08-04 | QS/Builder | Shipped `MODEL_PRICING.json` empty, with no default model prices | Published rates change; a stale baked-in rate produces a confident wrong cost, which is more damaging than refusing to produce one | Claude |
+| D27 | 2026-08-04 | QS/Evaluator | Made the ROI calculator refuse to run on undated, unsourced, or stale rates | A control that warns is ignored; a control that blocks is honoured. Mirrors the strict validator so the two cannot drift | Claude |
+| D28 | 2026-08-04 | QS | Made a baseline mandatory and put supervision cost inside running cost | Excluding either is how agent proposals show returns they do not have | Claude |
+| D29 | 2026-08-04 | QS/Evaluator | Report a sensitivity range rather than a point estimate, and flag when the verdict flips inside it | A single number hides the risk and invites false confidence in pre-build assumptions | Claude |
+| D30 | 2026-08-04 | Builder | Added CI steps that exercise the calculator, including its refusal path | Without them the tooling could rot into documentation, which is the failure mode this increment was meant to avoid | Claude |

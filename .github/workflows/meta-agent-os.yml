@@ -54,6 +54,22 @@ jobs:
         shell: pwsh
         run: ./scripts/check-meta-agent-os.ps1 -Strict -Json
 
+      - name: Exercise the ROI calculator against the fixture
+        shell: pwsh
+        run: |
+          python scripts/roi-calculator.py docs/examples/roi/EXAMPLE_WORKFLOW.json `
+            --pricing docs/examples/roi/EXAMPLE_PRICING.json --today 2026-08-04
+
+      - name: ROI calculator must refuse the empty default registry
+        shell: pwsh
+        run: |
+          python scripts/roi-calculator.py docs/examples/roi/EXAMPLE_WORKFLOW.json
+          if ($LASTEXITCODE -eq 0) {
+            Write-Error "Calculator produced a number from an empty pricing registry."
+            exit 1
+          }
+          exit 0
+
   check-bash:
     name: Hardening check (bash)
     runs-on: ubuntu-latest
@@ -65,3 +81,14 @@ jobs:
           ./scripts/check-meta-agent-os.sh --strict
       - name: Run Meta Agent OS check with JSON output
         run: ./scripts/check-meta-agent-os.sh --strict --json
+
+      - name: Exercise the ROI calculator against the fixture
+        run: |
+          python3 scripts/roi-calculator.py docs/examples/roi/EXAMPLE_WORKFLOW.json             --pricing docs/examples/roi/EXAMPLE_PRICING.json --today 2026-08-04
+
+      - name: ROI calculator must refuse the empty default registry
+        run: |
+          if python3 scripts/roi-calculator.py docs/examples/roi/EXAMPLE_WORKFLOW.json; then
+            echo "Calculator produced a number from an empty pricing registry." >&2
+            exit 1
+          fi
