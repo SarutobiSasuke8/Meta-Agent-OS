@@ -70,6 +70,10 @@ jobs:
           }
           exit 0
 
+      - name: Exercise the agent suitability gate
+        shell: pwsh
+        run: python scripts/agent-suitability.py docs/examples/safety/EXAMPLE_ASSESSMENT.json
+
   check-bash:
     name: Hardening check (bash)
     runs-on: ubuntu-latest
@@ -90,5 +94,21 @@ jobs:
         run: |
           if python3 scripts/roi-calculator.py docs/examples/roi/EXAMPLE_WORKFLOW.json; then
             echo "Calculator produced a number from an empty pricing registry." >&2
+            exit 1
+          fi
+
+      - name: Exercise the agent suitability gate
+        run: python3 scripts/agent-suitability.py docs/examples/safety/EXAMPLE_ASSESSMENT.json
+
+      - name: Suitability gate must block a failed gate condition
+        run: |
+          python3 - <<'EOF'
+          import json, pathlib
+          a = json.loads(pathlib.Path("docs/examples/safety/EXAMPLE_ASSESSMENT.json").read_text())
+          a["gate"]["requires_judgement"] = {"holds": False, "reason": "CI negative test."}
+          pathlib.Path("/tmp/blocked.json").write_text(json.dumps(a))
+          EOF
+          if python3 scripts/agent-suitability.py /tmp/blocked.json; then
+            echo "Suitability gate failed to block a failed gate condition." >&2
             exit 1
           fi

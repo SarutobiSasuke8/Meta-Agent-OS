@@ -1,8 +1,8 @@
 # ROADMAP.md
 
-Current stable release: **v0.6 (Inference Economics Layer)**
+Current stable release: **v0.6.1 (Inference Safety Layer)**
 
-v0.6 is complete as the public framework and specification layer. Future runtime execution should be treated as a separate implementation track unless the project deliberately re-scopes this public repo.
+v0.6.1 is complete as the public framework and specification layer. Future runtime execution should be treated as a separate implementation track unless the project deliberately re-scopes this public repo.
 
 ---
 
@@ -45,20 +45,20 @@ JSON state machine, stage manifest, run modes, output manifest, per-stage schema
 - QS schema extended with Token Budget, ROI Assessment, and Pricing Verification sections
 - Operator-supplied pricing registry that ships empty on purpose
 
+### v0.6.1 - Inference Safety Layer
+
+- Anti-agent gate formalised in the Oracle stage, with a default answer of no
+- Agent suitability scoring with mandatory justifications and critical-dimension caps
+- Suitability and ROI threshold gates before the Architect stage advances
+- Guardian stage extended with task criticality, model quality floors, and inference risk profiles
+
+v0.5, v0.6, and v0.6.1 together complete the migration recorded in [`meta-agent-os/03_outputs/migration/V0_4_TO_V0_6_1_MIGRATION_NOTE.md`](meta-agent-os/03_outputs/migration/V0_4_TO_V0_6_1_MIGRATION_NOTE.md), shipped as three increments rather than one migration commit.
+
 ---
 
 ## Planned
 
-The remaining migration toward the v0.6.1 target state is deliberately split rather than shipped as a single migration commit. Each increment must land its own validators; a control that cannot be checked becomes documentation-only.
-
-### v0.6.1 - Inference Safety Layer
-
-- Anti-agent gate formalised in Oracle stage
-- Agent suitability scoring template
-- Workflow ROI threshold checks before Architect stage advances
-- Guardian stage extended with inference risk profiles
-
-Both increments derive from the target state recorded in [`meta-agent-os/03_outputs/migration/V0_4_TO_V0_6_1_MIGRATION_NOTE.md`](meta-agent-os/03_outputs/migration/V0_4_TO_V0_6_1_MIGRATION_NOTE.md).
+No further increments are scheduled for the public core. The next substantial work is the runtime track, which lives outside this repository. See [`docs/RUNTIME_TRACK.md`](docs/RUNTIME_TRACK.md).
 
 ---
 

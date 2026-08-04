@@ -73,3 +73,11 @@
 | D28 | 2026-08-04 | QS | Made a baseline mandatory and put supervision cost inside running cost | Excluding either is how agent proposals show returns they do not have | Claude |
 | D29 | 2026-08-04 | QS/Evaluator | Report a sensitivity range rather than a point estimate, and flag when the verdict flips inside it | A single number hides the risk and invites false confidence in pre-build assumptions | Claude |
 | D30 | 2026-08-04 | Builder | Added CI steps that exercise the calculator, including its refusal path | Without them the tooling could rot into documentation, which is the failure mode this increment was meant to avoid | Claude |
+
+| D31 | 2026-08-04 | Oracle/Guardian | Made the anti-agent gate default to no | Every incentive in the market pushes toward more agents; this framework is the only cheap place left to ask whether one is needed | Claude |
+| D32 | 2026-08-04 | Oracle | Made a failed gate condition override the suitability score entirely | A high score behind a failed gate is a well-scored wrong architecture, and reporting it as SUITABLE would be self-contradictory | Claude |
+| D33 | 2026-08-04 | Oracle | Made `tolerance_for_error` and `recoverability` critical, capping at Not Suitable on a zero | High value plus low recoverability is precisely how agent systems cause compounding damage nobody notices | Claude |
+| D34 | 2026-08-04 | Evaluator | Required a written justification per scored dimension, refusing to score without one | An unjustified score is an opinion with a number attached and cannot be argued with in review | Claude |
+| D35 | 2026-08-04 | Guardian | Classified Guardian as the only C1 stage with no local substitution | Its failure mode is silent: a risk never surfaced produces no error message | Claude |
+| D36 | 2026-08-04 | Guardian | Recorded missing parity evals as eval debt rather than approving local substitution for C2 | An eval that does not exist is a hypothesis, and approving on it would be the exact false confidence this layer exists to prevent | Claude |
+| D37 | 2026-08-04 | Architect | Placed the suitability gate before the ROI gate | A workflow that fails suitability should never reach a cost model; the cost of the wrong architecture is not a useful number | Claude |

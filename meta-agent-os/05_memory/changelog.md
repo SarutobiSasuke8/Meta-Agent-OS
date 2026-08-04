@@ -9,6 +9,21 @@ Running record of material changes to the framework, newest first.
 
 ---
 
+## 2026-08-04 - v0.6.1 Inference Safety Layer
+
+- Added `meta-agent-os/00_control/safety/` with `ANTI_AGENT_GATE.md`, `AGENT_SUITABILITY_SCORING.md`, and `INFERENCE_RISK_PROFILES.md`.
+- Added `scripts/agent-suitability.py`, which runs the four gate conditions, scores six dimensions, and refuses to produce a verdict from unjustified scores.
+- Made `tolerance_for_error` and `recoverability` critical dimensions: a zero on either caps the workflow at Not Suitable regardless of total, because a workflow that must be right every time or whose errors cannot be caught is not made safe by being valuable.
+- Made a failed gate condition override the score entirely. A high score behind a failed gate is a well-scored wrong architecture.
+- Extended `STAGE_GATES.md` with a suitability gate before Architect, covering gate failures, Not Suitable and Marginal bands, negative and marginal ROI, and a verdict that flips inside the sensitivity range. Both tools exit non-zero when they block, so the gate is enforceable rather than remembered.
+- Extended the Oracle schema with Anti-Agent Gate and Agent Suitability Assessment sections, and the Guardian schema with Task Criticality And Model Floors and Inference Risk Profile.
+- Applied both to this repository's own outputs. The Oracle assessment records that `volume` is genuinely low, and the Guardian profile records that the parity evals it requires do not yet exist, as eval debt rather than a waiver.
+- Classified Guardian as the only C1 stage, on the grounds that its failure mode is silent.
+- Added a synthetic assessment example and CI steps that exercise the gate and assert it blocks a failed condition.
+- Completed the v0.4 to v0.6.1 migration across three increments.
+
+---
+
 ## 2026-08-04 - v0.6 Inference Economics Layer
 
 - Added `meta-agent-os/00_control/economics/` with `MODEL_PRICING.json`, `TOKEN_BUDGET_TEMPLATE.md`, and `ROI_METHOD.md`.

@@ -1,0 +1,38 @@
+{
+  "_comment": "Synthetic example matching the support triage worked example. Scores are illustrative and were chosen before any ROI figure was calculated, per the scoring discipline.",
+  "workflow": "Support ticket triage (synthetic example)",
+  "gate": {
+    "requires_judgement": {
+      "holds": true,
+      "reason": "Ticket intent is expressed in free text and often spans more than one category; the existing rules-based router misclassifies roughly a fifth of tickets."
+    },
+    "unstructured_inputs": {
+      "holds": true,
+      "reason": "Tickets arrive by email, web form, and chat, written by customers in their own words."
+    },
+    "imperfect_answer_useful": {
+      "holds": true,
+      "reason": "A drafted reply that an agent reviews before sending is useful even when it needs editing."
+    },
+    "human_can_recover": {
+      "holds": true,
+      "reason": "Every drafted reply passes a support agent before it reaches the customer, and misroutes are visible within one queue cycle."
+    }
+  },
+  "scores": {
+    "judgement_required": 3,
+    "input_variability": 4,
+    "tolerance_for_error": 3,
+    "recoverability": 3,
+    "volume": 4,
+    "stability": 2
+  },
+  "justifications": {
+    "judgement_required": "Classification needs context weighing, though routing once classified is a lookup and should stay deterministic.",
+    "input_variability": "Free-form customer text from three uncontrolled channels.",
+    "tolerance_for_error": "Drafts are reviewed, so an imperfect draft is useful; billing disputes are the exception and are excluded from drafting.",
+    "recoverability": "Review catches errors before they reach customers, but a misroute can delay a ticket by a day before anyone notices.",
+    "volume": "About 4,000 tickets a month, enough that handling time dominates the support cost.",
+    "stability": "Product changes shift the category mix roughly quarterly, so the classifier will need periodic re-evaluation."
+  }
+}

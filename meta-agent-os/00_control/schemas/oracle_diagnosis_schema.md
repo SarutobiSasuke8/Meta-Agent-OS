@@ -15,10 +15,15 @@ Required sections:
 11. Risks
 12. Assumptions
 13. Open Questions
-14. Recommended Next Stage
-15. Files Created Or Updated
+14. Anti-Agent Gate
+15. Agent Suitability Assessment
+16. Recommended Next Stage
+17. Files Created Or Updated
 
 Required quality:
 - Separate facts from assumptions.
 - Do not design the agent system yet.
 - Do not modify application code.
+- Run the anti-agent gate before recommending any agent. Its default answer is no.
+- State all four gate conditions and whether each holds, including the ones that fail.
+- Reporting that a workflow does not need agents is a valid and valuable outcome.

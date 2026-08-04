@@ -240,6 +240,40 @@ Script-fit work includes JSON validation, required file checks, required section
 - Does future CLI or runner work belong in this repository or in a separate product?
 - What evidence would show the method produced a better outcome than building directly?
 
+## Anti-Agent Gate
+
+Added 2026-08-04 with the v0.6.1 Inference Safety Layer. The gate is defined in `meta-agent-os/00_control/safety/ANTI_AGENT_GATE.md`.
+
+Applied to this project, the "workflow" under assessment is *operating the Meta Agent OS itself* with an agentic coding tool.
+
+| # | Condition | Holds | Evidence |
+|---|---|---|---|
+| 1 | Requires judgement not expressible as rules | Yes | Diagnosis, architecture trade-offs, and risk review require weighing ambiguous repository evidence. No decision table produces an Oracle diagnosis. |
+| 2 | Inputs genuinely unstructured or varied | Yes | The inputs are arbitrary repositories: unknown languages, layouts, docs, and conventions. |
+| 3 | An imperfect answer is still useful | Yes | A draft diagnosis that a human edits is more useful than no diagnosis. Every output is explicitly reviewable. |
+| 4 | A human can review or recover from a wrong output | Yes | Every output is Markdown in version control, reviewed before it drives a decision, and revertible. |
+
+**Verdict: passed.** All four conditions hold.
+
+The gate also identifies what should *not* be an agent. Structural validation, state consistency, link resolution, pricing integrity, and schema conformance all fail condition 1: they are fixed rules on structured data. They are implemented as deterministic scripts, and every check moved into `scripts/` is work an agent would otherwise pay tokens to redo, less reliably, on every run.
+
+## Agent Suitability Assessment
+
+Added 2026-08-04. Rubric in `meta-agent-os/00_control/safety/AGENT_SUITABILITY_SCORING.md`, scored with `scripts/agent-suitability.py`.
+
+| Dimension | Score | Justification |
+|---|---|---|
+| `judgement_required` | 4 | Diagnosis and architecture trade-offs cannot be reduced to rules. |
+| `input_variability` | 4 | Arbitrary repositories with no controlled schema. |
+| `tolerance_for_error` | 4 | Every output is a reviewable draft; nothing executes automatically. |
+| `recoverability` | 4 | Markdown in version control, human-gated, trivially revertible. |
+| `volume` | 2 | A full run is occasional, not continuous. This is the weakest dimension. |
+| `stability` | 3 | The method is stable; the target repositories are not. |
+
+**Total: 21/24 - Well suited.** No critical dimension scores zero.
+
+The honest caveat, per the scoring discipline: `volume` is genuinely low. This framework earns its place through the cost of the errors it prevents, not through throughput. That is a weaker economic argument than a high-volume workflow makes, and it is stated rather than hidden.
+
 ## Recommended Next Stage
 
 Sophia was the recommended next stage after deployment target confirmation. Current run state has since advanced beyond Sophia.
