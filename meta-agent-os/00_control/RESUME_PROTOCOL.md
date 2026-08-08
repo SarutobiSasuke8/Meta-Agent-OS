@@ -9,7 +9,7 @@ This file explains how to resume the Meta Agent OS after interruption, context l
 Use:
 
 ```text
-/continue-meta-agent-os
+/mao-resume
 ```
 
 Or paste:

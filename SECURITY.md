@@ -21,9 +21,9 @@ Out of scope:
 
 | Version | Supported |
 |---|---|
-| v0.5 | Yes |
-| v0.4 | Security fixes only |
-| v0.2 and earlier | No |
+| v0.6.1 | Yes |
+| v0.6 | Security fixes only |
+| v0.5 and earlier | No |
 
 Earlier versions are preserved as git tags for reference, not for use.
 

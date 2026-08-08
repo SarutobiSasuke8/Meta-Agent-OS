@@ -1,0 +1,45 @@
+{
+  "_comment": "Suitability and ROI assessment for this project (Meta Agent OS operating on itself), recorded per the v0.6.1 Suitability And ROI Gate. Mirrors the Anti-Agent Gate and Agent Suitability Assessment already recorded in ORACLE_DIAGNOSIS.md's Schema Alignment Addendum.",
+  "workflow": "Operating the Meta Agent OS staged methodology with an agentic coding tool (this repository's own self-run)",
+  "gate": {
+    "requires_judgement": {
+      "holds": true,
+      "reason": "Diagnosis, architecture trade-offs, and risk review require weighing ambiguous repository evidence. No decision table produces an Oracle diagnosis or an Architect design."
+    },
+    "unstructured_inputs": {
+      "holds": true,
+      "reason": "Inputs are arbitrary repositories: unknown languages, layouts, docs, and conventions."
+    },
+    "imperfect_answer_useful": {
+      "holds": true,
+      "reason": "A draft diagnosis or design that a human edits is more useful than no diagnosis or design. Every output is explicitly reviewable."
+    },
+    "human_can_recover": {
+      "holds": true,
+      "reason": "Every output is Markdown in version control, reviewed before it drives a decision, and revertible."
+    }
+  },
+  "scores": {
+    "judgement_required": 4,
+    "input_variability": 4,
+    "tolerance_for_error": 4,
+    "recoverability": 4,
+    "volume": 2,
+    "stability": 3
+  },
+  "justifications": {
+    "judgement_required": "Diagnosis and architecture trade-offs cannot be reduced to rules.",
+    "input_variability": "Arbitrary repositories with no controlled schema.",
+    "tolerance_for_error": "Every output is a reviewable draft; nothing executes automatically.",
+    "recoverability": "Markdown in version control, human-gated, trivially revertible.",
+    "volume": "A full run is occasional, not continuous. This is the weakest dimension.",
+    "stability": "The method is stable; the target repositories are not."
+  },
+  "total": 21,
+  "band": "Well suited (21/24). No critical dimension scores zero.",
+  "roi": {
+    "computable_with_calculator": false,
+    "reason": "This project's baseline is a counterfactual (designing a multi-agent system ad hoc, without staged diagnosis), not a metered process, so scripts/roi-calculator.py cannot be run against it in the same way as a workflow with a real measured baseline. Workflows designed using this framework can and should use the calculator. Verdict recorded here as a stated judgement, not a calculation, per QS_COSTS_AND_OPTIONS.md section 19.",
+    "verdict": "favourable_unmeasured"
+  }
+}

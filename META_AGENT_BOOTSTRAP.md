@@ -91,8 +91,22 @@ With this structure:
 
 ## 13. Open Questions
 
-## 14. Recommended Next Stage
+## 14. Anti-Agent Gate
+
+## 15. Agent Suitability Assessment
+
+## 16. Recommended Next Stage
+
+## 17. Files Created Or Updated
 ```
+
+## Anti-Agent Gate And Suitability Assessment (Sections 14-15)
+
+Before recommending any agent, run the anti-agent gate defined in `meta-agent-os/00_control/safety/ANTI_AGENT_GATE.md`. Its default answer is no.
+
+- Section 14, Anti-Agent Gate: state all four gate conditions and whether each holds, including the ones that fail. Give evidence for each, not a bare yes/no. Record the verdict.
+- Section 15, Agent Suitability Assessment: score the candidate workflow against the rubric in `meta-agent-os/00_control/safety/AGENT_SUITABILITY_SCORING.md` using `scripts/agent-suitability.py`. Report each dimension's score with a justification, the total, and the suitability band. State the honest caveat if any dimension is weak, rather than hiding it.
+- Reporting that a workflow does not need agents is a valid and valuable outcome of both sections.
 
 ## Important Constraints
 
@@ -103,6 +117,7 @@ With this structure:
 - Do not delete files.
 - Do not call external services unless explicitly asked.
 - Do not expose secrets or credentials.
+- Do not skip the anti-agent gate or the suitability assessment, even for a workflow that seems obviously agent-shaped.
 
 ## Next Step After Diagnosis
 

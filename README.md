@@ -17,7 +17,7 @@ For the deeper product boundary, see [`docs/WHY.md`](docs/WHY.md), [`docs/PUBLIC
 
 ## Current Status
 
-Meta Agent OS v0.6.1 is complete as the public framework and specification layer. It is not permanently finished, but the current repo should remain focused on methodology, control files, examples, validation, and memory.
+Meta Agent OS v0.6.1 is complete as a specification: the methodology, control files, schemas, and validation are in place. Adoption is unproven — no non-author has run it end to end, and the standing Evaluator verdict is "ready for internal use, not yet ready for broad public launch." It is not permanently finished, but the current repo should remain focused on methodology, control files, examples, validation, and memory.
 
 Truly agentic runtime behavior should be explored in a separate implementation track rather than added directly to this public repo by default.
 
@@ -53,14 +53,16 @@ Oracle -> Sophia -> Cartographer -> Architect -> QS -> Guardian -> Builder -> Ev
 Copy this repository into your project root. Then run:
 
 ```
-/diagnose
+/mao-init
 ```
 
-Or for the full staged run:
+to reset state for your new project, followed by:
 
 ```
-/run-meta-agent-os
+/mao-diagnose
 ```
+
+to start the first stage.
 
 Operator shortcuts are also available:
 
@@ -192,7 +194,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for what belongs in this repository and
 
 | Tool | Primary File | Trigger |
 |------|-------------|---------|
-| Claude Code | `CLAUDE.md` | `/diagnose`, `/run-meta-agent-os`, `/mao-*` |
+| Claude Code | `CLAUDE.md` | `/mao-*` (see `TRIGGER_INDEX.md`) |
 | Codex | `AGENTS.md` + `CODEX_RUNBOOK.md` | Prompt commands |
 | Cursor / generic agent | `AGENTS.md` | Prompt commands |
 

@@ -19,7 +19,7 @@ Record the changes described in the external migration specification so future M
 - `meta-agent-os/05_memory/project_brain.md`
 - `meta-agent-os/05_memory/decision_log.md`
 - `meta-agent-os/05_memory/assumptions_log.md`
-- `C:\Users\sarut\Documents\Astraeus Business Solutions\Astraeus Internal Website\src\Meta_Agent_OS_v0.4_to_v0.6.1_Migration.md`
+- `<private path — internal project, not tracked in this repo>/Meta_Agent_OS_v0.4_to_v0.6.1_Migration.md`
 
 ## Findings
 

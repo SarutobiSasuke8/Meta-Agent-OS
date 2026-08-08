@@ -26,5 +26,5 @@ For Codex, prefer:
 
 ```text
 CODEX_RUNBOOK.md
-/meta-agent-os/00_control/codex/full_run.md
+/meta-agent-os/00_control/codex/full_run_v0_4.md
 ```

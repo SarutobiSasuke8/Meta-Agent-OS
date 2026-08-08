@@ -12,7 +12,7 @@ Run or refresh the Oracle diagnosis stage.
    - `meta-agent-os/00_control/STAGE_MANIFEST.json`
    - `meta-agent-os/00_control/STAGE_GATES.md`
    - `meta-agent-os/00_control/schemas/oracle_diagnosis_schema.md`
-   - `meta-agent-os/00_control/validators/oracle_validator.md`
+   - `meta-agent-os/00_control/validators/GLOBAL_STAGE_VALIDATOR.md`
 
 2. Inspect the repository structure and key docs.
 

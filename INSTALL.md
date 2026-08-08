@@ -8,18 +8,26 @@ Copy these files into the root of your target project:
 CLAUDE.md
 AGENTS.md
 META_AGENT_BOOTSTRAP.md
-.claude/commands/diagnose.md
+.claude/commands/
 meta-agent-os/
 ```
 
-## 2. Start Diagnosis
+## 2. Initialize, Then Start Diagnosis
 
 ### Claude Code
 
-From the project root, run Claude Code and use:
+From the project root, run Claude Code and use, in order:
 
 ```text
-/diagnose
+/mao-init
+```
+
+Run this once, immediately after copying the framework into a new project. It resets `STAGE_STATE.json` to a fresh, unstarted state and moves this repository's own reference outputs out of the way so your first run starts clean. See `.claude/commands/mao-init.md`.
+
+Then:
+
+```text
+/mao-diagnose
 ```
 
 Or paste:
@@ -51,33 +59,33 @@ The first run should create:
 
 These files guide agent behaviour. They do not execute automatically by simply being present. You need to trigger them through a prompt, slash command, CLI command, scheduled routine, or automation.
 
-## v0.2 Full Agentic Runner Commands
+## Claude Code Command Generation
 
-After copying the files into your project root, use these commands in Claude Code:
+After copying the files into your project root and running `/mao-init`, use these commands in Claude Code:
 
 ```text
-/diagnose
+/mao-diagnose
 ```
 
 Runs only The Oracle diagnosis.
 
 ```text
-/run-meta-agent-os
+/mao-resume
 ```
 
-Runs the full controlled sequence until complete or blocked by a human decision gate.
+Resumes from the latest incomplete stage, running the controlled sequence until complete or blocked by a human decision gate.
 
 ```text
-/continue-meta-agent-os
-```
-
-Resumes from the latest incomplete stage.
-
-```text
-/stage-status
+/mao-status
 ```
 
 Reports current state and missing outputs.
+
+```text
+/mao-validate
+```
+
+Validates the current state and current stage output.
 
 ## Expected Full Run Outputs
 
@@ -159,7 +167,7 @@ Read AGENTS.md and CODEX_RUNBOOK.md, then run the Codex Full Run Prompt v0.4 fro
 The most robust Claude Code trigger remains:
 
 ```text
-/run-meta-agent-os
+/mao-resume
 ```
 
 But the agent should now also read:

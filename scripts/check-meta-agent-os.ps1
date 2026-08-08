@@ -190,6 +190,56 @@ function Test-StageOutputSections {
     }
 }
 
+$script:RequiredGateConditions = @(
+    "requires_judgement",
+    "unstructured_inputs",
+    "imperfect_answer_useful",
+    "human_can_recover"
+)
+
+function Test-SuitabilityAssessment {
+    param(
+        [string]$StageName,
+        $ManifestEntry
+    )
+
+    $assessmentPath = $ManifestEntry.assessment_file
+    if (-not $assessmentPath) { return }
+
+    $resolved = Resolve-RepoPath $assessmentPath
+    if (-not (Test-Path -LiteralPath $resolved)) {
+        Add-Error "Stage '$StageName' is complete but its required assessment file is missing: $assessmentPath"
+        return
+    }
+
+    try {
+        $data = Get-Content -Raw -LiteralPath $resolved | ConvertFrom-Json
+    }
+    catch {
+        Add-Error "Invalid JSON in assessment file for stage '$StageName' ($assessmentPath): $($_.Exception.Message)"
+        return
+    }
+
+    if ($null -eq $data.gate) {
+        Add-Error "Assessment file for stage '$StageName' ($assessmentPath) has no 'gate' object."
+        return
+    }
+
+    foreach ($condition in $script:RequiredGateConditions) {
+        $entry = $data.gate.$condition
+        if ($null -eq $entry -or $null -eq $entry.holds -or $entry.holds -isnot [bool]) {
+            Add-Error "Assessment file for stage '$StageName' ($assessmentPath) does not answer gate condition '$condition' with a boolean 'holds' field."
+        }
+        elseif (-not $entry.reason) {
+            Add-Error "Assessment file for stage '$StageName' ($assessmentPath) answers gate condition '$condition' without a 'reason'."
+        }
+    }
+
+    if ($null -eq $data.scores -or ($data.scores.PSObject.Properties | Measure-Object).Count -eq 0) {
+        Add-Error "Assessment file for stage '$StageName' ($assessmentPath) has no 'scores' object."
+    }
+}
+
 function Test-StageOutputMetadata {
     param(
         [string]$StageName,
@@ -372,6 +422,7 @@ if ($null -ne $stageState -and $null -ne $stageManifest) {
         if ($Strict) {
             Test-StageOutputSections $completedStage $manifestEntry.output $manifestEntry.schema
             Test-StageOutputMetadata $completedStage $manifestEntry.output $stageState.last_updated
+            Test-SuitabilityAssessment $completedStage $manifestEntry
         }
 
         if ($null -ne $stageState.stage_status -and $stageState.stage_status.$completedStage -ne "complete") {
@@ -568,6 +619,113 @@ if ($Strict) {
                 Add-Error "Broken relative link in $relFile`: $targetRaw"
             }
         }
+    }
+}
+
+# Local-path and email leak scan. Flags candidates; does not auto-fix, because a
+# false positive here (a deliberately documented example email, a Windows path used
+# as a code example) is common and should not be silently rewritten.
+$script:PrivatePathPattern = '[A-Za-z]:\\Users\\[^\s`''"]+|/home/[^\s`''"]+|/Users/[^\s`''"]+'
+$script:EmailPattern = '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
+$script:LeakAllowlistSubstrings = @(
+    "redacted",
+    "example.com",
+    "user@example",
+    "you@example",
+    "<local-path>",
+    "<private path"
+)
+$script:LeakScanSkipDirs = @(".git", "node_modules")
+$script:LeakScanSkipFiles = @("scripts/check-meta-agent-os.sh", "scripts/check-meta-agent-os.ps1")
+$script:LeakScanExtensions = @(".md", ".json", ".yml", ".yaml", ".sh", ".ps1", ".py")
+
+$leakScanFiles = Get-ChildItem -LiteralPath $root -Recurse -File | Where-Object {
+    $relative = $_.FullName.Substring($root.Length).TrimStart('\', '/')
+    $parts = $relative -split '[\\/]'
+    $relPosix = $relative -replace '\\', '/'
+    (-not ($parts | Where-Object { $script:LeakScanSkipDirs -contains $_ })) -and
+    ($script:LeakScanExtensions -contains $_.Extension.ToLowerInvariant()) -and
+    (-not ($script:LeakScanSkipFiles -contains $relPosix))
+}
+
+foreach ($scanFile in $leakScanFiles) {
+    $relPosix = ($scanFile.FullName.Substring($root.Length).TrimStart('\', '/')) -replace '\\', '/'
+    $scanContent = Get-Content -Raw -LiteralPath $scanFile.FullName -ErrorAction SilentlyContinue
+    if ($null -eq $scanContent) { continue }
+
+    foreach ($match in [regex]::Matches($scanContent, $script:PrivatePathPattern)) {
+        $hit = $match.Value
+        $hitLower = $hit.ToLowerInvariant()
+        if ($script:LeakAllowlistSubstrings | Where-Object { $hitLower.Contains($_) }) { continue }
+        Add-Error "Possible local path leak in $relPosix`: $hit"
+    }
+
+    foreach ($match in [regex]::Matches($scanContent, $script:EmailPattern)) {
+        $hit = $match.Value
+        $hitLower = $hit.ToLowerInvariant()
+        if ($script:LeakAllowlistSubstrings | Where-Object { $hitLower.Contains($_) }) { continue }
+        Add-Error "Possible email leak in $relPosix`: $hit"
+    }
+}
+
+# Version consistency, per docs/RELEASE_CHECKLIST.md's own stated rule: README,
+# ROADMAP, STAGE_STATE.json's version field, project_brain.md, and the three
+# control manifests must all name the same version.
+if ($Strict) {
+    $versionSources = [ordered]@{}
+
+    $readmePathForVersion = Resolve-RepoPath "README.md"
+    if (Test-Path -LiteralPath $readmePathForVersion) {
+        $readmeContentForVersion = Get-Content -Raw -LiteralPath $readmePathForVersion
+        $m = [regex]::Match($readmeContentForVersion, '\*\*Current version:\*\*\s*v?([0-9]+(?:\.[0-9]+)*)')
+        if ($m.Success) { $versionSources["README.md"] = $m.Groups[1].Value }
+        else { Add-Error "README.md has no '**Current version:** vX.Y.Z' line to check for version consistency." }
+    }
+
+    $roadmapPathForVersion = Resolve-RepoPath "ROADMAP.md"
+    if (Test-Path -LiteralPath $roadmapPathForVersion) {
+        $roadmapContentForVersion = Get-Content -Raw -LiteralPath $roadmapPathForVersion
+        $m = [regex]::Match($roadmapContentForVersion, 'Current stable release:\s*\*\*v?([0-9]+(?:\.[0-9]+)*)')
+        if ($m.Success) { $versionSources["ROADMAP.md"] = $m.Groups[1].Value }
+        else { Add-Error "ROADMAP.md has no 'Current stable release: **vX.Y.Z' line to check for version consistency." }
+    }
+
+    $brainPathForVersion = Resolve-RepoPath "meta-agent-os/05_memory/project_brain.md"
+    if (Test-Path -LiteralPath $brainPathForVersion) {
+        $brainContentForVersion = Get-Content -Raw -LiteralPath $brainPathForVersion
+        $m = [regex]::Match($brainContentForVersion, '##\s*Current Version\s*\r?\n+\s*v?([0-9]+(?:\.[0-9]+)*)')
+        if ($m.Success) { $versionSources["project_brain.md"] = $m.Groups[1].Value }
+        else { Add-Error "project_brain.md has no parseable version under '## Current Version' to check for version consistency." }
+    }
+
+    if ($null -ne $stageState) {
+        if ($stageState.meta_agent_os_version) {
+            $versionSources["STAGE_STATE.json"] = ([string]$stageState.meta_agent_os_version).TrimStart('v')
+        }
+        else {
+            Add-Error "STAGE_STATE.json has no 'meta_agent_os_version' field to check for version consistency."
+        }
+    }
+
+    foreach ($pair in @(
+            @{ Name = "STAGE_MANIFEST.json"; Data = $stageManifest },
+            @{ Name = "RUN_MODES.json"; Data = $runModes },
+            @{ Name = "OUTPUT_MANIFEST.json"; Data = $outputManifest }
+        )) {
+        if ($null -ne $pair.Data) {
+            if ($pair.Data.version) {
+                $versionSources[$pair.Name] = ([string]$pair.Data.version).TrimStart('v')
+            }
+            else {
+                Add-Error "$($pair.Name) has no 'version' field to check for version consistency."
+            }
+        }
+    }
+
+    $distinctVersions = $versionSources.Values | Select-Object -Unique
+    if (@($distinctVersions).Count -gt 1) {
+        $detail = ($versionSources.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join ", "
+        Add-Error "Version mismatch across control files: $detail"
     }
 }
 

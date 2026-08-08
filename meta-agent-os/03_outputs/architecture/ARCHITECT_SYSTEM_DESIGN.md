@@ -264,3 +264,19 @@ Security posture:
 ## Recommended Next Action
 
 Proceed to QS and cost the Balanced architecture as the recommended path.
+
+## Schema Alignment Addendum - 2026-08-08
+
+Added with the v0.6.1-era gate-binding fix (audit-driven). The Architect schema now requires a "Suitability And ROI Gate" section that records the actual verdict from the deterministic tools rather than narrating a conclusion without the underlying data.
+
+## Suitability And ROI Gate
+
+Recorded assessment file: `meta-agent-os/03_outputs/safety/AGENT_SUITABILITY_ASSESSMENT.json`.
+
+Anti-agent gate (`scripts/agent-suitability.py` rubric, `meta-agent-os/00_control/safety/ANTI_AGENT_GATE.md`): all four conditions hold for this project's own methodology work (judgement required, unstructured inputs, an imperfect answer is useful, a human can review and recover). This mirrors the verdict already recorded in `ORACLE_DIAGNOSIS.md`.
+
+Agent suitability score: 21/24, band "Well suited." No critical dimension scores zero. `volume` is the weakest dimension at 2/4, stated honestly rather than hidden, because a full run is occasional rather than continuous.
+
+ROI: this project cannot compute its own ROI with `scripts/roi-calculator.py`, because its baseline is a counterfactual (ad hoc multi-agent design without staged diagnosis) rather than a metered process. The verdict recorded is a stated judgement, not a calculation: favourable but unmeasured. This matches the limitation already documented in `QS_COSTS_AND_OPTIONS.md` section 19. Workflows designed using this framework for other projects have a real metered baseline and must run the calculator rather than rely on judgement.
+
+Gate outcome: passed. Proceeding to the recommended architecture above is consistent with this record.

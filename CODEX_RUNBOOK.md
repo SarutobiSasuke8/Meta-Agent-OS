@@ -11,9 +11,9 @@ Codex should treat `AGENTS.md` as the primary repo instruction file, then use th
 Codex does not use Claude Code slash commands such as:
 
 ```text
-/run-meta-agent-os
-/continue-meta-agent-os
-/stage-status
+/mao-diagnose
+/mao-resume
+/mao-status
 ```
 
 Instead, use the prompt-based triggers in this file.

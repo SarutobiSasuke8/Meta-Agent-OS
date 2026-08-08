@@ -11,3 +11,6 @@ desktop.ini
 
 # Local logs / scratch
 *.log
+
+# Local Claude Code settings (machine-specific, may contain local paths)
+.claude/settings.local.json

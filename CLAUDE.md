@@ -97,8 +97,12 @@ Progress through stages in order, updating `STAGE_STATE.json` after each stage a
 Supported Claude commands:
 
 ```text
-/diagnose
-/run-meta-agent-os
-/continue-meta-agent-os
-/stage-status
+/mao-init
+/mao-diagnose
+/mao-status
+/mao-resume
+/mao-validate
+/mao-harden
+/mao-export-pack
+/mao-memory
 ```

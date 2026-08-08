@@ -57,7 +57,7 @@ It consists of ten specialised personas (Oracle, Sophia, Cartographer, Architect
 
 | Role | Detail |
 |---|---|
-| Owner / operator | SarutobiSasuke8 (thecrypticgamingguild@gmail.com) |
+| Owner / operator | SarutobiSasuke8 [operator email — redacted] |
 | Primary tool | Claude Code (v0.4 is Claude Code-native) |
 | Secondary tool | Codex (CODEX_RUNBOOK.md present in v0.4) |
 | End users of deployed systems | TBD - depends on target project |

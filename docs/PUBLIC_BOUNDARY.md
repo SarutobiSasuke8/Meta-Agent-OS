@@ -2,7 +2,7 @@
 
 ## Status
 
-Meta Agent OS v0.4 is complete for now as a public framework and specification layer.
+Meta Agent OS v0.6.1 is complete as a public framework and specification layer. Adoption is unproven: no non-author has run it end to end. The standing Evaluator verdict is "ready for internal use, not yet ready for broad public launch."
 
 This does not mean the project is permanently finished. It means the current repo has enough structure, documentation, stage outputs, state tracking, validation, examples, and memory to serve as the public methodology layer for designing agent systems.
 
@@ -55,7 +55,7 @@ The public repo should remain the inspectable doctrine, specification, examples,
 
 Current posture:
 
-- v0.4: Public framework/spec layer complete for now
+- v0.6.1: Public framework/spec layer complete; adoption unproven, not yet ready for broad public launch
 - Runtime: Separate future track
 - Public examples: Synthetic only
 - External actions: Out of scope for this repo without explicit approval

@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.6.1",
   "default_mode": "full_run",
   "modes": {
     "diagnosis_only": [

@@ -13,13 +13,13 @@ It is a methodology, prompt library, specification layer, and control layer. It 
 
 ## Current Version
 
-v0.5 - Public Framework Polish. Adds positioning and boundary docs, two worked examples, community guidelines, and validation that checks substance rather than structure alone: section content floors, enumerated-section rules, placeholder detection in prose, stage-output provenance, state-freshness, and relative link resolution.
+v0.6.1 - Inference Safety Layer, the current released version. Built on v0.6 (Inference Economics Layer) and v0.5 (Commercial Refinement Layer / Public Framework Polish), which added positioning and boundary docs, two worked examples, community guidelines, and validation that checks substance rather than structure alone: section content floors, enumerated-section rules, placeholder detection in prose, stage-output provenance, state-freshness, and relative link resolution.
 
 Built on v0.4 - Reliability Layer, which added JSON state, schemas, run modes, quality bar, and the advancement protocol to the v0.2 agentic runner.
 
 ## Owner
 
-SarutobiSasuke8 / thecrypticgamingguild@gmail.com
+SarutobiSasuke8 [operator email — redacted]
 
 ## Primary Runtime
 
@@ -51,9 +51,9 @@ The deployment target is the Meta Agent OS framework itself. The active run comp
 - v0.3 is not preserved as a separate version folder.
 - External market claims still need citation before public marketing use.
 
-## Pending Migration Target
+## Migration History (Completed)
 
-v0.6.1 has been noted as the next target state from an external migration spec, but the repo has not yet been upgraded. The migration adds:
+v0.6.1 is the current, released version. The v0.4-to-v0.6.1 migration noted from an external migration spec has been completed. The migration added:
 
 - v0.5 Commercial Refinement Layer
 - v0.6 Inference Economics Layer
@@ -64,8 +64,6 @@ Migration note:
 ```text
 meta-agent-os/03_outputs/migration/V0_4_TO_V0_6_1_MIGRATION_NOTE.md
 ```
-
-Open implementation decision: whether to run the full v0.6.1 Builder migration now, split it into v0.5/v0.6/v0.6.1 commits, or keep the migration noted only.
 
 ---
 

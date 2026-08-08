@@ -176,6 +176,60 @@ def check_stage_sections(stage_name: str, output_path: str, schema_path: str):
                 break
 
 
+REQUIRED_GATE_CONDITIONS = (
+    "requires_judgement",
+    "unstructured_inputs",
+    "imperfect_answer_useful",
+    "human_can_recover",
+)
+
+
+def check_suitability_assessment(stage_name: str, manifest_entry: dict):
+    """When a stage manifest entry names an assessment_file, that file must exist,
+    be valid JSON, and have every gate condition answered. This binds the
+    deterministic suitability/ROI tools to stage advancement instead of leaving
+    them optional and unenforced."""
+    assessment_path = manifest_entry.get("assessment_file")
+    if not assessment_path:
+        return
+    target = repo_path(assessment_path)
+    if not target.exists():
+        errors.append(
+            f"Stage '{stage_name}' is complete but its required assessment file is missing: "
+            f"{assessment_path}"
+        )
+        return
+    try:
+        data = json.loads(target.read_text(encoding="utf-8"))
+    except Exception as exc:
+        errors.append(f"Invalid JSON in assessment file for stage '{stage_name}' ({assessment_path}): {exc}")
+        return
+
+    gate = data.get("gate")
+    if not isinstance(gate, dict):
+        errors.append(
+            f"Assessment file for stage '{stage_name}' ({assessment_path}) has no 'gate' object."
+        )
+        return
+    for condition in REQUIRED_GATE_CONDITIONS:
+        entry = gate.get(condition)
+        if not isinstance(entry, dict) or "holds" not in entry or not isinstance(entry.get("holds"), bool):
+            errors.append(
+                f"Assessment file for stage '{stage_name}' ({assessment_path}) does not answer "
+                f"gate condition '{condition}' with a boolean 'holds' field."
+            )
+        elif not entry.get("reason"):
+            errors.append(
+                f"Assessment file for stage '{stage_name}' ({assessment_path}) answers gate "
+                f"condition '{condition}' without a 'reason'."
+            )
+
+    if not isinstance(data.get("scores"), dict) or not data["scores"]:
+        errors.append(
+            f"Assessment file for stage '{stage_name}' ({assessment_path}) has no 'scores' object."
+        )
+
+
 def check_stage_metadata(stage_name: str, output_path: str, state_updated: str):
     """Completed outputs must carry their own provenance, and state must not lag them."""
     target = repo_path(output_path)
@@ -336,6 +390,7 @@ if stage_state and stage_manifest:
         if strict:
             check_stage_sections(completed, manifest_entry["output"], manifest_entry["schema"])
             check_stage_metadata(completed, manifest_entry["output"], stage_state.get("last_updated", ""))
+            check_suitability_assessment(completed, manifest_entry)
         if stage_status.get(completed) != "complete":
             errors.append(f"STAGE_STATE completed stage '{completed}' is not marked complete in stage_status.")
 
@@ -485,6 +540,102 @@ if strict:
                 resolved = (md_file.parent / target_clean).resolve()
             if not resolved.exists():
                 errors.append(f"Broken relative link in {rel_file}: {target_raw}")
+
+# Local-path and email leak scan. Flags candidates; does not auto-fix, because a
+# false positive here (a deliberately documented example email, a Windows path used
+# as a code example) is common and should not be silently rewritten.
+PRIVATE_PATH_PATTERN = re.compile(r"[A-Za-z]:\\Users\\[^\s`'\"]+|/home/[^\s`'\"]+|/Users/[^\s`'\"]+")
+EMAIL_PATTERN = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+# Placeholders and known-intentional public strings are not leaks.
+LEAK_ALLOWLIST_SUBSTRINGS = (
+    "redacted",
+    "example.com",
+    "user@example",
+    "you@example",
+    "<local-path>",
+    "<private path",
+)
+LEAK_SCAN_SKIP_DIRS = {".git", "node_modules"}
+LEAK_SCAN_SKIP_FILES = {"scripts/check-meta-agent-os.sh", "scripts/check-meta-agent-os.ps1"}
+
+for scan_file in sorted(root.rglob("*")):
+    if not scan_file.is_file():
+        continue
+    if scan_file.suffix.lower() not in (".md", ".json", ".yml", ".yaml", ".sh", ".ps1", ".py"):
+        continue
+    rel = scan_file.relative_to(root)
+    if any(part in LEAK_SCAN_SKIP_DIRS for part in rel.parts):
+        continue
+    rel_posix = rel.as_posix()
+    if rel_posix in LEAK_SCAN_SKIP_FILES:
+        continue
+    try:
+        scan_content = scan_file.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        continue
+    for match in PRIVATE_PATH_PATTERN.finditer(scan_content):
+        hit = match.group(0)
+        if any(token in hit.lower() for token in LEAK_ALLOWLIST_SUBSTRINGS):
+            continue
+        errors.append(f"Possible local path leak in {rel_posix}: {hit}")
+    for match in EMAIL_PATTERN.finditer(scan_content):
+        hit = match.group(0)
+        if any(token in hit.lower() for token in LEAK_ALLOWLIST_SUBSTRINGS):
+            continue
+        if rel_posix.startswith(".github/") and "github.com" in scan_content[max(0, match.start() - 40):match.start()]:
+            continue
+        errors.append(f"Possible email leak in {rel_posix}: {hit}")
+
+# Version consistency, per docs/RELEASE_CHECKLIST.md's own stated rule: README,
+# ROADMAP, STAGE_STATE.json's version field, project_brain.md, and the three
+# control manifests must all name the same version.
+if strict:
+    version_sources = {}
+
+    readme_content = repo_path("README.md").read_text(encoding="utf-8", errors="replace") if repo_path("README.md").exists() else ""
+    match = re.search(r"\*\*Current version:\*\*\s*v?([0-9]+(?:\.[0-9]+)*)", readme_content)
+    if match:
+        version_sources["README.md"] = match.group(1)
+    elif readme_content:
+        errors.append("README.md has no '**Current version:** vX.Y.Z' line to check for version consistency.")
+
+    roadmap_content = repo_path("ROADMAP.md").read_text(encoding="utf-8", errors="replace") if repo_path("ROADMAP.md").exists() else ""
+    match = re.search(r"Current stable release:\s*\*\*v?([0-9]+(?:\.[0-9]+)*)", roadmap_content)
+    if match:
+        version_sources["ROADMAP.md"] = match.group(1)
+    elif roadmap_content:
+        errors.append("ROADMAP.md has no 'Current stable release: **vX.Y.Z' line to check for version consistency.")
+
+    brain_content = repo_path("meta-agent-os/05_memory/project_brain.md").read_text(encoding="utf-8", errors="replace") if repo_path("meta-agent-os/05_memory/project_brain.md").exists() else ""
+    match = re.search(r"##\s*Current Version\s*\n+\s*v?([0-9]+(?:\.[0-9]+)*)", brain_content)
+    if match:
+        version_sources["project_brain.md"] = match.group(1)
+    elif brain_content:
+        errors.append("project_brain.md has no parseable version under '## Current Version' to check for version consistency.")
+
+    if stage_state is not None:
+        state_version = stage_state.get("meta_agent_os_version")
+        if state_version:
+            version_sources["STAGE_STATE.json"] = str(state_version).lstrip("v")
+        else:
+            errors.append("STAGE_STATE.json has no 'meta_agent_os_version' field to check for version consistency.")
+
+    for manifest_name, manifest_data in (
+        ("STAGE_MANIFEST.json", stage_manifest),
+        ("RUN_MODES.json", run_modes),
+        ("OUTPUT_MANIFEST.json", output_manifest),
+    ):
+        if manifest_data is not None:
+            manifest_version = manifest_data.get("version")
+            if manifest_version:
+                version_sources[manifest_name] = str(manifest_version).lstrip("v")
+            else:
+                errors.append(f"{manifest_name} has no 'version' field to check for version consistency.")
+
+    distinct_versions = set(version_sources.values())
+    if len(distinct_versions) > 1:
+        detail = ", ".join(f"{name}={ver}" for name, ver in sorted(version_sources.items()))
+        errors.append(f"Version mismatch across control files: {detail}")
 
 # README must not document meta-agent-os subdirectories that do not exist.
 readme_path = repo_path("README.md")

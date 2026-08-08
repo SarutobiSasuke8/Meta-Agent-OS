@@ -64,7 +64,9 @@ Architect must not advance when any of the following holds. Each is a stop, not 
 
 Run suitability **before** ROI. A workflow that fails the gate should never reach a cost model, because the cost of the wrong architecture is not a useful number.
 
-Both tools exit non-zero when they block, so this gate can be enforced in a pipeline rather than remembered.
+Both tools exit non-zero when they block, so this gate can be enforced in a pipeline rather than remembered. As of v0.6.1, the strict hardening check (`scripts/check-meta-agent-os.sh` / `.ps1 -Strict`) enforces the record of that verdict: when Architect is marked complete in `STAGE_STATE.json`, strict validation fails unless the assessment file named by `STAGE_MANIFEST.json`'s `assessment_file` field exists, is valid JSON, and answers all four anti-agent gate conditions, and unless Architect's own output contains the required "Suitability And ROI Gate" section. This closes the gap between the tools existing and the gate being checked automatically.
+
+This is enforcement of the *record*, not a runtime interlock: there is no running process that stops an agent from marking Architect complete without having run the tools first. The check catches it after the fact, on the next `/mao-validate`, `/mao-harden`, or CI run, not before the agent writes the output. An agent (or operator) that skips strict validation entirely can still advance unchecked.
 
 A blocked advancement is a successful outcome for the framework. It is cheaper to stop here than after a build.
 

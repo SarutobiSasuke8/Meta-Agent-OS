@@ -6,11 +6,11 @@ Identify useful hardening patterns from `vibe-coding-generalist-template` and ad
 
 ## Inputs Used
 
-- `C:\Users\sarut\Documents\Public GitHub Projects\vibe-coding-generalist-template\README.md`
-- `C:\Users\sarut\Documents\Public GitHub Projects\vibe-coding-generalist-template\AGENTS.md`
-- `C:\Users\sarut\Documents\Public GitHub Projects\vibe-coding-generalist-template\scripts\check-agent-docs.ps1`
-- `C:\Users\sarut\Documents\Public GitHub Projects\vibe-coding-generalist-template\.github\workflows\agent-docs.yml`
-- `C:\Users\sarut\Documents\Public GitHub Projects\vibe-coding-generalist-template\.github\pull_request_template.md`
+- `<local-path>/vibe-coding-generalist-template/README.md`
+- `<local-path>/vibe-coding-generalist-template/AGENTS.md`
+- `<local-path>/vibe-coding-generalist-template/scripts/check-agent-docs.ps1`
+- `<local-path>/vibe-coding-generalist-template/.github/workflows/agent-docs.yml`
+- `<local-path>/vibe-coding-generalist-template/.github/pull_request_template.md`
 - `meta-agent-os/00_control/STAGE_MANIFEST.json`
 - `meta-agent-os/00_control/STAGE_STATE.json`
 - `meta-agent-os/05_memory/project_brain.md`

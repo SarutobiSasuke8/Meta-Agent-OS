@@ -5,7 +5,7 @@ Codex does not use Claude slash commands. Use these prompt commands instead.
 ## Full Run
 
 ```text
-Run the Codex Full Run Prompt from /meta-agent-os/00_control/codex/full_run.md.
+Run the Codex Full Run Prompt from /meta-agent-os/00_control/codex/full_run_v0_4.md.
 ```
 
 ## Diagnosis Only
