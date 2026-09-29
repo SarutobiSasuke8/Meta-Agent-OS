@@ -21,6 +21,9 @@ Meta Agent OS v0.6.1 is complete as a specification: the methodology, control fi
 
 Truly agentic runtime behavior should be explored in a separate implementation track rather than added directly to this public repo by default.
 
+Two public servers are the current downstream examples, and they do not live in this repository: [gimp-agent-mcp](https://github.com/SarutobiSasuke8/gimp-agent-mcp) and [jobscout-mcp](https://github.com/SarutobiSasuke8/jobscout-mcp). [AgentOps Template](https://github.com/SarutobiSasuke8/agentops-template) is the repo contract between this methodology and those servers.
+
+
 ---
 
 ## How It Works
@@ -193,7 +196,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for what belongs in this repository and
 ## Supported Tools
 
 | Tool | Primary File | Trigger |
-|------|-------------|---------|
+|------|-------------|
 | Claude Code | `CLAUDE.md` | `/mao-*` (see `TRIGGER_INDEX.md`) |
 | Codex | `AGENTS.md` + `CODEX_RUNBOOK.md` | Prompt commands |
 | Cursor / generic agent | `AGENTS.md` | Prompt commands |
