@@ -270,6 +270,12 @@ function Test-StageOutputMetadata {
     }
 }
 
+# Everything above defines helpers; everything below runs the check. When the
+# file is dot-sourced (". ./scripts/check-meta-agent-os.ps1"), as the Pester
+# tests do, stop here so the helpers load without running the check or calling
+# exit. Running the script normally is unaffected.
+if ($MyInvocation.InvocationName -eq '.') { return }
+
 $requiredFiles = @(
     "README.md",
     "AGENTS.md",
@@ -755,8 +761,8 @@ if ($errors.Count -gt 0) {
     }
     else {
         Write-Host "Meta Agent OS hardening check failed:" -ForegroundColor Red
-        foreach ($error in $errors) {
-            Write-Host " - $error" -ForegroundColor Red
+        foreach ($message in $errors) {
+            Write-Host " - $message" -ForegroundColor Red
         }
     }
     exit 1
